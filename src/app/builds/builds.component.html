@@ -1,0 +1,6 @@
+<h2>Builds</h2>
+<ul>
+    <li *ngFor="let build of builds | async">
+        <a tabindex="0" [routerLink]="['/build', build.id]">{{ build.groupId }}:{{ build.artifactId }}:{{ build.version }}</a>
+    </li>
+</ul>

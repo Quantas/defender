@@ -1,0 +1,13 @@
+<h2>Build</h2>
+<ul *ngIf="build">
+    <li>{{ build.id }}</li>
+    <li>{{ build.groupId }}</li>
+    <li>{{ build.artifactId }}</li>
+</ul>
+
+<h3>Artifacts</h3>
+<ul *ngIf="build">
+    <li *ngFor="let artifact of build.buildArtifacts">
+        {{ artifact.groupId }}:{{ artifact.artifactId }}:{{ artifact.version }}
+    </li>
+</ul>
