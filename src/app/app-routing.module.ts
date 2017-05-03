@@ -11,12 +11,27 @@ const routes: Routes = [
   {
     path: 'builds',
     loadChildren: './builds/builds.module#BuildsModule'
-  }
-  ,
+  },
   {
     path: 'build',
     loadChildren: './build/build.module#BuildModule'
-  }
+  },
+  {
+    path: 'deps',
+    loadChildren: './dependencies/dependencies.module#DependenciesModule'
+  },
+  {
+    path: 'dep',
+    loadChildren: './dependency/dependency.module#DependencyModule'
+  },
+  {
+    path: 'apps',
+    loadChildren: './apps/apps.module#AppsModule'
+  },
+  {
+    path: 'app',
+    loadChildren: './application/application.module#ApplicationModule'
+  },
 ];
 
 @NgModule({

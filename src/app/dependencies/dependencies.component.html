@@ -1,0 +1,17 @@
+<h2>Dependencies</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Status</th>
+    <th>Group ID</th>
+    <th>Artifact ID</th>
+    <th>Version</th>
+  </tr>
+  <tr *ngFor="let dep of dependencies | async">
+    <td><a [routerLink]="['/dep', dep.id]">{{ dep.id }}</a></td>
+    <td>{{ dep.dependencyStatus }}</td>
+    <td>{{ dep.groupId }}</td>
+    <td>{{ dep.artifactId }}</td>
+    <td>{{ dep.version }}</td>
+  </tr>
+</table>

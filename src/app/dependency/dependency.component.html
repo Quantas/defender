@@ -1,0 +1,18 @@
+<h2>Dependency</h2>
+
+<ul *ngIf="dep">
+  <li>{{ dep.id }}</li>
+  <li>{{ dep.groupId }}</li>
+  <li>{{ dep.artifactId }}</li>
+  <li>{{ dep.version }}</li>
+  <li>{{ dep.type }}</li>
+  <li>{{ dep.dependencyStatus }}</li>
+</ul>
+
+<h3>Builds</h3>
+<table>
+  <tr *ngFor="let build of builds">
+    <td><a [routerLink]="['/build', build.id]">{{ build.id }}</a></td>
+    <td>{{ build.app.groupId }}:{{ build.app.artifactId }}:{{ build.app.version }}</td>
+  </tr>
+</table>

@@ -1,0 +1,13 @@
+<h2>Application</h2>
+<ul *ngIf="app">
+  <li>{{ app.id }}</li>
+  <li>{{ app.groupId }}</li>
+  <li>{{ app.artifactId }}</li>
+</ul>
+
+<h3>Builds</h3>
+<table>
+  <tr *ngFor="let build of builds">
+    <td><a [routerLink]="['/build', build.id]">{{ build.version }}</a></td>
+  </tr>
+</table>

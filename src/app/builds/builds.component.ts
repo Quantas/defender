@@ -15,7 +15,7 @@ export class BuildsComponent implements OnInit {
     constructor(private http: Http) {
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.builds = this.http.get('/api/builds').map((res) => res.json());
     }
 
