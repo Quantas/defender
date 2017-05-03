@@ -1,10 +1,19 @@
 package com.quantasnet.defender.protect;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
 import java.util.Set;
 
 public class ProtectBuild {
+
+    @NotEmpty
     private String user;
+
+    @Valid
     private ProtectArtifact app;
+
+    @NotEmpty
     private Set<ProtectArtifact> artifacts;
 
     public String getUser() {

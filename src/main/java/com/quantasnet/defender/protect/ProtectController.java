@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 
@@ -31,8 +33,9 @@ public class ProtectController {
         this.appService = appService;
     }
 
+    @Transactional
     @PostMapping
-    public Build protect(@RequestBody final ProtectBuild build, @RequestHeader(DefenderType.HEADER_NAME) final DefenderType defenderType) {
+    public Build protect(@RequestBody @Valid final ProtectBuild build, @RequestHeader(DefenderType.HEADER_NAME) final DefenderType defenderType) {
         LOG.info("build = user:{}, app:{}", build.getUser(), build.getApp());
 
         final App app = appService.retrieve(build.getApp().getGroupId(), build.getApp().getArtifactId(), defenderType);

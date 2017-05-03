@@ -13,7 +13,7 @@ public class Build {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne(optional = false)
     private App app;
 
     private String version;

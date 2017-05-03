@@ -1,10 +1,14 @@
 package com.quantasnet.defender.protect;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Objects;
 
 public class ProtectArtifact {
     private String groupId;
+    @NotEmpty
     private String artifactId;
+    @NotEmpty
     private String version;
     private String scope;
     private boolean transitive;

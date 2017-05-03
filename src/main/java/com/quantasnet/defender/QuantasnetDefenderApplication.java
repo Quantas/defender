@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
@@ -12,6 +13,7 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.HashSet;
 import java.util.Set;
 
+@EnableCaching
 @SpringBootApplication
 public class QuantasnetDefenderApplication {
 

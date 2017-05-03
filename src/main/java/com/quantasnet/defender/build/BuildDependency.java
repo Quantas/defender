@@ -3,10 +3,7 @@ package com.quantasnet.defender.build;
 import com.quantasnet.defender.dependency.Dependency;
 import com.quantasnet.defender.dependency.DependencyStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class BuildDependency {
@@ -15,7 +12,7 @@ public class BuildDependency {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne(optional = false)
     private Dependency dependency;
 
     private DependencyStatus status;

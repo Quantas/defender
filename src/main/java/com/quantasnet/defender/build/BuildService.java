@@ -2,6 +2,7 @@ package com.quantasnet.defender.build;
 
 import com.quantasnet.defender.app.App;
 import com.quantasnet.defender.dependency.Dependency;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class BuildService {
         return buildRepository.findAll();
     }
 
+    @Cacheable("builds")
     public Build findOne(final Long id) {
         return buildRepository.findOne(id);
     }
