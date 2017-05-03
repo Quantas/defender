@@ -10,4 +10,6 @@ interface BuildRepository extends JpaRepository<Build, Long> {
     List<Build> findByApp(App app);
 
     List<Build> findAllByBuildDependenciesDependency(Dependency dependency);
+
+    List<Build> findTop10ByOrderByBuildTimeDesc();
 }

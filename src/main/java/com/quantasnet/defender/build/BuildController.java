@@ -20,7 +20,7 @@ public class BuildController {
 
     @GetMapping
     public List<Build> builds() {
-        return buildService.findAll();
+        return buildService.findRecent();
     }
 
     /**

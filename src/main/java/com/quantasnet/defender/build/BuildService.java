@@ -20,8 +20,8 @@ public class BuildService {
         return buildRepository.save(build);
     }
 
-    public List<Build> findAll() {
-        return buildRepository.findAll();
+    public List<Build> findRecent() {
+        return buildRepository.findTop10ByOrderByBuildTimeDesc();
     }
 
     @Cacheable("builds")

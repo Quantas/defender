@@ -19,7 +19,7 @@ public class DependencyService {
     }
 
     public List<Dependency> all() {
-        return this.dependencyRepository.findAll();
+        return this.dependencyRepository.findAllByOrderByGroupIdAscArtifactIdAsc();
     }
 
     public Dependency one(final long id) {
