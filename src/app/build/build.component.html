@@ -3,6 +3,8 @@
     <li>{{ build.id }}</li>
     <li>{{ build.app.groupId }}</li>
     <li>{{ build.app.artifactId }}</li>
+    <li>{{ build.version }}</li>
+    <li>{{ build.buildTime | javadate }}</li>
 </ul>
 
 <h3>Artifacts</h3>

@@ -9,5 +9,6 @@
 <table>
   <tr *ngFor="let build of builds">
     <td><a [routerLink]="['/build', build.id]">{{ build.version }}</a></td>
+    <td>{{ build.buildTime | javadate }}</td>
   </tr>
 </table>

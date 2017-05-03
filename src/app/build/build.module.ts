@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { BuildComponent } from './build.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
     declarations: [
@@ -10,6 +11,7 @@ import { BuildComponent } from './build.component';
     ],
     imports: [
         CommonModule,
+        CoreModule,
         RouterModule.forChild([
             { path: ':id', component: BuildComponent, pathMatch: 'full'}
         ])
