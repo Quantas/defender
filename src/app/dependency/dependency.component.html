@@ -13,7 +13,9 @@
 <table>
   <tr *ngFor="let build of builds">
     <td><a [routerLink]="['/build', build.id]">{{ build.id }}</a></td>
-    <td>{{ build.app.groupId }}:{{ build.app.artifactId }}:{{ build.version }}</td>
+    <td>{{ build.app.groupId }}</td>
+    <td>{{ build.app.artifactId }}</td>
+    <td>{{ build.version }}</td>
     <td>{{ build.buildTime | javadate }}</td>
   </tr>
 </table>
