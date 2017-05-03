@@ -1,5 +1,7 @@
 package com.quantasnet.defender.build;
 
+import com.quantasnet.defender.app.App;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -11,8 +13,9 @@ public class Build {
     @GeneratedValue
     private Long id;
 
-    private String groupId;
-    private String artifactId;
+    @OneToOne
+    private App app;
+
     private String version;
 
     private String userName;
@@ -20,7 +23,7 @@ public class Build {
     private LocalDateTime buildTime;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<BuildArtifact> buildArtifacts;
+    private Set<BuildDependency> buildDependencies;
 
     public Long getId() {
         return id;
@@ -30,20 +33,12 @@ public class Build {
         this.id = id;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public App getApp() {
+        return app;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getArtifactId() {
-        return artifactId;
-    }
-
-    public void setArtifactId(String artifactId) {
-        this.artifactId = artifactId;
+    public void setApp(App app) {
+        this.app = app;
     }
 
     public String getVersion() {
@@ -70,11 +65,11 @@ public class Build {
         this.buildTime = buildTime;
     }
 
-    public Set<BuildArtifact> getBuildArtifacts() {
-        return buildArtifacts;
+    public Set<BuildDependency> getBuildDependencies() {
+        return buildDependencies;
     }
 
-    public void setBuildArtifacts(Set<BuildArtifact> buildArtifacts) {
-        this.buildArtifacts = buildArtifacts;
+    public void setBuildDependencies(Set<BuildDependency> buildDependencies) {
+        this.buildDependencies = buildDependencies;
     }
 }

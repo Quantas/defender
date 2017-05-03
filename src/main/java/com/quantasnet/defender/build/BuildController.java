@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping("/api/builds")
 public class BuildController {
 
-    private final BuildRepository buildRepository;
+    private final BuildService buildService;
 
-    public BuildController(final BuildRepository buildRepository) {
-        this.buildRepository = buildRepository;
+    public BuildController(final BuildService buildService) {
+        this.buildService = buildService;
     }
 
     @GetMapping
     public List<Build> builds() {
-        return buildRepository.findAll();
+        return buildService.findAll();
     }
 
     /**
@@ -32,8 +32,12 @@ public class BuildController {
     @Transactional
     @GetMapping("/{id}")
     public Build getBuild(@PathVariable final long id) {
-        final Build build = buildRepository.findOne(id);
-        build.getBuildArtifacts().size();
+        final Build build = buildService.findOne(id);
+
+        if (build != null) {
+            build.getBuildDependencies().size();
+        }
+
         return build;
     }
 }

@@ -5,6 +5,12 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class QuantasnetDefenderApplication {
@@ -17,6 +23,18 @@ public class QuantasnetDefenderApplication {
 	@Bean
 	public Module datatypeHibernateModule() {
 		return new Hibernate5Module();
+	}
+
+	@Bean
+	public ConversionService conversionService() {
+		final ConversionServiceFactoryBean bean = new ConversionServiceFactoryBean();
+		final Set<Converter> converters = new HashSet<>();
+
+		converters.add(new DefenderTypeConverter());
+
+		bean.setConverters(converters);
+		bean.afterPropertiesSet();
+		return bean.getObject();
 	}
 
 	public static void main(String[] args) {

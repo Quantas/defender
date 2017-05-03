@@ -1,11 +1,13 @@
-package com.quantasnet.defender.build;
+package com.quantasnet.defender.app;
+
+import com.quantasnet.defender.DefenderType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class BuildArtifact {
+public class App {
 
     @Id
     @GeneratedValue
@@ -13,9 +15,8 @@ public class BuildArtifact {
 
     private String groupId;
     private String artifactId;
-    private String version;
-    private String scope;
-    private boolean transitive;
+
+    private DefenderType type;
 
     public Long getId() {
         return id;
@@ -41,27 +42,21 @@ public class BuildArtifact {
         this.artifactId = artifactId;
     }
 
-    public String getVersion() {
-        return version;
+    public DefenderType getType() {
+        return type;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setType(DefenderType type) {
+        this.type = type;
     }
 
-    public String getScope() {
-        return scope;
-    }
-
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
-    public boolean isTransitive() {
-        return transitive;
-    }
-
-    public void setTransitive(boolean transitive) {
-        this.transitive = transitive;
+    @Override
+    public String toString() {
+        return "App{" +
+                "id=" + id +
+                ", groupId='" + groupId + '\'' +
+                ", artifactId='" + artifactId + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
