@@ -12,7 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,7 +42,7 @@ public class ProtectController {
         newBuild.setUserName(build.getUser());
         newBuild.setApp(app);
         newBuild.setVersion(build.getApp().getVersion());
-        newBuild.setBuildTime(LocalDateTime.now());
+        newBuild.setBuildTime(OffsetDateTime.now());
 
         newBuild.setBuildDependencies(build.getArtifacts().stream().map(protectArtifact -> {
             final Dependency dependency = dependencyService.retrieve(protectArtifact.getGroupId(), protectArtifact.getArtifactId(), protectArtifact.getVersion(), defenderType);

@@ -3,7 +3,7 @@ package com.quantasnet.defender.build;
 import com.quantasnet.defender.app.App;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Set;
 
 @Entity
@@ -20,7 +20,7 @@ public class Build {
 
     private String userName;
 
-    private LocalDateTime buildTime;
+    private OffsetDateTime buildTime;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BuildDependency> buildDependencies;
@@ -57,11 +57,11 @@ public class Build {
         this.userName = userName;
     }
 
-    public LocalDateTime getBuildTime() {
+    public OffsetDateTime getBuildTime() {
         return buildTime;
     }
 
-    public void setBuildTime(LocalDateTime buildTime) {
+    public void setBuildTime(OffsetDateTime buildTime) {
         this.buildTime = buildTime;
     }
 
