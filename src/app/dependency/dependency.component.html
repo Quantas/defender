@@ -19,3 +19,14 @@
     <td>{{ build.buildTime | javadate }}</td>
   </tr>
 </table>
+
+<h3>History</h3>
+<table *ngIf="dep">
+  <tr *ngFor="let history of dep.dependencyHistories">
+    <td>{{ history.id }}</td>
+    <td>{{ history.user }}</td>
+    <td>{{ history.time | javadate }}</td>
+    <td>{{ history.oldValue }}</td>
+    <td>{{ history.newValue }}</td>
+  </tr>
+</table>
