@@ -1,10 +1,10 @@
 package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.DefenderType;
+import com.quantasnet.defender.build.BuildDependency;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Dependency {
@@ -20,6 +20,9 @@ public class Dependency {
     private DefenderType type;
 
     private DependencyStatus dependencyStatus;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<DependencyHistory> dependencyHistories;
 
     public Long getId() {
         return id;
@@ -67,6 +70,14 @@ public class Dependency {
 
     public void setDependencyStatus(DependencyStatus dependencyStatus) {
         this.dependencyStatus = dependencyStatus;
+    }
+
+    public Set<DependencyHistory> getDependencyHistories() {
+        return dependencyHistories;
+    }
+
+    public void setDependencyHistories(Set<DependencyHistory> dependencyHistories) {
+        this.dependencyHistories = dependencyHistories;
     }
 
     @Override

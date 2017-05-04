@@ -47,7 +47,7 @@ public class ProtectController {
         newBuild.setBuildTime(OffsetDateTime.now());
 
         newBuild.setBuildDependencies(build.getArtifacts().stream().map(protectArtifact -> {
-            final Dependency dependency = dependencyService.retrieve(protectArtifact.getGroupId(), protectArtifact.getArtifactId(), protectArtifact.getVersion(), defenderType);
+            final Dependency dependency = dependencyService.retrieve(protectArtifact.getGroupId(), protectArtifact.getArtifactId(), protectArtifact.getVersion(), defenderType, build.getUser());
 
             final BuildDependency buildDependency = new BuildDependency();
             buildDependency.setDependency(dependency);

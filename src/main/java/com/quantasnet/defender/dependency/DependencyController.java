@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequestMapping("/api/dependencies")
@@ -26,9 +27,20 @@ public class DependencyController {
         return dependencyService.all();
     }
 
+    /**
+     * Transactional and .size() here get the child data
+     *
+     * @param id
+     * @return
+     */
+    @Transactional
     @GetMapping("/{id}")
     public Dependency one(@PathVariable final long id) {
-        return dependencyService.one(id);
+        final Dependency dependency = dependencyService.one(id);
+        if (null != dependency) {
+            dependency.getDependencyHistories().size();
+        }
+        return dependency;
     }
 
     @GetMapping("/{id}/builds")
