@@ -1,5 +1,5 @@
 <h2>Dependencies</h2>
-<table>
+<table *ngIf="page">
   <tr>
     <th>ID</th>
     <th>Status</th>
@@ -7,7 +7,7 @@
     <th>Artifact ID</th>
     <th>Version</th>
   </tr>
-  <tr *ngFor="let dep of dependencies | async">
+  <tr *ngFor="let dep of page.content">
     <td><a [routerLink]="['/dep', dep.id]">{{ dep.id }}</a></td>
     <td>{{ dep.dependencyStatus }}</td>
     <td>{{ dep.groupId }}</td>
@@ -15,3 +15,9 @@
     <td>{{ dep.version }}</td>
   </tr>
 </table>
+
+<div>
+  <ng-container *ngFor="let num of pageCount">
+    <a *ngIf="num !== page.number" (click)="!!getPage(num)" href>{{ num + 1 }}</a><span *ngIf="num===page.number">{{ num + 1 }}</span>&nbsp;
+  </ng-container>
+</div>

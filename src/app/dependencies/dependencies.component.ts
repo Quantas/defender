@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -10,13 +9,21 @@ import 'rxjs/add/operator/map';
 })
 export class DependenciesComponent implements OnInit {
 
-  dependencies: Observable<any>;
+  page;
+  pageCount;
 
   constructor(private http: Http) {
   }
 
   ngOnInit(): void {
-    this.dependencies = this.http.get('/api/dependencies').map((res) => res.json());
+    this.getPage(0);
+  }
+
+  getPage(pageNo): void {
+    this.http.get('/api/dependencies/page/' + pageNo).map((res) => res.json()).subscribe((page) => {
+      this.page = page;
+      this.pageCount = Array.from(Array(page.totalPages), (x, i) => i);
+    });
   }
 
 }

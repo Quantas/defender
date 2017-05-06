@@ -6,7 +6,7 @@
   <li>{{ dep.artifactId }}</li>
   <li>{{ dep.version }}</li>
   <li>{{ dep.type }}</li>
-  <li>{{ dep.dependencyStatus }}</li>
+  <li><a (click)="updateStatus(dep.id)" href>{{ dep.dependencyStatus }}</a></li>
 </ul>
 
 <h3>Builds</h3>

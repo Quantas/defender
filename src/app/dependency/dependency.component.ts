@@ -29,4 +29,12 @@ export class DependencyComponent implements OnInit {
     });
   }
 
+  updateStatus(depId): void {
+    this.http.post('/api/dependencies/' + depId + '/' + 'APPROVED', {}).map((res) => res.json()).subscribe((dep) => {
+      if (dep) {
+        this.dep = dep;
+      }
+    });
+  }
+
 }
