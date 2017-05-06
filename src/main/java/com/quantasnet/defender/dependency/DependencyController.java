@@ -2,10 +2,8 @@ package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.build.Build;
 import com.quantasnet.defender.build.BuildService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -27,6 +25,11 @@ public class DependencyController {
         return dependencyService.all();
     }
 
+    @GetMapping({ "/page/{pageNo}", "/page" })
+    public Page<Dependency> dependenciesPaged(@PathVariable(required = false)final Integer pageNo) {
+        return dependencyService.paged(null == pageNo ? 0 : pageNo);
+    }
+
     /**
      * Transactional and .size() here get the child data
      *
@@ -41,6 +44,12 @@ public class DependencyController {
             dependency.getDependencyHistories().size();
         }
         return dependency;
+    }
+
+    @PostMapping(value = "/{id}/{newStatus}")
+    public Dependency changeStatus(@PathVariable final DependencyStatus newStatus, @PathVariable final long id) {
+        // TODO user auth
+        return dependencyService.changeStatus(newStatus, id, "webuser");
     }
 
     @GetMapping("/{id}/builds")

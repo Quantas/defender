@@ -1,9 +1,9 @@
 package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.DefenderType;
-import com.quantasnet.defender.build.BuildDependency;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,8 +21,9 @@ public class Dependency {
 
     private DependencyStatus dependencyStatus;
 
+    @OrderBy("time DESC")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<DependencyHistory> dependencyHistories;
+    private List<DependencyHistory> dependencyHistories;
 
     public Long getId() {
         return id;
@@ -72,11 +73,11 @@ public class Dependency {
         this.dependencyStatus = dependencyStatus;
     }
 
-    public Set<DependencyHistory> getDependencyHistories() {
+    public List<DependencyHistory> getDependencyHistories() {
         return dependencyHistories;
     }
 
-    public void setDependencyHistories(Set<DependencyHistory> dependencyHistories) {
+    public void setDependencyHistories(List<DependencyHistory> dependencyHistories) {
         this.dependencyHistories = dependencyHistories;
     }
 
