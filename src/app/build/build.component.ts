@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { Column } from '../table/column';
 
 @Component({
     templateUrl: 'build.component.html',
@@ -13,6 +14,13 @@ import 'rxjs/add/operator/switchMap';
 export class BuildComponent implements OnInit {
 
     build;
+
+  depsTableColumns: Column[] = [
+    { header: 'Group ID', property: 'dependency.groupId' },
+    { header: 'Artifact ID', property: 'dependency.artifactId' },
+    { header: 'Version', property: 'dependency.version' },
+    { header: 'Status', property: 'status' }
+  ];
 
     constructor(private http: Http, private route: ActivatedRoute) {
     }

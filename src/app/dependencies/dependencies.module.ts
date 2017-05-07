@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { DependenciesComponent } from './dependencies.component';
+import { TableModule } from '../table/table.module';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { DependenciesComponent } from './dependencies.component';
   ],
   imports: [
     CommonModule,
+    TableModule,
     RouterModule.forChild([
       { path: '', component: DependenciesComponent, pathMatch: 'full'}
     ])

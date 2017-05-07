@@ -1,0 +1,5 @@
+<div class="pagination" *ngIf="pageCount.length > 1">
+  <span class="page" *ngFor="let num of pageCount">
+    <a *ngIf="num !== page.number" (click)="!!changePage(num)" href>{{ num + 1 }}</a><span *ngIf="num===page.number">{{ num + 1 }}</span>&nbsp;
+  </span>
+</div>

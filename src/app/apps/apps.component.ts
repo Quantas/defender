@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { Column } from '../table/column';
 
 @Component({
   templateUrl: 'apps.component.html',
@@ -10,13 +11,25 @@ import 'rxjs/add/operator/map';
 })
 export class AppsComponent implements OnInit {
 
-  apps: Observable<any>;
+  appPage;
+
+  appsTableColumn: Column[] = [
+    { header: 'Group ID', property: 'groupId' },
+    { header: 'Artifact ID', property: 'artifactId' },
+    { header: 'Type', property: 'type' }
+  ];
 
   constructor(private http: Http) {
   }
 
   ngOnInit(): void {
-    this.apps = this.http.get('/api/apps').map((res) => res.json());
+    this.getPage(0);
+  }
+
+  getPage(pageNo): void {
+    this.http.get('/api/apps/page/' + pageNo).map((res) => res.json()).subscribe((page) => {
+      this.appPage = page;
+    });
   }
 
 }

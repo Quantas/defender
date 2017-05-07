@@ -1,9 +1,21 @@
-<h1>
-  Quantasnet Defender
-</h1>
-<div class="nav">
-  <a [routerLink]="['/apps']">Apps</a>
-  <a [routerLink]="['/deps']">Dependencies</a>
-  <a [routerLink]="['/builds']">Builds</a>
+<div class="wrapper">
+  <div class="top">
+    <img src="../assets/shield.png" style="float: left;" />
+    Quantasnet Defender
+  </div>
+  <div class="content">
+    <div class="left">
+      <ul>
+        <li><a [routerLink]="['/apps']" [routerLinkActive]="'active'">Apps</a></li>
+        <li><a [routerLink]="['/deps']" [routerLinkActive]="'active'">Dependencies</a></li>
+        <li><a [routerLink]="['/builds']" [routerLinkActive]="'active'">Builds</a></li>
+      </ul>
+    </div>
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="footer">
+    &copy;2017 Quantasnet
+  </div>
 </div>
-<router-outlet></router-outlet>

@@ -9,8 +9,10 @@
 </ul>
 
 <h3>Artifacts</h3>
-<ul *ngIf="build">
-    <li *ngFor="let artifact of build.buildDependencies">
-      <a [routerLink]="['/dep', artifact.dependency.id]">{{ artifact.dependency.dependencyStatus }} - {{ artifact.dependency.groupId }}:{{ artifact.dependency.artifactId }}:{{ artifact.dependency.version }}</a>
-    </li>
-</ul>
+<app-table
+  *ngIf="build"
+  [page]="{ content: build.buildDependencies }"
+  [columns]="depsTableColumns"
+  [linkKey]="'dependency.id'"
+  [linkTarget]="'/dep'">
+</app-table>

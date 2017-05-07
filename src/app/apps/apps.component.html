@@ -1,6 +1,9 @@
 <h2>Apps</h2>
-<ul>
-  <li *ngFor="let app of apps | async">
-    <a tabindex="0" [routerLink]="['/app', app.id]">{{ app.groupId }}:{{ app.artifactId }} {{ app.type }}</a>
-  </li>
-</ul>
+
+<app-table
+  (change)="getPage($event)"
+  [linkTarget]="'/app'"
+  [linkKey]="'id'"
+  [page]="appPage"
+  [columns]="appsTableColumn" >
+</app-table>

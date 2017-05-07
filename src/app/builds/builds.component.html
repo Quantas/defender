@@ -1,10 +1,9 @@
 <h2>Builds</h2>
-<table>
-  <tr *ngFor="let build of builds | async">
-    <td><a [routerLink]="['/build', build.id]">{{ build.id }}</a></td>
-    <td>{{ build.app.groupId }}</td>
-    <td>{{ build.app.artifactId }}</td>
-    <td>{{ build.version }}</td>
-    <td>{{ build.buildTime | javadate }}</td>
-  </tr>
-</table>
+
+<app-table
+  (change)="getPage($event)"
+  [linkTarget]="'/build'"
+  [linkKey]="'id'"
+  [page]="page"
+  [columns]="buildsTableColumns" >
+</app-table>

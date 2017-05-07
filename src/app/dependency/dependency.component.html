@@ -1,32 +1,26 @@
-<h2>Dependency</h2>
+<ng-container *ngIf="dep">
+  <h2>{{ dep.artifactId }}</h2>
+  <p>{{ dep.groupId }}</p>
 
-<ul *ngIf="dep">
-  <li>{{ dep.id }}</li>
-  <li>{{ dep.groupId }}</li>
-  <li>{{ dep.artifactId }}</li>
-  <li>{{ dep.version }}</li>
-  <li>{{ dep.type }}</li>
-  <li><a (click)="updateStatus(dep.id)" href>{{ dep.dependencyStatus }}</a></li>
-</ul>
+  <ul>
+    <li>{{ dep.version }}</li>
+    <li>{{ dep.type }}</li>
+    <li><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus }}</a></li>
+  </ul>
 
-<h3>Builds</h3>
-<table>
-  <tr *ngFor="let build of builds">
-    <td><a [routerLink]="['/build', build.id]">{{ build.id }}</a></td>
-    <td>{{ build.app.groupId }}</td>
-    <td>{{ build.app.artifactId }}</td>
-    <td>{{ build.version }}</td>
-    <td>{{ build.buildTime | javadate }}</td>
-  </tr>
-</table>
+  <h3>Builds</h3>
+  <app-table
+    (change)="getBuildsPage($event)"
+    [linkTarget]="'/build'"
+    [linkKey]="'id'"
+    [page]="buildPage"
+    [columns]="buildsTableColumns" >
+  </app-table>
 
-<h3>History</h3>
-<table *ngIf="dep">
-  <tr *ngFor="let history of dep.dependencyHistories">
-    <td>{{ history.id }}</td>
-    <td>{{ history.user }}</td>
-    <td>{{ history.time | javadate }}</td>
-    <td>{{ history.oldValue }}</td>
-    <td>{{ history.newValue }}</td>
-  </tr>
-</table>
+  <h3>History</h3>
+  <app-table
+    *ngIf="dep"
+    [page]="{ content: dep.dependencyHistories }"
+    [columns]="historyTableColumns" >
+  </app-table>
+</ng-container>

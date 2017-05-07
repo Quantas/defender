@@ -5,6 +5,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { Column } from '../table/column';
+import { JavaDatePipe } from '../core/javadate.pipe';
 
 @Component({
   templateUrl: 'dependency.component.html',
@@ -13,7 +15,21 @@ import 'rxjs/add/operator/switchMap';
 export class DependencyComponent implements OnInit {
 
   dep;
-  builds;
+  buildPage;
+
+  buildsTableColumns: Column[] = [
+    { header: 'Group ID', property: 'app.groupId' },
+    { header: 'Artifact ID', property: 'app.artifactId' },
+    { header: 'Version', property: 'version' },
+    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
+  ];
+
+  historyTableColumns: Column[] = [
+    { header: 'User', property: 'user' },
+    { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
+    { header: 'Old Value', property: 'oldValue' },
+    { header: 'New Value', property: 'newValue' }
+  ];
 
   constructor(private http: Http, private route: ActivatedRoute) {
   }
@@ -23,9 +39,7 @@ export class DependencyComponent implements OnInit {
       return this.http.get('/api/dependencies/' + params.id).map((res) => res.json());
     }).subscribe((dep) => {
       this.dep = dep;
-      this.http.get('/api/dependencies/' + dep.id + '/builds').map((res) => res.json()).subscribe((builds) => {
-        this.builds = builds;
-      });
+      this.getBuildsPage(0);
     });
   }
 
@@ -34,6 +48,12 @@ export class DependencyComponent implements OnInit {
       if (dep) {
         this.dep = dep;
       }
+    });
+  }
+
+  getBuildsPage(pageNo): void {
+    this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageNo).map((res) => res.json()).subscribe((buildPage) => {
+      this.buildPage = buildPage;
     });
   }
 

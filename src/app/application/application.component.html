@@ -6,9 +6,10 @@
 </ul>
 
 <h3>Builds</h3>
-<table>
-  <tr *ngFor="let build of builds">
-    <td><a [routerLink]="['/build', build.id]">{{ build.version }}</a></td>
-    <td>{{ build.buildTime | javadate }}</td>
-  </tr>
-</table>
+<app-table
+  (change)="getPage($event)"
+  [linkTarget]="'/build'"
+  [linkKey]="'id'"
+  [page]="buildPage"
+  [columns]="buildsTableColumns" >
+</app-table>

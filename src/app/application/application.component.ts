@@ -5,6 +5,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { JavaDatePipe } from '../core/javadate.pipe';
+import { Column } from '../table/column';
 
 @Component({
   templateUrl: 'application.component.html',
@@ -13,7 +15,12 @@ import 'rxjs/add/operator/switchMap';
 export class ApplicationComponent implements OnInit {
 
   app;
-  builds;
+  buildPage;
+
+  buildsTableColumns: Column[] = [
+    { header: 'Version', property: 'version' },
+    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() }
+  ];
 
   constructor(private http: Http, private route: ActivatedRoute) {
   }
@@ -23,9 +30,13 @@ export class ApplicationComponent implements OnInit {
       return this.http.get('/api/apps/' + params.id).map((res) => res.json());
     }).subscribe((app) => {
       this.app = app;
-      this.http.get('/api/apps/' + app.id + '/builds').map((res) => res.json()).subscribe((builds) => {
-        this.builds = builds;
-      });
+      this.getPage(0);
+    });
+  }
+
+  getPage(pageNo): void {
+    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageNo).map((res) => res.json()).subscribe((buildPage) => {
+      this.buildPage = buildPage;
     });
   }
 

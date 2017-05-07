@@ -1,0 +1,15 @@
+<table *ngIf="page">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of page.content" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget}">
+      <ng-container *ngFor="let column of columns">
+        <td>{{ retrieveCell(row, column) }}</td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+<app-table-pagination [page]="page" (change)="changePage($event)"></app-table-pagination>

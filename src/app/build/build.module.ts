@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { BuildComponent } from './build.component';
 import { CoreModule } from '../core/core.module';
+import { TableModule } from '../table/table.module';
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import { CoreModule } from '../core/core.module';
     imports: [
         CommonModule,
         CoreModule,
+        TableModule,
         RouterModule.forChild([
             { path: ':id', component: BuildComponent, pathMatch: 'full'}
         ])
