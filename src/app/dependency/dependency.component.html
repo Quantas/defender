@@ -4,8 +4,8 @@
 
   <ul>
     <li>{{ dep.version }}</li>
-    <li>{{ dep.type }}</li>
-    <li><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus }}</a></li>
+    <li>{{ dep.type | titleCase }}</li>
+    <li><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus | titleCase }}</a></li>
   </ul>
 
   <h3>Builds</h3>

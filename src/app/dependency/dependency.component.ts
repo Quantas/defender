@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
+import { TitleCasePipe } from '../core/titlecase.pipe';
 
 @Component({
   templateUrl: 'dependency.component.html',
@@ -27,8 +28,8 @@ export class DependencyComponent implements OnInit {
   historyTableColumns: Column[] = [
     { header: 'User', property: 'user' },
     { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
-    { header: 'Old Value', property: 'oldValue' },
-    { header: 'New Value', property: 'newValue' }
+    { header: 'Old Value', property: 'oldValue', pipe: new TitleCasePipe() },
+    { header: 'New Value', property: 'newValue', pipe: new TitleCasePipe() }
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {

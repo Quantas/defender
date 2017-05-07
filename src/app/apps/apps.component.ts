@@ -4,6 +4,7 @@ import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Column } from '../table/column';
+import { TitleCasePipe } from '../core/titlecase.pipe';
 
 @Component({
   templateUrl: 'apps.component.html',
@@ -16,7 +17,7 @@ export class AppsComponent implements OnInit {
   appsTableColumn: Column[] = [
     { header: 'Group ID', property: 'groupId' },
     { header: 'Artifact ID', property: 'artifactId' },
-    { header: 'Type', property: 'type' }
+    { header: 'Type', property: 'type', pipe: new TitleCasePipe() }
   ];
 
   constructor(private http: Http) {

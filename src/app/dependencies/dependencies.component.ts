@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import { Column } from '../table/column';
+import { TitleCasePipe } from '../core/titlecase.pipe';
 
 @Component({
   templateUrl: 'dependencies.component.html',
@@ -13,10 +14,11 @@ export class DependenciesComponent implements OnInit {
   page;
 
   depsTableColumns: Column[] = [
-    { header: 'Status', property: 'dependencyStatus' },
+    { header: 'Status', property: 'dependencyStatus', pipe: new TitleCasePipe() },
     { header: 'Group ID', property: 'groupId' },
     { header: 'Artifact ID', property: 'artifactId' },
-    { header: 'Version', property: 'version' }
+    { header: 'Version', property: 'version' },
+    { header: 'Type', property: 'type', pipe: new TitleCasePipe() }
   ];
 
   constructor(private http: Http) {
