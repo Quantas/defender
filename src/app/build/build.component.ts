@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Column } from '../table/column';
+import { TitleCasePipe } from '../core/titlecase.pipe';
 
 @Component({
     templateUrl: 'build.component.html',
@@ -19,13 +20,13 @@ export class BuildComponent implements OnInit {
     { header: 'Group ID', property: 'dependency.groupId' },
     { header: 'Artifact ID', property: 'dependency.artifactId' },
     { header: 'Version', property: 'dependency.version' },
-    { header: 'Status', property: 'status' }
+    { header: 'Status', property: 'status', pipe: new TitleCasePipe() }
   ];
 
     constructor(private http: Http, private route: ActivatedRoute) {
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.route.params.switchMap((params: Params) => {
             return this.http.get('/api/builds/' + params.id).map((res) => res.json());
         }).subscribe((build) => this.build = build);
