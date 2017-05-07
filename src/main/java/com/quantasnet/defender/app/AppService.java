@@ -3,6 +3,9 @@ package com.quantasnet.defender.app;
 import com.quantasnet.defender.DefenderType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,9 @@ public class AppService {
         this.appRepository = appRepository;
     }
 
-    public List<App> all() {
-        return appRepository.findAll();
+    public Page<App> all(final int pageNo) {
+        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.ASC, "groupId", "artifactId");
+        return appRepository.findAll(pageRequest);
     }
 
     public App one(final long id) {

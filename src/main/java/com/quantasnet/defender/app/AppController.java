@@ -2,12 +2,11 @@ package com.quantasnet.defender.app;
 
 import com.quantasnet.defender.build.Build;
 import com.quantasnet.defender.build.BuildService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequestMapping("/api/apps")
 @RestController
@@ -21,9 +20,9 @@ public class AppController {
         this.buildService = buildService;
     }
 
-    @GetMapping
-    public List<App> apps() {
-        return appService.all();
+    @GetMapping("/page/{pageNo}")
+    public Page<App> apps(@PathVariable final int pageNo) {
+        return appService.all(pageNo);
     }
 
     @GetMapping("/{id}")
@@ -31,10 +30,10 @@ public class AppController {
         return appService.one(id);
     }
 
-    @GetMapping("/{id}/builds")
-    public List<Build> builds(@PathVariable final long id) {
+    @GetMapping("/{id}/builds/{pageNo}")
+    public Page<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
         final App app = appService.one(id);
-        return buildService.appBuilds(app);
+        return buildService.appBuilds(app, pageNo);
     }
 
 }

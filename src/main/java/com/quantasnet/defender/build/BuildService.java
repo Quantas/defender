@@ -3,9 +3,10 @@ package com.quantasnet.defender.build;
 import com.quantasnet.defender.app.App;
 import com.quantasnet.defender.dependency.Dependency;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class BuildService {
@@ -20,8 +21,9 @@ public class BuildService {
         return buildRepository.save(build);
     }
 
-    public List<Build> findRecent() {
-        return buildRepository.findTop10ByOrderByBuildTimeDesc();
+    public Page<Build> paged(final int pageNo) {
+        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.ASC, "buildTime", "app.groupId", "app.artifactId");
+        return buildRepository.findAll(pageRequest);
     }
 
     @Cacheable("builds")
@@ -29,11 +31,13 @@ public class BuildService {
         return buildRepository.findOne(id);
     }
 
-    public List<Build> appBuilds(final App app) {
-        return buildRepository.findByApp(app);
+    public Page<Build> appBuilds(final App app, final int pageNo) {
+        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.DESC, "buildTime");
+        return buildRepository.findByApp(app, pageRequest);
     }
 
-    public List<Build> findByDependency(final Dependency dependency) {
-        return buildRepository.findAllByBuildDependenciesDependency(dependency);
+    public Page<Build> findByDependency(final Dependency dependency, final int pageNo) {
+        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.DESC, "buildTime");
+        return buildRepository.findAllByBuildDependenciesDependency(dependency, pageRequest);
     }
 }

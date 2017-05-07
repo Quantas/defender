@@ -46,15 +46,15 @@ public class DependencyController {
         return dependency;
     }
 
-    @PostMapping(value = "/{id}/{newStatus}")
+    @PostMapping("/{id}/{newStatus}")
     public Dependency changeStatus(@PathVariable final DependencyStatus newStatus, @PathVariable final long id) {
         // TODO user auth
         return dependencyService.changeStatus(newStatus, id, "webuser");
     }
 
-    @GetMapping("/{id}/builds")
-    public List<Build> builds(@PathVariable final long id) {
+    @GetMapping("/{id}/builds/{pageNo}")
+    public Page<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
         final Dependency dependency = dependencyService.one(id);
-        return buildService.findByDependency(dependency);
+        return buildService.findByDependency(dependency, pageNo);
     }
 }

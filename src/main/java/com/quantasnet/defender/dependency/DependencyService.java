@@ -27,7 +27,7 @@ public class DependencyService {
     }
 
     public List<Dependency> all() {
-        return this.dependencyRepository.findAllByOrderByGroupIdAscArtifactIdAsc();
+        return dependencyRepository.findAllByOrderByGroupIdAscArtifactIdAsc();
     }
 
     public Page<Dependency> paged(final int pageNo) {

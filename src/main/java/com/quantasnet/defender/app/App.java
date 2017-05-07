@@ -2,11 +2,12 @@ package com.quantasnet.defender.app;
 
 import com.quantasnet.defender.DefenderType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(indexes = {
+        @Index(columnList = "groupId,artifactId,type")
+})
 public class App {
 
     @Id

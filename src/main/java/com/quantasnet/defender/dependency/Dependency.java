@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(indexes = {
+        @Index(columnList = "groupId,artifactId,version,type"),
+        @Index(columnList = "groupId,artifactId")
+})
 public class Dependency {
 
     @Id
