@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Page } from './page';
 import { Column } from './column';
@@ -8,10 +8,10 @@ import { Column } from './column';
   templateUrl: 'table.component.html',
   styleUrls: [ 'table.component.less' ]
 })
-export class TableComponent {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input()
-  page: Page;
+  data: Page | any[];
 
   @Input()
   columns: Column[];
@@ -25,7 +25,20 @@ export class TableComponent {
   @Output()
   change = new EventEmitter<number>();
 
+  page: Page;
+
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.updatePage();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const change = changes['data'];
+    if (change && !change.isFirstChange()) {
+      this.updatePage();
+    }
+  }
 
   changePage(pageNo): void {
     this.change.emit(pageNo);
@@ -48,6 +61,16 @@ export class TableComponent {
       while (arr.length && (row = row[arr.shift()])) {};
 
       this.router.navigate([this.linkTarget, row]);
+    }
+  }
+
+  private updatePage(): void {
+    if (this.data) {
+      if (this.data.constructor === Array) {
+        this.page = {content: this.data as any[]};
+      } else {
+        this.page = this.data;
+      }
     }
   }
 }

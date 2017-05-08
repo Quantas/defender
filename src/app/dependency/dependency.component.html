@@ -13,14 +13,14 @@
     (change)="getBuildsPage($event)"
     [linkTarget]="'/build'"
     [linkKey]="'id'"
-    [page]="buildPage"
+    [data]="buildPage"
     [columns]="buildsTableColumns" >
   </app-table>
 
   <h3>History</h3>
   <app-table
     *ngIf="dep"
-    [page]="{ content: dep.dependencyHistories }"
+    [data]="dep.dependencyHistories"
     [columns]="historyTableColumns" >
   </app-table>
 </ng-container>
