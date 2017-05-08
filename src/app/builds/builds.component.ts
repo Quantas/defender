@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { Page } from '../table/page';
 import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
     templateUrl: 'builds.component.html',
@@ -22,16 +23,26 @@ export class BuildsComponent implements OnInit {
       { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
     ];
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit(): void {
-        this.getPage(0);
+      this.route.params.switchMap((params: Params) => {
+        let id;
+        if (params['id']) {
+          id = params['id'] - 1;
+        } else {
+          id = 0;
+        }
+        return Observable.of(id);
+      }).subscribe((id) => {
+        this.http.get('/api/builds/page/' + id).map((res) => res.json()).subscribe((page) => {
+          this.page = page;
+        });
+      });
     }
 
     getPage(pageNo): void {
-      this.http.get('/api/builds/page/' + pageNo).map((res) => res.json()).subscribe((page) => {
-        this.page = page;
-      });
+      this.router.navigate(['/builds', pageNo + 1]);
     }
 }

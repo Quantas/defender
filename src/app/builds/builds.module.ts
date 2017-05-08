@@ -15,7 +15,8 @@ import { TableModule } from '../table/table.module';
         CoreModule,
         TableModule,
         RouterModule.forChild([
-            { path: '', component: BuildsComponent, pathMatch: 'full'}
+          { path: '', component: BuildsComponent, pathMatch: 'full'},
+          { path: ':id', component: BuildsComponent, pathMatch: 'full'}
         ])
     ],
     exports: [ RouterModule ]
