@@ -20,7 +20,8 @@ export class BuildComponent implements OnInit {
     { header: 'Group ID', property: 'dependency.groupId' },
     { header: 'Artifact ID', property: 'dependency.artifactId' },
     { header: 'Version', property: 'dependency.version' },
-    { header: 'Status', property: 'status', pipe: new TitleCasePipe() }
+    { header: 'Status', property: 'status', pipe: new TitleCasePipe() },
+    { header: 'Transitive', property: 'transitive' }
   ];
 
     constructor(private http: Http, private route: ActivatedRoute) {

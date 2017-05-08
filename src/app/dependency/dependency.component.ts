@@ -15,6 +15,7 @@ import { TitleCasePipe } from '../core/titlecase.pipe';
 })
 export class DependencyComponent implements OnInit {
 
+  title;
   dep;
   buildPage;
 
@@ -40,6 +41,7 @@ export class DependencyComponent implements OnInit {
       return this.http.get('/api/dependencies/' + params.id).map((res) => res.json());
     }).subscribe((dep) => {
       this.dep = dep;
+      this.title = (dep.groupId ? dep.groupId + '   ' : '') + dep.artifactId;
       this.getBuildsPage(0);
     });
   }

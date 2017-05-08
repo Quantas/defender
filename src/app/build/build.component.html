@@ -1,12 +1,12 @@
 <h2>Build</h2>
-<ul *ngIf="build">
-    <li>{{ build.id }}</li>
-    <li>{{ build.app.groupId }}</li>
-    <li>{{ build.app.artifactId }}</li>
-    <li>{{ build.version }}</li>
-    <li>{{ build.buildTime | javadate }}</li>
-    <li>{{ build.userName }}</li>
-</ul>
+<table *ngIf="build">
+    <tr><th>ID</th><td>{{ build.id }}</td></tr>
+    <tr><th>Group Id</th><td>{{ build.app.groupId }}</td></tr>
+    <tr><th>Artifact Id</th><td>{{ build.app.artifactId }}</td></tr>
+    <tr><th>Version</th><td>{{ build.version }}</td></tr>
+    <tr><th>Build Time</th><td>{{ build.buildTime | javadate }}</td></tr>
+    <tr><th>User</th><td>{{ build.userName }}</td></tr>
+</table>
 
 <h3>Artifacts</h3>
 <app-table
