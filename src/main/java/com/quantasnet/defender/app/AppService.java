@@ -21,6 +21,10 @@ public class AppService {
         this.appRepository = appRepository;
     }
 
+    public long count() {
+        return appRepository.count();
+    }
+
     public Page<App> all(final int pageNo) {
         final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.ASC, "groupId", "artifactId");
         return appRepository.findAll(pageRequest);

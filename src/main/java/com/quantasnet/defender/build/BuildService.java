@@ -17,6 +17,10 @@ public class BuildService {
         this.buildRepository = buildRepository;
     }
 
+    public long count() {
+        return this.buildRepository.count();
+    }
+
     public Build save(final Build build) {
         return buildRepository.save(build);
     }

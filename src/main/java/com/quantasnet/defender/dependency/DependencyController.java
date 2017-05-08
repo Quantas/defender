@@ -25,6 +25,11 @@ public class DependencyController {
         return dependencyService.all();
     }
 
+    @GetMapping("/count")
+    public long count() {
+        return dependencyService.count();
+    }
+
     @GetMapping({ "/page/{pageNo}", "/page" })
     public Page<Dependency> dependenciesPaged(@PathVariable(required = false)final Integer pageNo) {
         return dependencyService.paged(null == pageNo ? 0 : pageNo);

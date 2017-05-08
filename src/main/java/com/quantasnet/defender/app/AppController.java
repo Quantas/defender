@@ -20,6 +20,11 @@ public class AppController {
         this.buildService = buildService;
     }
 
+    @GetMapping("/count")
+    public long count() {
+        return appService.count();
+    }
+
     @GetMapping("/page/{pageNo}")
     public Page<App> apps(@PathVariable final int pageNo) {
         return appService.all(pageNo);

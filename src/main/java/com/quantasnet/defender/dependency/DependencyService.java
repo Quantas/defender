@@ -26,6 +26,10 @@ public class DependencyService {
         this.dependencyRepository = dependencyRepository;
     }
 
+    public long count() {
+        return dependencyRepository.count();
+    }
+
     public List<Dependency> all() {
         return dependencyRepository.findAllByOrderByGroupIdAscArtifactIdAsc();
     }

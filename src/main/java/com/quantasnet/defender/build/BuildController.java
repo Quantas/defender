@@ -18,6 +18,11 @@ public class BuildController {
         this.buildService = buildService;
     }
 
+    @GetMapping("/count")
+    public long count() {
+        return buildService.count();
+    }
+
     @GetMapping("/page/{pageNo}")
     public Page<Build> buildsPaged(@PathVariable final Integer pageNo) {
         return buildService.paged(pageNo);
