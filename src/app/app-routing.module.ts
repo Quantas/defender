@@ -5,8 +5,12 @@ import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'builds',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule'
   },
   {
     path: 'builds',
