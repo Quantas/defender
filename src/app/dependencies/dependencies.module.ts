@@ -13,7 +13,8 @@ import { TableModule } from '../table/table.module';
     CommonModule,
     TableModule,
     RouterModule.forChild([
-      { path: '', component: DependenciesComponent, pathMatch: 'full'}
+      { path: '', component: DependenciesComponent, pathMatch: 'full'},
+      { path: ':id', component: DependenciesComponent, pathMatch: 'full'}
     ])
   ],
   exports: [ RouterModule ]

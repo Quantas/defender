@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
+
 import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
+
 
 @Component({
   templateUrl: 'dependencies.component.html',
@@ -21,17 +24,27 @@ export class DependenciesComponent implements OnInit {
     { header: 'Type', property: 'type', pipe: new TitleCasePipe() }
   ];
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.getPage(0);
+    this.route.params.switchMap((params: Params) => {
+      let id;
+      if (params['id']) {
+        id = params['id'] - 1;
+      } else {
+        id = 0;
+      }
+      return Observable.of(id);
+    }).subscribe((id) => {
+      this.http.get('/api/dependencies/page/' + id).map((res) => res.json()).subscribe((page) => {
+        this.page = page;
+      });
+    });
   }
 
   getPage(pageNo): void {
-    this.http.get('/api/dependencies/page/' + pageNo).map((res) => res.json()).subscribe((page) => {
-      this.page = page;
-    });
+    this.router.navigate(['/deps', pageNo + 1]);
   }
 
 }
