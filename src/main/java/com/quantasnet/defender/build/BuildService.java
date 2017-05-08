@@ -26,7 +26,7 @@ public class BuildService {
     }
 
     public Page<Build> paged(final int pageNo) {
-        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.ASC, "buildTime", "app.groupId", "app.artifactId");
+        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.DESC, "buildTime", "app.groupId", "app.artifactId");
         return buildRepository.findAll(pageRequest);
     }
 

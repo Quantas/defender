@@ -4,7 +4,6 @@ import com.quantasnet.defender.DefenderType;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(indexes = {

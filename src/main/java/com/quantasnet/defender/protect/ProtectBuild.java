@@ -13,6 +13,7 @@ public class ProtectBuild {
     @Valid
     private ProtectArtifact app;
 
+    @Valid
     @NotEmpty
     private Set<ProtectArtifact> artifacts;
 
