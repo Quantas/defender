@@ -7,10 +7,12 @@
 
 <h3>Builds</h3>
 <app-table
-  (change)="getPage($event)"
+  (change)="updateSubject($event)"
   [linkTarget]="'/build'"
   [linkKey]="'id'"
-  [data]="buildPage"
+  [data]="buildsObservable"
   [columns]="buildsTableColumns"
   [sortable]="false">
 </app-table>
+
+<button (click)="updateSubject({pageNo: 0})">Update</button>

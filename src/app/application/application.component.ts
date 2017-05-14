@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { Column } from '../table/column';
 import { PageChangeEvent } from '../table/page.change.event';
+import { Page } from '../table/page';
 
 @Component({
   templateUrl: 'application.component.html',
@@ -16,7 +15,9 @@ import { PageChangeEvent } from '../table/page.change.event';
 export class ApplicationComponent implements OnInit {
 
   app;
-  buildPage;
+
+  buildsObservable: Observable<Page>;
+  private buildsSubject: BehaviorSubject<Page>;
 
   buildsTableColumns: Column[] = [
     { header: 'Version', property: 'version' },
@@ -24,6 +25,8 @@ export class ApplicationComponent implements OnInit {
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {
+    this.buildsSubject = new BehaviorSubject({});
+    this.buildsObservable = this.buildsSubject.asObservable();
   }
 
   ngOnInit(): void {
@@ -31,13 +34,13 @@ export class ApplicationComponent implements OnInit {
       return this.http.get('/api/apps/' + params.id).map((res) => res.json());
     }).subscribe((app) => {
       this.app = app;
-      this.getPage({pageNo: 0});
+      this.updateSubject({pageNo: 0});
     });
   }
 
-  getPage(pageChangeEvent: PageChangeEvent): void {
+  updateSubject(pageChangeEvent: PageChangeEvent): void {
     this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).map((res) => res.json()).subscribe((buildPage) => {
-      this.buildPage = buildPage;
+      this.buildsSubject.next(buildPage);
     });
   }
 

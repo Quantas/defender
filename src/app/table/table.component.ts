@@ -1,19 +1,20 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Page, Sort } from './page';
 import { Column } from './column';
 import { PageChangeEvent } from './page.change.event';
 import { CurrentSort, SortType } from './sort.type';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-table',
   templateUrl: 'table.component.html',
   styleUrls: [ 'table.component.less' ]
 })
-export class TableComponent implements OnInit, OnChanges {
+export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  data: Page | any[];
+  data: Page | Observable<Page | any[]> | any[];
 
   @Input()
   columns: Column[];
@@ -30,6 +31,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Output()
   change = new EventEmitter<PageChangeEvent>();
 
+  dataSubscription: Subscription;
+
   page: Page;
 
   constructor(private router: Router) {}
@@ -42,6 +45,12 @@ export class TableComponent implements OnInit, OnChanges {
     const change = changes['data'];
     if (change && !change.isFirstChange()) {
       this.updatePage();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
     }
   }
 
@@ -154,6 +163,14 @@ export class TableComponent implements OnInit, OnChanges {
     if (this.data) {
       if (this.data.constructor === Array) {
         this.page = {content: this.data as any[]};
+      } else if (this.data.constructor === Observable) {
+        this.dataSubscription = (this.data as Observable<Page | any[]>).subscribe((data: Page | any[]) => {
+          if (this.data.constructor === Array) {
+            this.page = {content: data as any[]};
+          } else {
+            this.page = data as Page;
+          }
+        });
       } else {
         this.page = this.data as Page;
       }
