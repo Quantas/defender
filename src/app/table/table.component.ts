@@ -80,12 +80,9 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
               column.sortType = SortType.NONE;
               break;
             }
-            case SortType.NONE: {
-              // -> ASC
-              column.sortType = SortType.ASC;
-              break;
-            }
+            case SortType.NONE:
             default: {
+              // -> ASC
               column.sortType = SortType.ASC;
               break;
             }
@@ -161,36 +158,49 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   private updatePage(): void {
     if (this.data) {
+
       if (this.data.constructor === Array) {
-        this.page = {content: this.data as any[]};
+        this.setupPageArray();
       } else if (this.data.constructor === Observable) {
-        this.dataSubscription = (this.data as Observable<Page | any[]>).subscribe((data: Page | any[]) => {
-          if (this.data.constructor === Array) {
-            this.page = {content: data as any[]};
-          } else {
-            this.page = data as Page;
-          }
-        });
+        this.setupPageSubscription();
       } else {
         this.page = this.data as Page;
       }
 
-      if (this.page.sort && this.page.sort.length > 0) {
-        this.columns.forEach((column: Column) => {
+      this.setupInitialSort();
+    }
+  }
 
-          this.page.sort.forEach((sort: Sort) => {
-            if (column.property === sort.property) {
-              column.sortType = SortType.NONE;
+  private setupPageArray(): void {
+    this.page = {content: this.data as any[]};
+  }
 
-              if (sort.ascending) {
-                column.sortType = SortType.ASC;
-              } else if (sort.descending) {
-                column.sortType = SortType.DESC;
-              }
-            }
-          });
-        });
+  private setupPageSubscription(): void {
+    this.dataSubscription = (this.data as Observable<Page | any[]>).subscribe((data: Page | any[]) => {
+      if (this.data.constructor === Array) {
+        this.page = {content: data as any[]};
+      } else {
+        this.page = data as Page;
       }
+    });
+  }
+
+  private setupInitialSort() {
+    if (this.page.sort && this.page.sort.length > 0) {
+      this.columns.forEach((column: Column) => {
+
+        this.page.sort.forEach((sort: Sort) => {
+          if (column.property === sort.property) {
+            column.sortType = SortType.NONE;
+
+            if (sort.ascending) {
+              column.sortType = SortType.ASC;
+            } else if (sort.descending) {
+              column.sortType = SortType.DESC;
+            }
+          }
+        });
+      });
     }
   }
 }
