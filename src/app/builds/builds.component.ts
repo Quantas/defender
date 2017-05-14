@@ -24,6 +24,6 @@ export class BuildsComponent extends PageableComponent {
     ];
 
     constructor(http: Http, route: ActivatedRoute, router: Router) {
-      super(http, route, router, '/api/builds/page/', '/builds');
+      super(http, route, router, '/api/builds/page/', '/builds', '-buildTime');
     }
 }

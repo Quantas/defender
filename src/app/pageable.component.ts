@@ -10,7 +10,7 @@ export abstract class PageableComponent implements OnInit {
   public page: Page;
 
   constructor(private http: Http, private route: ActivatedRoute, private router: Router,
-    private endpointUrl: string, private routerUrl: string) {
+    private endpointUrl: string, private routerUrl: string, private defaultSort?: string) {
   }
 
   ngOnInit(): void {
@@ -29,12 +29,12 @@ export abstract class PageableComponent implements OnInit {
       }
       return Observable.of(id);
     }).subscribe((id) => {
-      this.retrieveData(id, this.route.snapshot.queryParams['sort']);
+      const routeSort = this.route.snapshot.queryParams['sort']
+      this.retrieveData(id, routeSort ? routeSort : this.defaultSort);
     });
   }
 
   public getPage(pageChangeEvent: PageChangeEvent): void {
-    console.log(this.routerUrl, pageChangeEvent);
     this.router.navigate([this.routerUrl, pageChangeEvent.pageNo + 1], {queryParams: {sort: pageChangeEvent.sortString} });
   }
 

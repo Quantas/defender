@@ -18,6 +18,6 @@ export class AppsComponent extends PageableComponent {
   ];
 
   constructor(http: Http, route: ActivatedRoute, router: Router) {
-    super(http, route, router, '/api/apps/page/', '/apps');
+    super(http, route, router, '/api/apps/page/', '/apps', 'groupId;artifactId');
   }
 }

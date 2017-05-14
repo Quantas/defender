@@ -21,7 +21,7 @@ export class DependenciesComponent extends PageableComponent {
   ];
 
   constructor(http: Http, route: ActivatedRoute, router: Router) {
-    super(http, route, router, '/api/dependencies/page/', '/deps');
+    super(http, route, router, '/api/dependencies/page/', '/deps', 'groupId;artifactId;version');
   }
 
 }
