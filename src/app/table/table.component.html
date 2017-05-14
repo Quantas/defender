@@ -1,7 +1,7 @@
 <table *ngIf="page">
   <thead>
     <tr>
-      <th *ngFor="let column of columns" (click)="changeSort(column.property, column.sortType)" (keyup.enter)="changeSort(column.property, column.sortType)">
+      <th [ngClass]="{'pointer': sortable }" *ngFor="let column of columns" (click)="changeSort(column.property, column.sortType)" (keyup.enter)="changeSort(column.property, column.sortType)">
         {{ column.header }} <span [ngClass]="{ 'asc': column.sortType === 1, 'desc': column.sortType === 2 }"></span>
       </th>
     </tr>
