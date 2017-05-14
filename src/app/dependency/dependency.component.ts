@@ -8,6 +8,7 @@ import 'rxjs/add/operator/switchMap';
 import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { TitleCasePipe } from '../core/titlecase.pipe';
+import { PageChangeEvent } from '../table/page.change.event';
 
 @Component({
   templateUrl: 'dependency.component.html',
@@ -42,7 +43,7 @@ export class DependencyComponent implements OnInit {
     }).subscribe((dep) => {
       this.dep = dep;
       this.title = (dep.groupId ? dep.groupId + '   ' : '') + dep.artifactId;
-      this.getBuildsPage(0);
+      this.getBuildsPage({pageNo: 0});
     });
   }
 
@@ -54,9 +55,10 @@ export class DependencyComponent implements OnInit {
     });
   }
 
-  getBuildsPage(pageNo): void {
-    this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageNo).map((res) => res.json()).subscribe((buildPage) => {
-      this.buildPage = buildPage;
+  getBuildsPage(pageChangeEvent: PageChangeEvent): void {
+    this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
+      .map((res) => res.json()).subscribe((buildPage) => {
+        this.buildPage = buildPage;
     });
   }
 

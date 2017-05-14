@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { Column } from '../table/column';
+import { PageChangeEvent } from '../table/page.change.event';
 
 @Component({
   templateUrl: 'application.component.html',
@@ -30,12 +31,12 @@ export class ApplicationComponent implements OnInit {
       return this.http.get('/api/apps/' + params.id).map((res) => res.json());
     }).subscribe((app) => {
       this.app = app;
-      this.getPage(0);
+      this.getPage({pageNo: 0});
     });
   }
 
-  getPage(pageNo): void {
-    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageNo).map((res) => res.json()).subscribe((buildPage) => {
+  getPage(pageChangeEvent: PageChangeEvent): void {
+    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).map((res) => res.json()).subscribe((buildPage) => {
       this.buildPage = buildPage;
     });
   }

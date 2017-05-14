@@ -1,20 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-
-import { Observable } from 'rxjs/Rx';
+import { Component } from '@angular/core';
+import { Http } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
-
+import { PageableComponent } from '../pageable.component';
 
 @Component({
   templateUrl: 'dependencies.component.html',
   styleUrls: [ 'dependencies.component.less' ]
 })
-export class DependenciesComponent implements OnInit {
-
-  page;
+export class DependenciesComponent extends PageableComponent {
 
   depsTableColumns: Column[] = [
     { header: 'Status', property: 'dependencyStatus', pipe: new TitleCasePipe() },
@@ -24,27 +20,8 @@ export class DependenciesComponent implements OnInit {
     { header: 'Type', property: 'type', pipe: new TitleCasePipe() }
   ];
 
-  constructor(private http: Http, private route: ActivatedRoute, private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.route.params.switchMap((params: Params) => {
-      let id;
-      if (params['id']) {
-        id = params['id'] - 1;
-      } else {
-        id = 0;
-      }
-      return Observable.of(id);
-    }).subscribe((id) => {
-      this.http.get('/api/dependencies/page/' + id).map((res) => res.json()).subscribe((page) => {
-        this.page = page;
-      });
-    });
-  }
-
-  getPage(pageNo): void {
-    this.router.navigate(['/deps', pageNo + 1]);
+  constructor(http: Http, route: ActivatedRoute, router: Router) {
+    super(http, route, router, '/api/dependencies/page/', '/deps');
   }
 
 }

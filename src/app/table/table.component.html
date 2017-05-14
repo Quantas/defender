@@ -1,11 +1,13 @@
 <table *ngIf="page">
   <thead>
     <tr>
-      <th *ngFor="let column of columns">{{ column.header }}</th>
+      <th *ngFor="let column of columns" (click)="changeSort(column.property, column.sortType)" (keyup.enter)="changeSort(column.property, column.sortType)">
+        {{ column.header }} <span [ngClass]="{ 'asc': column.sortType === 1, 'desc': column.sortType === 2 }"></span>
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of page.content" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget}">
+    <tr *ngFor="let row of page.content" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget }">
       <ng-container *ngFor="let column of columns">
         <td>{{ retrieveCell(row, column) }}</td>
       </ng-container>

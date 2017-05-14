@@ -10,4 +10,12 @@ export interface Page {
   size?: number;
   totalElements?: number;
   totalPages?: number;
+  sort?: Sort[];
+}
+
+export interface Sort {
+  direction: string;
+  property: string;
+  descending: boolean;
+  ascending: boolean;
 }

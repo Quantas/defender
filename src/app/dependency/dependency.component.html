@@ -13,13 +13,15 @@
     [linkTarget]="'/build'"
     [linkKey]="'id'"
     [data]="buildPage"
-    [columns]="buildsTableColumns" >
+    [columns]="buildsTableColumns"
+    [sortable]="false" >
   </app-table>
 
   <h3>History</h3>
   <app-table
     *ngIf="dep"
     [data]="dep.dependencyHistories"
-    [columns]="historyTableColumns" >
+    [columns]="historyTableColumns"
+    [sortable]="false">
   </app-table>
 </ng-container>
