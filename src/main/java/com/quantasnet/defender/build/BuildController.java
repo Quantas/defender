@@ -1,15 +1,12 @@
 package com.quantasnet.defender.build;
 
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
-@RestController
 @RequestMapping("/api/builds")
+@RestController
 public class BuildController {
 
     private final BuildService buildService;
@@ -24,8 +21,8 @@ public class BuildController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public Page<Build> buildsPaged(@PathVariable final Integer pageNo) {
-        return buildService.paged(pageNo);
+    public Page<Build> buildsPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort) {
+        return buildService.paged(pageNo, sort);
     }
 
     /**

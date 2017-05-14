@@ -1,50 +1,28 @@
 package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.DefenderType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import com.quantasnet.defender.PageableService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class DependencyService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(DependencyService.class);
-
-    private final DependencyRepository dependencyRepository;
+public class DependencyService extends PageableService<Dependency, Long, DependencyRepository> {
 
     public DependencyService(final DependencyRepository dependencyRepository) {
-        this.dependencyRepository = dependencyRepository;
-    }
-
-    public long count() {
-        return dependencyRepository.count();
+        super(dependencyRepository);
     }
 
     public List<Dependency> all() {
-        return dependencyRepository.findAllByOrderByGroupIdAscArtifactIdAsc();
-    }
-
-    public Page<Dependency> paged(final int pageNo) {
-        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.ASC, "groupId", "artifactId", "version");
-        return dependencyRepository.findAll(pageRequest);
-    }
-
-    public Dependency one(final long id) {
-        return dependencyRepository.findOne(id);
+        return repository.findAllByOrderByGroupIdAscArtifactIdAsc();
     }
 
     public Dependency retrieve(final String groupId, final String artifactId, final String version, final DefenderType type, final String user) {
-        final Dependency existing = dependencyRepository.findDistinctByGroupIdAndArtifactIdAndVersionAndType(groupId, artifactId, version, type);
+        final Dependency existing = repository.findDistinctByGroupIdAndArtifactIdAndVersionAndType(groupId, artifactId, version, type);
 
         if (null == existing) {
             final Dependency newDep = new Dependency();
@@ -64,9 +42,9 @@ public class DependencyService {
 
             newDep.setDependencyHistories(histories);
 
-            LOG.info("New Dependency Found: {}", newDep);
+            logger.info("New Dependency Found: {}", newDep);
 
-            return dependencyRepository.save(newDep);
+            return repository.save(newDep);
         }
 
         return existing;
@@ -74,7 +52,7 @@ public class DependencyService {
 
     @Transactional
     public Dependency changeStatus(final DependencyStatus newStatus, final long id, final String user) {
-        final Dependency dep = dependencyRepository.findOne(id);
+        final Dependency dep = one(id);
         if (null != dep) {
             // get
             dep.getDependencyHistories().size();
@@ -96,7 +74,7 @@ public class DependencyService {
 
             dep.getDependencyHistories().sort(Comparator.comparing(DependencyHistory::getTime).reversed());
 
-            return dependencyRepository.save(dep);
+            return repository.save(dep);
         }
 
         return null;

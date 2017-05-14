@@ -31,8 +31,8 @@ public class DependencyController {
     }
 
     @GetMapping({ "/page/{pageNo}", "/page" })
-    public Page<Dependency> dependenciesPaged(@PathVariable(required = false)final Integer pageNo) {
-        return dependencyService.paged(null == pageNo ? 0 : pageNo);
+    public Page<Dependency> dependenciesPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort) {
+        return dependencyService.paged(pageNo, sort);
     }
 
     /**
