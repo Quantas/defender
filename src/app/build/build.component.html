@@ -12,6 +12,7 @@
 <app-table
   *ngIf="build"
   [data]="build.buildDependencies"
+  [serverSide]="false"
   [columns]="depsTableColumns"
   [linkKey]="'dependency.id'"
   [linkTarget]="'/dep'">

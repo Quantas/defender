@@ -1,10 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
 import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 
@@ -14,7 +11,7 @@ import { TitleCasePipe } from '../core/titlecase.pipe';
 })
 export class BuildComponent implements OnInit {
 
-    build;
+  build;
 
   depsTableColumns: Column[] = [
     { header: 'Group ID', property: 'dependency.groupId' },
@@ -32,5 +29,4 @@ export class BuildComponent implements OnInit {
             return this.http.get('/api/builds/' + params.id).map((res) => res.json());
         }).subscribe((build) => this.build = build);
     }
-
 }

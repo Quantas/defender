@@ -28,6 +28,9 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   sortable = true;
 
+  @Input()
+  serverSide = true;
+
   @Output()
   change = new EventEmitter<PageChangeEvent>();
 
@@ -90,17 +93,38 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
 
+      const sorts = this.generateSortArray();
+
+      // sort internally
+      if (!this.serverSide) {
+        this.page.content.sort((a, b) => {
+          let result = 0;
+
+          sorts.forEach((sort: CurrentSort) => {
+            if ( result === 0 ) {
+              const aVal = this.findValue(a, sort.property);
+              const bVal = this.findValue(b, sort.property);
+
+              result = (aVal < bVal) ? -1 : (aVal > bVal) ? 1 : 0;
+
+              result *= (sort.sortType === SortType.DESC) ? -1 : 1;
+            }
+          });
+
+          return result;
+        });
+      }
+
       this.change.emit({
         pageNo: this.page.number,
         sortString: this.generateSortString(),
-        sorts: this.generateSortArray()
+        sorts: sorts
       });
     }
   }
 
   retrieveCell(row, column: Column): string {
-      const arr = column.property.split('.');
-      while (arr.length && (row = row[arr.shift()])) {}
+      row = this.findValue(row, column.property);
 
       if (column.pipe) {
         return column.pipe.transform(row, column.pipeArgs);
@@ -111,11 +135,15 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   rowClick(row): void {
     if (this.linkTarget && this.linkKey) {
-      const arr = this.linkKey.split('.');
-      while (arr.length && (row = row[arr.shift()])) {};
 
-      this.router.navigate([this.linkTarget, row]);
+      this.router.navigate([this.linkTarget, this.findValue(row, this.linkKey)]);
     }
+  }
+
+  private findValue(input: Object, key: string): any {
+    const arr = key.split('.');
+    while (arr.length && (input = input[arr.shift()])) {};
+    return input;
   }
 
   private generateSortString(): string {
