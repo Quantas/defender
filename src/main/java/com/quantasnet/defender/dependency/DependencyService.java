@@ -33,7 +33,7 @@ public class DependencyService extends PageableService<Dependency, Long, Depende
             newDep.setDependencyStatus(DependencyStatus.NEW);
 
             final DependencyHistory history = new DependencyHistory();
-            history.setUser(user);
+            history.setUserId(user);
             history.setNewValue(DependencyStatus.NEW);
             history.setTime(OffsetDateTime.now());
 
@@ -65,7 +65,7 @@ public class DependencyService extends PageableService<Dependency, Long, Depende
             dep.setDependencyStatus(newStatus);
 
             final DependencyHistory history = new DependencyHistory();
-            history.setUser(user);
+            history.setUserId(user);
             history.setOldValue(oldStatus);
             history.setNewValue(newStatus);
             history.setTime(OffsetDateTime.now());

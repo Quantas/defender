@@ -12,7 +12,7 @@ public class DependencyHistory {
     @GeneratedValue
     private Long id;
 
-    private String user;
+    private String userId;
     private OffsetDateTime time;
     private DependencyStatus oldValue;
     private DependencyStatus newValue;
@@ -25,12 +25,12 @@ public class DependencyHistory {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserID() {
+        return userId;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public OffsetDateTime getTime() {
