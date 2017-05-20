@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { TablePaginationComponent } from './table.pagination.component';
 import { TableComponent } from './table.component';
 import { FormsModule } from '@angular/forms';
+import { LocalFilterPipe } from './localfilter.pipe';
+import { TableUtils } from './table.utils';
 
 @NgModule({
   imports: [
@@ -14,11 +16,15 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     TableComponent,
-    TablePaginationComponent
+    TablePaginationComponent,
+    LocalFilterPipe
   ],
   exports: [
     TableComponent,
     TablePaginationComponent
+  ],
+  providers: [
+    TableUtils
   ]
 })
 export class TableModule { }

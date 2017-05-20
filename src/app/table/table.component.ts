@@ -12,6 +12,7 @@ import { Column } from './column';
 import { PageChangeEvent } from './page.change.event';
 import { CurrentSort, SortType } from './sort.type';
 import { NgForm } from '@angular/forms';
+import { TableUtils } from './table.utils';
 
 @Component({
   selector: 'app-table',
@@ -54,7 +55,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   private dataSubscription: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tableUtils: TableUtils) {}
 
   ngOnInit(): void {
     this.updatePage();
@@ -143,8 +144,8 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
           sorts.forEach((sort: CurrentSort) => {
             if ( result === 0 ) {
-              const aVal = this.findValue(a, sort.property);
-              const bVal = this.findValue(b, sort.property);
+              const aVal = this.tableUtils.findValue(a, sort.property);
+              const bVal = this.tableUtils.findValue(b, sort.property);
 
               result = (aVal < bVal) ? -1 : (aVal > bVal) ? 1 : 0;
 
@@ -166,25 +167,13 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   retrieveCell(row: Object, column: Column): string {
-      const cell = this.findValue(row, column.property);
-
-      if (column.pipe) {
-        return column.pipe.transform(cell, column.pipeArgs);
-      }
-
-      return cell;
+      return this.tableUtils.retrieveCell(row, column);
   }
 
   rowClick(row: Object): void {
     if (this.linkTarget && this.linkKey) {
-      this.router.navigate([this.linkTarget, this.findValue(row, this.linkKey)]);
+      this.router.navigate([this.linkTarget, this.tableUtils.findValue(row, this.linkKey)]);
     }
-  }
-
-  private findValue(input: Object, key: string): any {
-    const arr = key.split('.');
-    while (arr.length && (input = input[arr.shift()])) {};
-    return input;
   }
 
   private generateSortString(): string {

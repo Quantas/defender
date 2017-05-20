@@ -2,7 +2,7 @@
   <form #filterForm="ngForm">
     <input *ngIf="filterable" type="text" name="filter" id="filter" [(ngModel)]="filter" placeholder="Filter Results" />
   </form>
-  <button (click)="refreshPage()">&#x21bb;</button>
+  <button *ngIf="serverSide" (click)="refreshPage()">&#x21bb;</button>
 </div>
 <table *ngIf="page">
   <thead>
@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of page.content" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget }">
+    <tr *ngFor="let row of page.content | localfilter:columns:serverSide:filter" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget }">
       <ng-container *ngFor="let column of columns">
         <td>{{ retrieveCell(row, column) }}</td>
       </ng-container>
