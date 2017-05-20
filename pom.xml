@@ -9,7 +9,17 @@
 	<packaging>jar</packaging>
 
 	<name>Quantasnet Defender</name>
-	<description></description>
+	<description>The Web App for Defender</description>
+	<url>https://www.quantasnet.com</url>
+	<licenses>
+		<license>
+			<name>UNLICENSED</name>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://bitbucket.org/quantas/defender-web</url>
+	</scm>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

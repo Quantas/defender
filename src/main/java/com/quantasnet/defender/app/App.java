@@ -19,6 +19,11 @@ public class App {
 
     private DefenderType type;
 
+    private String description;
+    private String license;
+    private String url;
+    private String repository;
+
     public Long getId() {
         return id;
     }
@@ -49,6 +54,38 @@ public class App {
 
     public void setType(DefenderType type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getRepository() {
+        return repository;
+    }
+
+    public void setRepository(String repository) {
+        this.repository = repository;
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.quantasnet.defender.dependency.Dependency;
 import com.quantasnet.defender.dependency.DependencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -35,10 +36,18 @@ public class ProtectController {
 
     @Transactional
     @PostMapping
-    public Build protect(@RequestBody @Valid final ProtectBuild build, @RequestHeader(DefenderType.HEADER_NAME) final DefenderType defenderType) {
+    public Build protect(@RequestBody @Valid final ProtectBuild build, @RequestHeader(DefenderType.HEADER_NAME) final DefenderType defenderType, @RequestHeader HttpHeaders headers) {
         LOG.info("build = user:{}, app:{}", build.getUser(), build.getApp());
 
-        final App app = appService.retrieve(build.getApp().getGroupId(), build.getApp().getArtifactId(), defenderType);
+        final App app = appService.retrieve(
+                build.getApp().getGroupId(),
+                build.getApp().getArtifactId(),
+                defenderType,
+                build.getApp().getDescription(),
+                build.getApp().getLicense(),
+                build.getApp().getUrl(),
+                build.getApp().getRepository()
+        );
 
         final Build newBuild = new Build();
         newBuild.setUserName(build.getUser());

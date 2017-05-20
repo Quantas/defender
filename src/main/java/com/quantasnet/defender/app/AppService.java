@@ -12,7 +12,7 @@ public class AppService extends PageableService<App, Long, AppRepository> {
         super(appRepository);
     }
 
-    public App retrieve(final String groupId, final String artifactId, final DefenderType type) {
+    public App retrieve(final String groupId, final String artifactId, final DefenderType type, final String description, final String license, final String url, final String repo) {
         final App existing = repository.findDistinctByGroupIdAndArtifactIdAndType(groupId, artifactId, type);
 
         if (null == existing) {
@@ -20,10 +20,22 @@ public class AppService extends PageableService<App, Long, AppRepository> {
             app.setGroupId(groupId);
             app.setArtifactId(artifactId);
             app.setType(type);
+
+            app.setDescription(description);
+            app.setLicense(license);
+            app.setUrl(url);
+            app.setRepository(repo);
+
             logger.info("New app = {}", app);
             return repository.save(app);
-        }
+        } else {
 
-        return existing;
+            existing.setDescription(description);
+            existing.setLicense(license);
+            existing.setUrl(url);
+            existing.setRepository(repo);
+
+            return repository.save(existing);
+        }
     }
 }
