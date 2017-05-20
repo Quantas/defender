@@ -14,7 +14,8 @@
     [linkKey]="'id'"
     [data]="buildPage"
     [columns]="buildsTableColumns"
-    [sortable]="false" >
+    [sortable]="false"
+    [filterable]="false">
   </app-table>
 
   <h3>History</h3>
@@ -22,6 +23,7 @@
     *ngIf="dep"
     [data]="dep.dependencyHistories"
     [columns]="historyTableColumns"
-    [sortable]="false">
+    [sortable]="false"
+    [serverSide]="false">
   </app-table>
 </ng-container>
