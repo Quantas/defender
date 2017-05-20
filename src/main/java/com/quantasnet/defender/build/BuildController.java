@@ -21,8 +21,8 @@ public class BuildController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public Page<Build> buildsPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort) {
-        return buildService.paged(pageNo, sort);
+    public Page<Build> buildsPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) {
+        return buildService.pagedAndOrFiltered(pageNo, sort, filter, new BuildSpecification(filter));
     }
 
     /**

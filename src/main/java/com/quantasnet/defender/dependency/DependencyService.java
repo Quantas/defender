@@ -17,10 +17,6 @@ public class DependencyService extends PageableService<Dependency, Long, Depende
         super(dependencyRepository);
     }
 
-    public List<Dependency> all() {
-        return repository.findAllByOrderByGroupIdAscArtifactIdAsc();
-    }
-
     public Dependency retrieve(final String groupId, final String artifactId, final String version, final DefenderType type, final String user) {
         final Dependency existing = repository.findDistinctByGroupIdAndArtifactIdAndVersionAndType(groupId, artifactId, version, type);
 

@@ -23,8 +23,8 @@ public class AppController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public Page<App> apps(@PathVariable final int pageNo, @RequestParam(required = false) final String sort) {
-        return appService.paged(pageNo, sort);
+    public Page<App> apps(@PathVariable final int pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) {
+        return appService.pagedAndOrFiltered(pageNo, sort, filter, new AppSpecification(filter));
     }
 
     @GetMapping("/{id}")

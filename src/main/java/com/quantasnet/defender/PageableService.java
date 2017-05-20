@@ -5,14 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PageableService<T, ID extends Serializable, R extends JpaRepository<T, ID>> {
+public abstract class PageableService<T, ID extends Serializable, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -30,8 +32,12 @@ public abstract class PageableService<T, ID extends Serializable, R extends JpaR
         return repository.findOne(id);
     }
 
-    public Page<T> paged(final int pageNo, final String sort) {
-        return repository.findAll(createPageRequest(pageNo, sort));
+    public Page<T> pagedAndOrFiltered(final int pageNo, final String sort, final String filter, final DefenderSpecification<T> spec) {
+        if (null == filter) {
+            return repository.findAll(createPageRequest(pageNo, sort));
+        } else {
+            return repository.findAll(spec, createPageRequest(pageNo, sort));
+        }
     }
 
     private PageRequest createPageRequest(final int pageNo, final String sort) {

@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @RequestMapping("/api/dependencies")
 @RestController
@@ -20,19 +19,14 @@ public class DependencyController {
         this.buildService = buildService;
     }
 
-    @GetMapping
-    public List<Dependency> dependencies() {
-        return dependencyService.all();
-    }
-
     @GetMapping("/count")
     public long count() {
         return dependencyService.count();
     }
 
     @GetMapping({ "/page/{pageNo}", "/page" })
-    public Page<Dependency> dependenciesPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort) {
-        return dependencyService.paged(pageNo, sort);
+    public Page<Dependency> dependenciesPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) {
+        return dependencyService.pagedAndOrFiltered(pageNo, sort, filter, new DependencySpecification(filter));
     }
 
     /**
