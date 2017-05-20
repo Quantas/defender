@@ -14,7 +14,7 @@ export class TablePaginationComponent implements OnChanges {
   page: Page;
 
   @Output()
-  change = new EventEmitter<number>();
+  paginationChange = new EventEmitter<number>();
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('page') && !changes['page'].isFirstChange()) {
@@ -22,7 +22,7 @@ export class TablePaginationComponent implements OnChanges {
     }
   }
 
-  changePage(pageNo): void {
-    this.change.emit(pageNo);
+  changePage(pageNo: number): void {
+    this.paginationChange.emit(pageNo);
   }
 }

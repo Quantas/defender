@@ -4,10 +4,12 @@ import { RouterModule } from '@angular/router';
 
 import { TablePaginationComponent } from './table.pagination.component';
 import { TableComponent } from './table.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule
   ],
   declarations: [

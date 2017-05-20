@@ -9,7 +9,7 @@
 
   <h3>Builds</h3>
   <app-table
-    (change)="getBuildsPage($event)"
+    (pageChange)="getBuildsPage($event)"
     [linkTarget]="'/build'"
     [linkKey]="'id'"
     [data]="buildPage"

@@ -7,7 +7,7 @@
 
 <h3>Builds</h3>
 <app-table
-  (change)="updateSubject($event)"
+  (pageChange)="updateSubject($event)"
   [linkTarget]="'/build'"
   [linkKey]="'id'"
   [data]="buildsObservable"

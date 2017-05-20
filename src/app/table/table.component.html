@@ -1,3 +1,9 @@
+<div class="controls">
+  <form #filterForm="ngForm">
+    <input *ngIf="filterable" type="text" name="filter" id="filter" [(ngModel)]="filter" placeholder="Filter Results" />
+  </form>
+  <button (click)="refreshPage()">&#x21bb;</button>
+</div>
 <table *ngIf="page">
   <thead>
     <tr>
@@ -14,4 +20,4 @@
     </tr>
   </tbody>
 </table>
-<app-table-pagination [page]="page" (change)="changePage($event)"></app-table-pagination>
+<app-table-pagination [page]="page" (paginationChange)="changePage($event)"></app-table-pagination>

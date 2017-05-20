@@ -1,9 +1,10 @@
 <h2>Apps</h2>
 
 <app-table
-  (change)="getPage($event)"
+  (pageChange)="getPage($event)"
   [linkTarget]="'/app'"
   [linkKey]="'id'"
   [data]="page"
+  [filter]="filter"
   [columns]="appsTableColumn" >
 </app-table>

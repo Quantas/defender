@@ -1,10 +1,17 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import { Page, Sort } from './page';
 import { Column } from './column';
 import { PageChangeEvent } from './page.change.event';
 import { CurrentSort, SortType } from './sort.type';
-import { Observable, Subscription } from 'rxjs/Rx';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -12,6 +19,9 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: [ 'table.component.less' ]
 })
 export class TableComponent implements OnInit, OnChanges, OnDestroy {
+
+  @ViewChild('filterForm')
+  filterForm: NgForm;
 
   @Input()
   data: Page | Observable<Page | any[]> | any[];
@@ -29,19 +39,31 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   sortable = true;
 
   @Input()
+  filterable = true;
+
+  @Input()
   serverSide = true;
 
   @Output()
-  change = new EventEmitter<PageChangeEvent>();
-
-  dataSubscription: Subscription;
+  pageChange = new EventEmitter<PageChangeEvent>();
 
   page: Page;
+
+  @Input()
+  filter: string;
+
+  private dataSubscription: Subscription;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.updatePage();
+
+    this.filterForm.valueChanges.subscribe((data) => {
+      if (data.filter !== undefined && this.page && this.filterable) {
+        this.updateFilter();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -57,11 +79,30 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  changePage(pageNo): void {
-    this.change.emit({
+  updateFilter(): void {
+    this.pageChange.emit({
+      pageNo: this.page.number,
+      sortString: this.generateSortString(),
+      sorts: this.generateSortArray(),
+      filter: this.filter
+    });
+  }
+
+  refreshPage(): void {
+    this.pageChange.emit({
+      pageNo: this.page.number,
+      sortString: this.generateSortString(),
+      sorts: this.generateSortArray(),
+      filter: this.filter
+    });
+  }
+
+  changePage(pageNo: number): void {
+    this.pageChange.emit({
       pageNo: pageNo,
       sortString: this.generateSortString(),
-      sorts: this.generateSortArray()
+      sorts: this.generateSortArray(),
+      filter: this.filter
     });
   }
 
@@ -115,27 +156,27 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
         });
       }
 
-      this.change.emit({
+      this.pageChange.emit({
         pageNo: this.page.number,
         sortString: this.generateSortString(),
-        sorts: sorts
+        sorts: sorts,
+        filter: this.filter
       });
     }
   }
 
-  retrieveCell(row, column: Column): string {
-      row = this.findValue(row, column.property);
+  retrieveCell(row: Object, column: Column): string {
+      const cell = this.findValue(row, column.property);
 
       if (column.pipe) {
-        return column.pipe.transform(row, column.pipeArgs);
+        return column.pipe.transform(cell, column.pipeArgs);
       }
 
-      return row;
+      return cell;
   }
 
-  rowClick(row): void {
+  rowClick(row: Object): void {
     if (this.linkTarget && this.linkKey) {
-
       this.router.navigate([this.linkTarget, this.findValue(row, this.linkKey)]);
     }
   }
@@ -193,6 +234,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
         this.setupPageSubscription();
       } else {
         this.page = this.data as Page;
+
+        if (!this.page.number) {
+          this.page.number = 0;
+        }
       }
 
       this.setupInitialSort();
@@ -204,6 +249,11 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private setupPageSubscription(): void {
+    // Fix potential memory leak, by unsubscribing to previous subscription if exists
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+
     this.dataSubscription = (this.data as Observable<Page | any[]>).subscribe((data: Page | any[]) => {
       if (this.data.constructor === Array) {
         this.page = {content: data as any[]};
