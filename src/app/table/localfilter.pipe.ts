@@ -17,7 +17,7 @@ export class LocalFilterPipe implements PipeTransform {
 
       cols.forEach((col: Column) => {
         const value: string = this.tableUtils.retrieveCell(row, col) + '';
-        if (value && (value.indexOf(filterText) !== -1)) {
+        if (value && (value.toLowerCase().indexOf(filterText.toLowerCase()) !== -1)) {
           found = true;
         }
       });
