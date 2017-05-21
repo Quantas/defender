@@ -13,11 +13,11 @@ import { PageableComponent } from '../pageable.component';
 export class DependenciesComponent extends PageableComponent {
 
   depsTableColumns: Column[] = [
-    { header: 'Status', property: 'dependencyStatus', pipe: new TitleCasePipe() },
-    { header: 'Group ID', property: 'groupId' },
-    { header: 'Artifact ID', property: 'artifactId' },
-    { header: 'Version', property: 'version' },
-    { header: 'Type', property: 'type', pipe: new TitleCasePipe() }
+    { header: 'Status', property: 'dependencyStatus', alignRight: true, pipe: new TitleCasePipe() },
+    { header: 'Group ID', property: 'groupId', alignRight: true },
+    { header: 'Artifact ID', property: 'artifactId', alignRight: true },
+    { header: 'Version', property: 'version', alignRight: true },
+    { header: 'Type', property: 'type', alignRight: true, pipe: new TitleCasePipe() }
   ];
 
   constructor(http: Http, route: ActivatedRoute, router: Router) {

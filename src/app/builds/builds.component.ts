@@ -17,10 +17,10 @@ import { PageableComponent } from '../pageable.component';
 export class BuildsComponent extends PageableComponent {
 
     buildsTableColumns: Column[] = [
-      { header: 'Group ID', property: 'app.groupId' },
-      { header: 'Artifact ID', property: 'app.artifactId' },
-      { header: 'Version', property: 'version' },
-      { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
+      { header: 'Group ID', property: 'app.groupId', alignRight: true },
+      { header: 'Artifact ID', property: 'app.artifactId', alignRight: true },
+      { header: 'Version', property: 'version', alignRight: true },
+      { header: 'Build Time', property: 'buildTime', alignRight: true, pipe: new JavaDatePipe() },
     ];
 
     constructor(http: Http, route: ActivatedRoute, router: Router) {

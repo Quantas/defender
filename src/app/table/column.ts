@@ -7,4 +7,5 @@ export interface Column {
   pipe?: PipeTransform;
   pipeArgs?: any[];
   sortType?: SortType;
+  alignRight?: boolean;
 }
