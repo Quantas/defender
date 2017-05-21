@@ -32,6 +32,10 @@ public abstract class PageableService<T, ID extends Serializable, R extends JpaR
         return repository.findOne(id);
     }
 
+    public T save(final T entity) {
+        return repository.save(entity);
+    }
+
     public Page<T> pagedAndOrFiltered(final int pageNo, final String sort, final String filter, final DefenderSpecification<T> spec) {
         if (null == filter) {
             return repository.findAll(createPageRequest(pageNo, sort));

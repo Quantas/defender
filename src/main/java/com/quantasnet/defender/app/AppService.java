@@ -27,7 +27,7 @@ public class AppService extends PageableService<App, Long, AppRepository> {
             app.setRepository(repo);
 
             logger.info("New app = {}", app);
-            return repository.save(app);
+            return save(app);
         } else {
 
             existing.setDescription(description);
@@ -35,7 +35,7 @@ public class AppService extends PageableService<App, Long, AppRepository> {
             existing.setUrl(url);
             existing.setRepository(repo);
 
-            return repository.save(existing);
+            return save(existing);
         }
     }
 }

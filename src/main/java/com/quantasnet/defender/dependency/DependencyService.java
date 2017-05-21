@@ -40,7 +40,7 @@ public class DependencyService extends PageableService<Dependency, Long, Depende
 
             logger.info("New Dependency Found: {}", newDep);
 
-            return repository.save(newDep);
+            return save(newDep);
         }
 
         return existing;

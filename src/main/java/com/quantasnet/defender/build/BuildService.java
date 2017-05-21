@@ -16,10 +16,6 @@ public class BuildService extends PageableService<Build, Long, BuildRepository> 
         super(buildRepository);
     }
 
-    public Build save(final Build build) {
-        return repository.save(build);
-    }
-
     @Cacheable("builds")
     public Build findOne(final Long id) {
         return one(id);
