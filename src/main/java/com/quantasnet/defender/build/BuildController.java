@@ -1,5 +1,6 @@
 package com.quantasnet.defender.build;
 
+import com.quantasnet.defender.DefenderController;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,22 +8,10 @@ import javax.transaction.Transactional;
 
 @RequestMapping("/api/builds")
 @RestController
-public class BuildController {
-
-    private final BuildService buildService;
+public class BuildController extends DefenderController<Build, Long, BuildRepository, BuildService> {
 
     public BuildController(final BuildService buildService) {
-        this.buildService = buildService;
-    }
-
-    @GetMapping("/count")
-    public long count() {
-        return buildService.count();
-    }
-
-    @GetMapping("/page/{pageNo}")
-    public Page<Build> buildsPaged(@PathVariable final Integer pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) {
-        return buildService.pagedAndOrFiltered(pageNo, sort, filter, new BuildSpecification(filter));
+        super(buildService, BuildSpecification.class);
     }
 
     /**
@@ -34,7 +23,7 @@ public class BuildController {
     @Transactional
     @GetMapping("/{id}")
     public Build getBuild(@PathVariable final long id) {
-        final Build build = buildService.findOne(id);
+        final Build build = service.findOne(id);
 
         if (build != null) {
             build.getBuildDependencies().size();
