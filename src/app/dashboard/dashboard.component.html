@@ -14,3 +14,15 @@
     <p>{{ buildCount }}</p>
   </div>
 </div>
+
+<h3>Recent Builds</h3>
+<app-table
+  (pageChange)="refreshRecentBuilds($event)"
+  [linkTarget]="'/build'"
+  [linkKey]="'id'"
+  [data]="recentBuilds"
+  [filterable]="false"
+  [serverSide]="true"
+  [sortable]="false"
+  [columns]="buildsTableColumns" >
+</app-table>
