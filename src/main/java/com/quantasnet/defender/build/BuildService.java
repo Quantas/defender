@@ -9,16 +9,25 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BuildService extends PageableService<Build, Long, BuildRepository> {
 
+    private BuildRepository buildRepository;
+
     public BuildService(final BuildRepository buildRepository) {
         super(buildRepository);
+        this.buildRepository = buildRepository;
     }
 
     @Cacheable("builds")
     public Build findOne(final Long id) {
         return one(id);
+    }
+
+    public List<Build> recent() {
+        return buildRepository.findFirst10ByOrderByBuildTimeDesc();
     }
 
     public Page<Build> appBuilds(final App app, final int pageNo) {

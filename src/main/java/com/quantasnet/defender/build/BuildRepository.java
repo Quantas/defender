@@ -12,5 +12,7 @@ import java.util.List;
 interface BuildRepository extends JpaRepository<Build, Long>, JpaSpecificationExecutor<Build> {
     Page<Build> findByApp(App app, Pageable pageable);
 
+    List<Build> findFirst10ByOrderByBuildTimeDesc();
+
     Page<Build> findAllByBuildDependenciesDependency(Dependency dependency, Pageable pageable);
 }
