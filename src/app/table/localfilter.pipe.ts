@@ -7,8 +7,8 @@ export class LocalFilterPipe implements PipeTransform {
 
   constructor(private tableUtils: TableUtils) {}
 
-  transform(items: any, cols: Column[], serverSide: boolean, filterText: string): any {
-    if (serverSide || !filterText) {
+  transform(items: any, cols: Column[], localFilter: boolean, filterText: string): any {
+    if (!localFilter || !filterText) {
       return items;
     }
 

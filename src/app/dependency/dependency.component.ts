@@ -15,8 +15,6 @@ import { PageChangeEvent } from '../table/page.change.event';
   styleUrls: [ 'dependency.component.less' ]
 })
 export class DependencyComponent implements OnInit {
-
-  title;
   dep;
   buildPage;
 
@@ -28,7 +26,7 @@ export class DependencyComponent implements OnInit {
   ];
 
   historyTableColumns: Column[] = [
-    { header: 'User', property: 'user' },
+    { header: 'User', property: 'userID' },
     { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
     { header: 'Old Value', property: 'oldValue', pipe: new TitleCasePipe() },
     { header: 'New Value', property: 'newValue', pipe: new TitleCasePipe() }
@@ -42,7 +40,6 @@ export class DependencyComponent implements OnInit {
       return this.http.get('/api/dependencies/' + params.id).map((res) => res.json());
     }).subscribe((dep) => {
       this.dep = dep;
-      this.title = (dep.groupId ? dep.groupId + '   ' : '') + dep.artifactId;
       this.getBuildsPage({pageNo: 0});
     });
   }

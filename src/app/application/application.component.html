@@ -1,12 +1,13 @@
 <h2>Application</h2>
-<ul *ngIf="app">
-  <li>{{ app.id }}</li>
-  <li>{{ app.groupId }}</li>
-  <li>{{ app.artifactId }}</li>
-  <li>{{ app.description }}</li>
-  <li>{{ app.url }}</li>
-  <li>{{ app.license }}</li>
-</ul>
+
+<table *ngIf="app">
+  <tr><th>Group Id</th><td>{{ app.groupId }}</td></tr>
+  <tr><th>Artifact Id</th><td>{{ app.artifactId }}</td></tr>
+  <tr *ngIf="app.description"><th>Description</th><td>{{ app.description }}</td></tr>
+  <tr *ngIf="app.url"><th>URL</th><td>{{ app.url }}</td></tr>
+  <tr *ngIf="app.license"><th>License</th><td>{{ app.license }}</td></tr>
+  <tr *ngIf="app.repository"><th>Repository</th><td>{{ app.repository }}</td></tr>
+</table>
 
 <h3>Builds</h3>
 <app-table

@@ -1,11 +1,12 @@
 <ng-container *ngIf="dep">
-  <h2>{{ title }}</h2>
+  <h2>{{ dep.artifactId }}</h2>
 
-  <ul>
-    <li>{{ dep.version }}</li>
-    <li>{{ dep.type | titleCase }}</li>
-    <li><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus | titleCase }}</a></li>
-  </ul>
+  <table>
+    <tr><th>Group Id</th><td>{{ dep.groupId }}</td></tr>
+    <tr><th>Artifact Id</th><td>{{ dep.artifactId }}</td></tr>
+    <tr><th>Type</th><td>{{ dep.type | titlecase }}</td></tr>
+    <tr><th>Status</th><td><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus | titleCase }}</a></td></tr>
+  </table>
 
   <h3>Builds</h3>
   <app-table
@@ -15,7 +16,7 @@
     [data]="buildPage"
     [columns]="buildsTableColumns"
     [sortable]="false"
-    [filterable]="false">
+    [localFilter]="true">
   </app-table>
 
   <h3>History</h3>
@@ -24,6 +25,7 @@
     [data]="dep.dependencyHistories"
     [columns]="historyTableColumns"
     [sortable]="false"
-    [serverSide]="false">
+    [serverSide]="false"
+    [localFilter]="true">
   </app-table>
 </ng-container>

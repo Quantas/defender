@@ -43,7 +43,13 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   filterable = true;
 
   @Input()
+  localFilter = false;
+
+  @Input()
   serverSide = true;
+
+  @Input()
+  initialSort: string;
 
   @Output()
   pageChange = new EventEmitter<PageChangeEvent>();
@@ -61,7 +67,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     this.updatePage();
 
     this.filterForm.valueChanges.subscribe((data) => {
-      if (data.filter !== undefined && this.page && this.filterable) {
+      if (data.filter !== undefined && this.page && this.filterable && !this.localFilter) {
         this.updateFilter();
       }
     });
@@ -253,6 +259,32 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private setupInitialSort() {
+
+    if (this.initialSort) {
+      const sorts = this.initialSort.split(';');
+
+      sorts.forEach((sort: string) => {
+        this.columns.forEach((column: Column) => {
+          let type = SortType.NONE;
+          let property = sort;
+
+          if (sort.startsWith('-')) {
+            type = SortType.DESC;
+            property = property.substr(1);
+          } else {
+            type = SortType.ASC;
+          }
+
+          if (property === column.property) {
+            column.sortType = type;
+          }
+        });
+      });
+
+      this.changeSort('', undefined);
+    }
+
+
     if (this.page.sort && this.page.sort.length > 0) {
       this.columns.forEach((column: Column) => {
 
