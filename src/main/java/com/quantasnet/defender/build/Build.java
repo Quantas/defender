@@ -22,8 +22,6 @@ public class Build {
 
     private OffsetDateTime buildTime;
 
-    // broken...
-    // @OrderBy("dependency.groupId ASC, dependency.artifactId ASC, dependency.version ASC")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BuildDependency> buildDependencies;
 
