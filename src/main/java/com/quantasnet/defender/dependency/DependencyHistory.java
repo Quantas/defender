@@ -1,8 +1,6 @@
 package com.quantasnet.defender.dependency;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -14,7 +12,11 @@ public class DependencyHistory {
 
     private String userId;
     private OffsetDateTime time;
+
+    @Enumerated(EnumType.STRING)
     private DependencyStatus oldValue;
+
+    @Enumerated(EnumType.STRING)
     private DependencyStatus newValue;
 
     public Long getId() {

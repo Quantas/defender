@@ -20,8 +20,10 @@ public class Dependency {
     private String artifactId;
     private String version;
 
+    @Enumerated(EnumType.STRING)
     private DefenderType type;
 
+    @Enumerated(EnumType.STRING)
     private DependencyStatus dependencyStatus;
 
     @OrderBy("time DESC")

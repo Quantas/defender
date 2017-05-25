@@ -8,10 +8,12 @@ import java.util.List;
 
 public abstract class DefenderSpecification<T> implements Specification<T> {
 
+    private final String filterOriginal;
     private final String filter;
     private final String[] fields;
 
     public DefenderSpecification(final String filter, final String... fields) {
+        this.filterOriginal = filter;
         this.filter = '%' + filter + '%';
         this.fields = fields;
     }
@@ -26,15 +28,30 @@ public abstract class DefenderSpecification<T> implements Specification<T> {
             if (field.contains(".")) {
                 final String[] split = field.split("\\.");
                 final Join<T, ?> childJoin = root.join(split[0]);
-
-                predicates.add(cb.like(childJoin.get(split[1]), filter));
+                addPredicate(cb, predicates, childJoin, split[1]);
             } else {
-                predicates.add(cb.like(root.get(field), filter));
+                addPredicate(cb, predicates, root, field);
             }
         }
 
         predicate.getExpressions().addAll(predicates);
 
         return predicate;
+    }
+
+    private void addPredicate(CriteriaBuilder cb, List<Predicate> predicates, From<?, ?> from, String field) {
+        final Path<?> child = from.get(field);
+
+        if (Enum.class.isAssignableFrom(child.getJavaType())) {
+            try {
+                final Object obj = child.getJavaType().getMethod("valueOf", String.class).invoke(null, filterOriginal);
+                if (null != obj) {
+                    predicates.add(cb.equal(from.get(field), obj));
+                }
+            } catch (final Exception e) {
+            }
+        } else {
+            predicates.add(cb.like(from.get(field), filter));
+        }
     }
 }

@@ -17,6 +17,7 @@ public class App {
     private String groupId;
     private String artifactId;
 
+    @Enumerated(EnumType.STRING)
     private DefenderType type;
 
     private String description;

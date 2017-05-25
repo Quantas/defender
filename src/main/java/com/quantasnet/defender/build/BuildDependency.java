@@ -3,10 +3,7 @@ package com.quantasnet.defender.build;
 import com.quantasnet.defender.dependency.Dependency;
 import com.quantasnet.defender.dependency.DependencyStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class BuildDependency {
@@ -18,7 +15,9 @@ public class BuildDependency {
     @ManyToOne(optional = false)
     private Dependency dependency;
 
+    @Enumerated(EnumType.STRING)
     private DependencyStatus status;
+
     private boolean approved;
 
     private String scope;
