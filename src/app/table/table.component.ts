@@ -285,10 +285,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     }
 
 
-    if (this.page.sort && this.page.sort.length > 0) {
+    if (this.page.sorts && this.page.sorts.length > 0) {
       this.columns.forEach((column: Column) => {
 
-        this.page.sort.forEach((sort: Sort) => {
+        this.page.sorts.forEach((sort: Sort) => {
           if (column.property === sort.property) {
             column.sortType = SortType.NONE;
 

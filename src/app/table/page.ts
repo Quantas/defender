@@ -10,7 +10,7 @@ export interface Page {
   size?: number;
   totalElements?: number;
   totalPages?: number;
-  sort?: Sort[];
+  sorts?: Sort[];
 }
 
 export interface Sort {
