@@ -1,6 +1,5 @@
 package com.quantasnet.defender;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public abstract class DefenderController<T, ID extends Serializable, R extends J
     }
 
     @GetMapping("/page/{pageNo}")
-    public Page<T> apps(@PathVariable final int pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public PageWrapper<T> apps(@PathVariable final int pageNo, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String filter) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         return service.pagedAndOrFiltered(pageNo, sort, filter, specClass.getDeclaredConstructor(String.class).newInstance(filter));
     }
 

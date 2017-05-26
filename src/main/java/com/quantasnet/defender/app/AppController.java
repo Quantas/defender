@@ -1,6 +1,7 @@
 package com.quantasnet.defender.app;
 
 import com.quantasnet.defender.DefenderController;
+import com.quantasnet.defender.PageWrapper;
 import com.quantasnet.defender.build.Build;
 import com.quantasnet.defender.build.BuildService;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,7 @@ public class AppController extends DefenderController<App, Long, AppRepository, 
     }
 
     @GetMapping("/{id}/builds/{pageNo}")
-    public Page<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
+    public PageWrapper<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
         final App app = service.one(id);
         return buildService.appBuilds(app, pageNo);
     }

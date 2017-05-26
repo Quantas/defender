@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.util.StringUtils;
@@ -13,6 +12,7 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class PageableService<T, ID extends Serializable, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
 
@@ -29,26 +29,30 @@ public abstract class PageableService<T, ID extends Serializable, R extends JpaR
     }
 
     public T one(final ID id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     public T save(final T entity) {
         return repository.save(entity);
     }
 
-    public Page<T> pagedAndOrFiltered(final int pageNo, final String sort, final String filter, final DefenderSpecification<T> spec) {
+    public PageWrapper<T> pagedAndOrFiltered(final int pageNo, final String sort, final String filter, final DefenderSpecification<T> spec) {
+        final Page<T> page;
+
         if (null == filter) {
-            return repository.findAll(createPageRequest(pageNo, sort));
+            page = repository.findAll(createPageRequest(pageNo, sort));
         } else {
-            return repository.findAll(spec, createPageRequest(pageNo, sort));
+            page = repository.findAll(spec, createPageRequest(pageNo, sort));
         }
+
+        return new PageWrapper<>(page);
     }
 
     private PageRequest createPageRequest(final int pageNo, final String sort) {
         final PageRequest pageRequest;
 
         if (null == sort) {
-            pageRequest = new PageRequest(pageNo, 20);
+            pageRequest = PageRequest.of(pageNo, 20);
         } else {
             final String[] columns = sort.split(";");
             final List<Sort.Order> orders = new ArrayList<>();
@@ -67,7 +71,7 @@ public abstract class PageableService<T, ID extends Serializable, R extends JpaR
                 }
             }
 
-            pageRequest = new PageRequest(pageNo, 20, new Sort(orders));
+            pageRequest = PageRequest.of(pageNo, 20, Sort.by(orders));
         }
 
         return pageRequest;

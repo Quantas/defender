@@ -1,6 +1,7 @@
 package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.DefenderController;
+import com.quantasnet.defender.PageWrapper;
 import com.quantasnet.defender.build.Build;
 import com.quantasnet.defender.build.BuildService;
 import org.springframework.data.domain.Page;
@@ -42,7 +43,7 @@ public class DependencyController extends DefenderController<Dependency, Long, D
     }
 
     @GetMapping("/{id}/builds/{pageNo}")
-    public Page<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
+    public PageWrapper<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
         final Dependency dependency = service.one(id);
         return buildService.findByDependency(dependency, pageNo);
     }

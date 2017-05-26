@@ -1,5 +1,6 @@
 package com.quantasnet.defender.build;
 
+import com.quantasnet.defender.PageWrapper;
 import com.quantasnet.defender.PageableService;
 import com.quantasnet.defender.app.App;
 import com.quantasnet.defender.dependency.Dependency;
@@ -30,13 +31,13 @@ public class BuildService extends PageableService<Build, Long, BuildRepository> 
         return buildRepository.findFirst10ByOrderByBuildTimeDesc();
     }
 
-    public Page<Build> appBuilds(final App app, final int pageNo) {
-        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.DESC, "buildTime");
-        return repository.findByApp(app, pageRequest);
+    public PageWrapper<Build> appBuilds(final App app, final int pageNo) {
+        final PageRequest pageRequest = PageRequest.of(pageNo, 20, Sort.Direction.DESC, "buildTime");
+        return new PageWrapper<>(repository.findByApp(app, pageRequest));
     }
 
-    public Page<Build> findByDependency(final Dependency dependency, final int pageNo) {
-        final PageRequest pageRequest = new PageRequest(pageNo, 20, Sort.Direction.DESC, "buildTime");
-        return repository.findAllByBuildDependenciesDependency(dependency, pageRequest);
+    public PageWrapper<Build> findByDependency(final Dependency dependency, final int pageNo) {
+        final PageRequest pageRequest = PageRequest.of(pageNo, 20, Sort.Direction.DESC, "buildTime");
+        return new PageWrapper<>(repository.findAllByBuildDependenciesDependency(dependency, pageRequest));
     }
 }
