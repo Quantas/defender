@@ -5,6 +5,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 
+import 'rxjs/add/operator/switchMap';
+
 @Component({
     templateUrl: 'build.component.html',
     styleUrls: [ 'build.component.less' ]
