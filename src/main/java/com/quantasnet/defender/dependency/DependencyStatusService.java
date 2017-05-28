@@ -1,13 +1,13 @@
 package com.quantasnet.defender.dependency;
 
-import com.quantasnet.defender.PageableService;
+import com.quantasnet.defender.DefenderService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
 @Service
-public class DependencyStatusService extends PageableService<DependencyStatus, Long, DependencyStatusRepository> {
+public class DependencyStatusService extends DefenderService<DependencyStatus, Long, DependencyStatusRepository> {
 
     public static final String NEW = "New";
     public static final String APPROVED = "Approved";

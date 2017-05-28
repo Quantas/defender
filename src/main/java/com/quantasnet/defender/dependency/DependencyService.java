@@ -1,7 +1,7 @@
 package com.quantasnet.defender.dependency;
 
 import com.quantasnet.defender.DefenderType;
-import com.quantasnet.defender.PageableService;
+import com.quantasnet.defender.DefenderService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class DependencyService extends PageableService<Dependency, Long, DependencyRepository> {
+public class DependencyService extends DefenderService<Dependency, Long, DependencyRepository> {
 
     private final DependencyStatusService dependencyStatusService;
 

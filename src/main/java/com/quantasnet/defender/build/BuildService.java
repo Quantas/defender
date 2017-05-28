@@ -1,11 +1,10 @@
 package com.quantasnet.defender.build;
 
 import com.quantasnet.defender.PageWrapper;
-import com.quantasnet.defender.PageableService;
+import com.quantasnet.defender.DefenderService;
 import com.quantasnet.defender.app.App;
 import com.quantasnet.defender.dependency.Dependency;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BuildService extends PageableService<Build, Long, BuildRepository> {
+public class BuildService extends DefenderService<Build, Long, BuildRepository> {
 
     private BuildRepository buildRepository;
 

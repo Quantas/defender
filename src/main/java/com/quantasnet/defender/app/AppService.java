@@ -1,12 +1,11 @@
 package com.quantasnet.defender.app;
 
 import com.quantasnet.defender.DefenderType;
-import com.quantasnet.defender.PageableService;
-import org.springframework.data.domain.Page;
+import com.quantasnet.defender.DefenderService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AppService extends PageableService<App, Long, AppRepository> {
+public class AppService extends DefenderService<App, Long, AppRepository> {
 
     public AppService(final AppRepository appRepository) {
         super(appRepository);

@@ -5,22 +5,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public abstract class PageableService<T, ID extends Serializable, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
+public abstract class DefenderService<T, ID extends Serializable, R extends DefenderRepository<T, ID>> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     protected final R repository;
 
-    public PageableService(final R repository) {
+    public DefenderService(final R repository) {
         this.repository = repository;
     }
 

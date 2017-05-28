@@ -1,8 +1,7 @@
 package com.quantasnet.defender.dependency;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import com.quantasnet.defender.DefenderRepository;
 
-interface DependencyStatusRepository extends JpaRepository<DependencyStatus, Long>, JpaSpecificationExecutor<DependencyStatus> {
+interface DependencyStatusRepository extends DefenderRepository<DependencyStatus, Long> {
     DependencyStatus findByStatus(String status);
 }

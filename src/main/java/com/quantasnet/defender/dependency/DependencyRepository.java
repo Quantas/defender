@@ -1,9 +1,8 @@
 package com.quantasnet.defender.dependency;
 
+import com.quantasnet.defender.DefenderRepository;
 import com.quantasnet.defender.DefenderType;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-interface DependencyRepository extends JpaRepository<Dependency, Long>, JpaSpecificationExecutor<Dependency> {
+interface DependencyRepository extends DefenderRepository<Dependency, Long> {
     Dependency findDistinctByGroupIdAndArtifactIdAndVersionAndType(String groupId, String artifactId, String version, DefenderType type);
 }

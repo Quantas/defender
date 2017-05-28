@@ -1,7 +1,5 @@
 package com.quantasnet.defender;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class DefenderController<T, ID extends Serializable, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>, S extends PageableService<T, ID, R>> {
+public abstract class DefenderController<T, ID extends Serializable, R extends DefenderRepository<T, ID>, S extends DefenderService<T, ID, R>> {
 
     protected S service;
     protected Class<? extends DefenderSpecification<T>> specClass;
