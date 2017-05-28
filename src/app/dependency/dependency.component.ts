@@ -28,8 +28,8 @@ export class DependencyComponent implements OnInit {
   historyTableColumns: Column[] = [
     { header: 'User', property: 'userID' },
     { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
-    { header: 'Old Value', property: 'oldValue', pipe: new TitleCasePipe() },
-    { header: 'New Value', property: 'newValue', pipe: new TitleCasePipe() }
+    { header: 'Old Value', property: 'oldValue.status', pipe: new TitleCasePipe() },
+    { header: 'New Value', property: 'newValue.status', pipe: new TitleCasePipe() }
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {

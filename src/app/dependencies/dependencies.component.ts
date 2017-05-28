@@ -13,7 +13,7 @@ import { PageableComponent } from '../pageable.component';
 export class DependenciesComponent extends PageableComponent {
 
   depsTableColumns: Column[] = [
-    { header: 'Status', property: 'dependencyStatus', alignRight: true, pipe: new TitleCasePipe() },
+    { header: 'Status', property: 'dependencyStatus.status', alignRight: true, pipe: new TitleCasePipe() },
     { header: 'Group ID', property: 'groupId', alignRight: true },
     { header: 'Artifact ID', property: 'artifactId', alignRight: true },
     { header: 'Version', property: 'version', alignRight: true },

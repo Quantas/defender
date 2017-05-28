@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { Column } from '../table/column';
@@ -21,7 +21,8 @@ export class ApplicationComponent implements OnInit {
 
   buildsTableColumns: Column[] = [
     { header: 'Version', property: 'version' },
-    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() }
+    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
+    { header: 'Passed', property: 'passed' }
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {
