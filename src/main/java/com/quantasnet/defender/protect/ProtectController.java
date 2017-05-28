@@ -60,13 +60,20 @@ public class ProtectController {
 
             final BuildDependency buildDependency = new BuildDependency();
             buildDependency.setDependency(dependency);
-            buildDependency.setStatus(dependency.getDependencyStatus());
-            buildDependency.setApproved(dependency.getDependencyStatus().isApproved());
+            buildDependency.setDependencyStatus(dependency.getDependencyStatus());
             buildDependency.setScope(protectArtifact.getScope());
             buildDependency.setTransitive(protectArtifact.isTransitive());
             return buildDependency;
 
         }).collect(Collectors.toSet()));
+
+
+        for (final BuildDependency dep : newBuild.getBuildDependencies()) {
+            if (!dep.getDependencyStatus().isApproved()) {
+                newBuild.setPassed(false);
+                break;
+            }
+        }
 
         return buildService.save(newBuild);
     }

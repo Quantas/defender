@@ -23,7 +23,7 @@ public class Dependency {
     @Enumerated(EnumType.STRING)
     private DefenderType type;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(optional = false)
     private DependencyStatus dependencyStatus;
 
     @OrderBy("time DESC")

@@ -22,6 +22,8 @@ public class Build {
 
     private OffsetDateTime buildTime;
 
+    private boolean passed;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BuildDependency> buildDependencies;
 
@@ -63,6 +65,14 @@ public class Build {
 
     public void setBuildTime(OffsetDateTime buildTime) {
         this.buildTime = buildTime;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
     }
 
     public Set<BuildDependency> getBuildDependencies() {

@@ -13,10 +13,10 @@ public class DependencyHistory {
     private String userId;
     private OffsetDateTime time;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private DependencyStatus oldValue;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private DependencyStatus newValue;
 
     public Long getId() {

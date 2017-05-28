@@ -3,7 +3,10 @@ package com.quantasnet.defender.build;
 import com.quantasnet.defender.dependency.Dependency;
 import com.quantasnet.defender.dependency.DependencyStatus;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class BuildDependency {
@@ -15,10 +18,8 @@ public class BuildDependency {
     @ManyToOne(optional = false)
     private Dependency dependency;
 
-    @Enumerated(EnumType.STRING)
-    private DependencyStatus status;
-
-    private boolean approved;
+    @ManyToOne(optional = false)
+    private DependencyStatus dependencyStatus;
 
     private String scope;
     private boolean transitive;
@@ -39,20 +40,12 @@ public class BuildDependency {
         this.dependency = dependency;
     }
 
-    public DependencyStatus getStatus() {
-        return status;
+    public DependencyStatus getDependencyStatus() {
+        return dependencyStatus;
     }
 
-    public void setStatus(DependencyStatus status) {
-        this.status = status;
-    }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
+    public void setDependencyStatus(DependencyStatus dependencyStatus) {
+        this.dependencyStatus = dependencyStatus;
     }
 
     public String getScope() {

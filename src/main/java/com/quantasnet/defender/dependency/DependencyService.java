@@ -13,24 +13,29 @@ import java.util.List;
 @Service
 public class DependencyService extends PageableService<Dependency, Long, DependencyRepository> {
 
-    public DependencyService(final DependencyRepository dependencyRepository) {
+    private final DependencyStatusService dependencyStatusService;
+
+    public DependencyService(final DependencyRepository dependencyRepository, final DependencyStatusService dependencyStatusService) {
         super(dependencyRepository);
+        this.dependencyStatusService = dependencyStatusService;
     }
 
     public Dependency retrieve(final String groupId, final String artifactId, final String version, final DefenderType type, final String user) {
         final Dependency existing = repository.findDistinctByGroupIdAndArtifactIdAndVersionAndType(groupId, artifactId, version, type);
 
         if (null == existing) {
+            final DependencyStatus newStatus = dependencyStatusService.getByStatus(DependencyStatusService.NEW);
+
             final Dependency newDep = new Dependency();
             newDep.setGroupId(groupId);
             newDep.setArtifactId(artifactId);
             newDep.setVersion(version);
             newDep.setType(type);
-            newDep.setDependencyStatus(DependencyStatus.NEW);
+            newDep.setDependencyStatus(newStatus);
 
             final DependencyHistory history = new DependencyHistory();
             history.setUserId(user);
-            history.setNewValue(DependencyStatus.NEW);
+            history.setNewValue(newStatus);
             history.setTime(OffsetDateTime.now());
 
             final List<DependencyHistory> histories = new ArrayList<>();
