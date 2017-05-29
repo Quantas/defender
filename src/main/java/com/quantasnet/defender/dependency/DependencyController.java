@@ -5,8 +5,10 @@ import com.quantasnet.defender.PageWrapper;
 import com.quantasnet.defender.build.Build;
 import com.quantasnet.defender.build.BuildService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 @RequestMapping("/api/dependencies")
@@ -37,7 +39,7 @@ public class DependencyController extends DefenderController<Dependency, Long, D
     }
 
     @PostMapping("/{id}/{newStatus}")
-    public Dependency changeStatus(@PathVariable final DependencyStatus newStatus, @PathVariable final long id) {
+    public Dependency changeStatus(@PathVariable final String newStatus, @PathVariable final long id) {
         // TODO user auth
         return service.changeStatus(newStatus, id, "webuser");
     }
@@ -46,5 +48,11 @@ public class DependencyController extends DefenderController<Dependency, Long, D
     public PageWrapper<Build> builds(@PathVariable final long id, @PathVariable final int pageNo) {
         final Dependency dependency = service.one(id);
         return buildService.findByDependency(dependency, pageNo);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public String entityNotFound() {
+        return "Not Found";
     }
 }

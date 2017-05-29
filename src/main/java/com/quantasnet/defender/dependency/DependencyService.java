@@ -4,6 +4,7 @@ import com.quantasnet.defender.DefenderType;
 import com.quantasnet.defender.DefenderService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -52,32 +53,37 @@ public class DependencyService extends DefenderService<Dependency, Long, Depende
     }
 
     @Transactional
-    public Dependency changeStatus(final DependencyStatus newStatus, final long id, final String user) {
-        final Dependency dep = one(id);
-        if (null != dep) {
-            // get
-            dep.getDependencyHistories().size();
-            final DependencyStatus oldStatus = dep.getDependencyStatus();
+    public Dependency changeStatus(final String newStatusString, final long id, final String user) {
 
-            if (oldStatus == newStatus) {
-                return null;
+        final DependencyStatus newStatus = dependencyStatusService.getByStatus(newStatusString);
+
+        if (null != newStatus) {
+            final Dependency dep = one(id);
+            if (null != dep) {
+                // get
+                dep.getDependencyHistories().size();
+                final DependencyStatus oldStatus = dep.getDependencyStatus();
+
+                if (oldStatus == newStatus) {
+                    throw new EntityNotFoundException();
+                }
+
+                dep.setDependencyStatus(newStatus);
+
+                final DependencyHistory history = new DependencyHistory();
+                history.setUserId(user);
+                history.setOldValue(oldStatus);
+                history.setNewValue(newStatus);
+                history.setTime(OffsetDateTime.now());
+
+                dep.getDependencyHistories().add(history);
+
+                dep.getDependencyHistories().sort(Comparator.comparing(DependencyHistory::getTime).reversed());
+
+                return repository.save(dep);
             }
-
-            dep.setDependencyStatus(newStatus);
-
-            final DependencyHistory history = new DependencyHistory();
-            history.setUserId(user);
-            history.setOldValue(oldStatus);
-            history.setNewValue(newStatus);
-            history.setTime(OffsetDateTime.now());
-
-            dep.getDependencyHistories().add(history);
-
-            dep.getDependencyHistories().sort(Comparator.comparing(DependencyHistory::getTime).reversed());
-
-            return repository.save(dep);
         }
 
-        return null;
+        throw new EntityNotFoundException();
     }
 }

@@ -36,7 +36,7 @@ public class DependencyStatusService extends DefenderService<DependencyStatus, L
 
     @Cacheable("dependencyStatus")
     public DependencyStatus getByStatus(final String status) {
-        return repository.findByStatus(status);
+        return repository.findByStatusIgnoreCase(status);
     }
 
     private DependencyStatus save(final String status, final boolean approved) {
