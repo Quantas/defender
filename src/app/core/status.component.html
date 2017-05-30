@@ -1,2 +1,2 @@
-<span class="status {{ data }}">{{ data }}</span>
+<span *ngIf="data" class="status" [ngClass]="data">{{ data }}</span>
 
