@@ -6,6 +6,7 @@ import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 
 import 'rxjs/add/operator/switchMap';
+import { StatusComponent } from '../core/status.component';
 
 @Component({
     templateUrl: 'build.component.html',
@@ -19,7 +20,7 @@ export class BuildComponent implements OnInit {
     { header: 'Group ID', property: 'dependency.groupId' },
     { header: 'Artifact ID', property: 'dependency.artifactId' },
     { header: 'Version', property: 'dependency.version' },
-    { header: 'Status', property: 'dependencyStatus.status', pipe: new TitleCasePipe() },
+    { header: 'Status', property: 'dependencyStatus.status', component: StatusComponent },
     { header: 'Transitive', property: 'transitive' }
   ];
 
