@@ -9,6 +9,12 @@ import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 import { PageChangeEvent } from '../table/page.change.event';
+import { StatusComponent } from '../core/status.component';
+
+export interface DependencyStatus {
+  status: string;
+  display: string;
+}
 
 @Component({
   templateUrl: 'dependency.component.html',
@@ -17,6 +23,16 @@ import { PageChangeEvent } from '../table/page.change.event';
 export class DependencyComponent implements OnInit {
   dep;
   buildPage;
+
+  newStatus: DependencyStatus;
+
+  statuses: DependencyStatus[] = [
+    {display: 'New', status: 'new'},
+    {display: 'Approved', status: 'approved'},
+    {display: 'Insecure', status: 'insecure'},
+    {display: 'Deprecated', status: 'deprecated'},
+    {display: 'Banned', status: 'banned'}
+  ];
 
   buildsTableColumns: Column[] = [
     { header: 'Group ID', property: 'app.groupId' },
@@ -28,8 +44,8 @@ export class DependencyComponent implements OnInit {
   historyTableColumns: Column[] = [
     { header: 'User', property: 'userID' },
     { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
-    { header: 'Old Value', property: 'oldValue.status', pipe: new TitleCasePipe() },
-    { header: 'New Value', property: 'newValue.status', pipe: new TitleCasePipe() }
+    { header: 'Old Value', property: 'oldValue.status', component: StatusComponent },
+    { header: 'New Value', property: 'newValue.status', component: StatusComponent }
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {
@@ -39,13 +55,14 @@ export class DependencyComponent implements OnInit {
     this.route.params.switchMap((params: Params) => {
       return this.http.get('/api/dependencies/' + params.id).map((res) => res.json());
     }).subscribe((dep) => {
+      this.newStatus = this.pickStatus(dep.dependencyStatus.status);
       this.dep = dep;
       this.getBuildsPage({pageNo: 0});
     });
   }
 
-  updateStatus(depId): void {
-    this.http.post('/api/dependencies/' + depId + '/' + 'APPROVED', {}).map((res) => res.json()).subscribe((dep) => {
+  updateStatus(): void {
+    this.http.post('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).map((res) => res.json()).subscribe((dep) => {
       if (dep) {
         this.dep = dep;
       }
@@ -57,6 +74,16 @@ export class DependencyComponent implements OnInit {
       .map((res) => res.json()).subscribe((buildPage) => {
         this.buildPage = buildPage;
     });
+  }
+
+  private pickStatus(status: string): DependencyStatus {
+    let foundStatus = undefined;
+    this.statuses.forEach((newStatus) => {
+      if (newStatus.status.toLowerCase() === status.toLowerCase()) {
+        foundStatus = newStatus;
+      }
+    });
+    return foundStatus;
   }
 
 }

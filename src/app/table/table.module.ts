@@ -7,6 +7,8 @@ import { TableComponent } from './table.component';
 import { FormsModule } from '@angular/forms';
 import { LocalFilterPipe } from './localfilter.pipe';
 import { TableUtils } from './table.utils';
+import { TableCellComponent } from './table.cell.component';
+import { TableCellContentsDirective } from './table.cell.contents.directive';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import { TableUtils } from './table.utils';
   ],
   declarations: [
     TableComponent,
+    TableCellComponent,
+    TableCellContentsDirective,
     TablePaginationComponent,
     LocalFilterPipe
   ],

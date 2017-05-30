@@ -172,10 +172,6 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  retrieveCell(row: Object, column: Column): string {
-      return this.tableUtils.retrieveCell(row, column);
-  }
-
   rowClick(row: Object): void {
     if (this.linkTarget && this.linkKey) {
       this.router.navigate([this.linkTarget, this.tableUtils.findValue(row, this.linkKey)]);

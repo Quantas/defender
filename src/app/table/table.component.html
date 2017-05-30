@@ -14,11 +14,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of page.content | localfilter:columns:localFilter:filter" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget }">
-        <ng-container *ngFor="let column of columns">
-          <td [ngClass]="{'right': column.alignRight }" >{{ retrieveCell(row, column) }}</td>
-        </ng-container>
-      </tr>
+      <ng-container *ngIf="page.content">
+        <tr *ngFor="let row of page.content | localfilter:columns:localFilter:filter" (click)="rowClick(row)" (keyup.enter)="rowClick(row)" tabindex="0" [ngClass]="{ rowLink: linkTarget }">
+          <ng-container *ngFor="let column of columns">
+            <td [ngClass]="{'right': column.alignRight }" >
+              <app-table-cell [column]="column" [row]="row"></app-table-cell>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
   <app-table-pagination [page]="page" (paginationChange)="changePage($event)"></app-table-pagination>

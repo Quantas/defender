@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DependencyComponent } from './dependency.component';
 import { CoreModule } from '../core/core.module';
 import { TableModule } from '../table/table.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { TableModule } from '../table/table.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     CoreModule,
     TableModule,
     RouterModule.forChild([

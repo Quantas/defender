@@ -5,8 +5,17 @@
     <tr><th>Group Id</th><td>{{ dep.groupId }}</td></tr>
     <tr><th>Artifact Id</th><td>{{ dep.artifactId }}</td></tr>
     <tr><th>Type</th><td>{{ dep.type | titlecase }}</td></tr>
-    <tr><th>Status</th><td><a (click)="!!updateStatus(dep.id)" href>{{ dep.dependencyStatus.status | titleCase }}</a></td></tr>
+    <tr><th>Status</th><td><app-dep-status [data]="dep.dependencyStatus.status"></app-dep-status></td></tr>
   </table>
+
+  <br />
+  Update Status:
+  <form (ngSubmit)="updateStatus()" #statusForm="ngForm">
+    <select id="newStatus" name="newStatus" [(ngModel)]="newStatus">
+      <option *ngFor="let status of statuses" [ngValue]="status">{{ status.display }}</option>
+    </select>
+    <button type="submit">Update</button>
+  </form>
 
   <h3>Builds</h3>
   <app-table
