@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "update": "npm prune && npm cache clean && npm install"
+    "update": "npm prune && npm cache verify && npm install"
   },
   "private": true,
   "dependencies": {
@@ -27,10 +27,10 @@
     "zone.js": "0.8.11"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.4",
+    "@angular/cli": "1.1.0",
     "@angular/compiler-cli": "4.1.3",
     "@types/jasmine": "2.5.47",
-    "@types/node": "7.0.21",
+    "@types/node": "7.0.22",
     "codelyzer": "3.0.1",
     "jasmine-core": "2.6.2",
     "jasmine-spec-reporter": "4.1.0",
@@ -39,10 +39,10 @@
     "karma-cli": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",
-    "karma-coverage-istanbul-reporter": "1.2.1",
+    "karma-coverage-istanbul-reporter": "1.3.0",
     "protractor": "5.1.2",
     "ts-node": "3.0.4",
-    "tslint": "5.2.0",
-    "typescript": "2.3.2"
+    "tslint": "5.4.0",
+    "typescript": "2.3.4"
   }
 }
