@@ -8,7 +8,8 @@ export class TableUtils {
     const cell = this.findValue(row, column.property);
 
     if (column.pipe) {
-      return column.pipe.transform(cell, column.pipeArgs);
+      const pipe = new column.pipe(column.pipeConstructorArgs);
+      return pipe.transform(cell, column.pipeArgs);
     }
 
     return cell;

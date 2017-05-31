@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     { header: 'Group ID', property: 'app.groupId', alignRight: true },
     { header: 'Artifact ID', property: 'app.artifactId', alignRight: true },
     { header: 'Version', property: 'version', alignRight: true },
-    { header: 'Build Time', property: 'buildTime', alignRight: true, pipe: new JavaDatePipe() },
+    { header: 'Build Time', property: 'buildTime', alignRight: true, pipe: JavaDatePipe }
   ];
 
   constructor(private http: Http) {

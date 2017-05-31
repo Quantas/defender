@@ -38,12 +38,12 @@ export class DependencyComponent implements OnInit {
     { header: 'Group ID', property: 'app.groupId' },
     { header: 'Artifact ID', property: 'app.artifactId' },
     { header: 'Version', property: 'version' },
-    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
+    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe }
   ];
 
   historyTableColumns: Column[] = [
     { header: 'User', property: 'userID' },
-    { header: 'Time', property: 'time', pipe: new JavaDatePipe() },
+    { header: 'Time', property: 'time', pipe: JavaDatePipe },
     { header: 'Old Value', property: 'oldValue.status', component: StatusComponent },
     { header: 'New Value', property: 'newValue.status', component: StatusComponent }
   ];

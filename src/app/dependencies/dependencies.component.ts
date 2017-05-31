@@ -18,7 +18,7 @@ export class DependenciesComponent extends PageableComponent {
     { header: 'Group ID', property: 'groupId', alignRight: true },
     { header: 'Artifact ID', property: 'artifactId', alignRight: true },
     { header: 'Version', property: 'version', alignRight: true },
-    { header: 'Type', property: 'type', alignRight: true, pipe: new TitleCasePipe() }
+    { header: 'Type', property: 'type', alignRight: true, pipe: TitleCasePipe }
   ];
 
   constructor(http: Http, route: ActivatedRoute, router: Router) {

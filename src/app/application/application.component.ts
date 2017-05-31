@@ -21,7 +21,7 @@ export class ApplicationComponent implements OnInit {
 
   buildsTableColumns: Column[] = [
     { header: 'Version', property: 'version' },
-    { header: 'Build Time', property: 'buildTime', pipe: new JavaDatePipe() },
+    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
     { header: 'Passed', property: 'passed' }
   ];
 

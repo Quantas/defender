@@ -5,7 +5,8 @@ import { TableCellContents } from './table.cell.contents';
 export interface Column {
   header: string;
   property: string;
-  pipe?: PipeTransform;
+  pipe?: Type<PipeTransform>;
+  pipeConstructorArgs?: any[];
   component?: Type<TableCellContents>;
   pipeArgs?: any[];
   sortType?: SortType;
