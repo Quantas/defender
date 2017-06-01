@@ -7,6 +7,8 @@ import { JavaDatePipe } from '../core/javadate.pipe';
 import { Column } from '../table/column';
 import { PageChangeEvent } from '../table/page.change.event';
 import { Page } from '../table/page';
+import { StatusComponent } from '../core/status.component';
+import { PassedFailedPipe } from '../core/passedfailed.pipe';
 
 @Component({
   templateUrl: 'application.component.html',
@@ -22,7 +24,7 @@ export class ApplicationComponent implements OnInit {
   buildsTableColumns: Column[] = [
     { header: 'Version', property: 'version' },
     { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
-    { header: 'Passed', property: 'passed' }
+    { header: 'Passed', property: 'passed', pipe: PassedFailedPipe, component: StatusComponent }
   ];
 
   constructor(private http: Http, private route: ActivatedRoute) {

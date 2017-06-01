@@ -10,6 +10,7 @@ import { JavaDatePipe } from '../core/javadate.pipe';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 import { PageChangeEvent } from '../table/page.change.event';
 import { StatusComponent } from '../core/status.component';
+import { PassedFailedPipe } from '../core/passedfailed.pipe';
 
 export interface DependencyStatus {
   status: string;
@@ -38,7 +39,8 @@ export class DependencyComponent implements OnInit {
     { header: 'Group ID', property: 'app.groupId' },
     { header: 'Artifact ID', property: 'app.artifactId' },
     { header: 'Version', property: 'version' },
-    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe }
+    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
+    { header: 'Status', property: 'passed', pipe: PassedFailedPipe, component: StatusComponent }
   ];
 
   historyTableColumns: Column[] = [

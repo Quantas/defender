@@ -4,6 +4,7 @@ import { JavaDatePipe } from './javadate.pipe';
 import { TitleCasePipe } from './titlecase.pipe';
 import { StatusComponent } from './status.component';
 import { CommonModule } from '@angular/common';
+import { PassedFailedPipe } from './passedfailed.pipe';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
   exports: [
     JavaDatePipe,
     TitleCasePipe,
+    PassedFailedPipe,
     StatusComponent
   ],
   entryComponents: [
@@ -20,6 +22,7 @@ import { CommonModule } from '@angular/common';
   declarations: [
     JavaDatePipe,
     TitleCasePipe,
+    PassedFailedPipe,
     StatusComponent
   ]
 })

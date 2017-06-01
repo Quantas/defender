@@ -6,6 +6,8 @@ import { Page } from '../table/page';
 import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { PageChangeEvent } from '../table/page.change.event';
+import { StatusComponent } from '../core/status.component';
+import { PassedFailedPipe } from '../core/passedfailed.pipe';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -23,7 +25,8 @@ export class DashboardComponent implements OnInit {
     { header: 'Group ID', property: 'app.groupId', alignRight: true },
     { header: 'Artifact ID', property: 'app.artifactId', alignRight: true },
     { header: 'Version', property: 'version', alignRight: true },
-    { header: 'Build Time', property: 'buildTime', alignRight: true, pipe: JavaDatePipe }
+    { header: 'Build Time', property: 'buildTime', alignRight: true, pipe: JavaDatePipe },
+    { header: 'Status', property: 'passed', alignRight: true, pipe: PassedFailedPipe, component: StatusComponent }
   ];
 
   constructor(private http: Http) {
