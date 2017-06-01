@@ -67,6 +67,7 @@ public class ProtectController {
 
         }).collect(Collectors.toSet()));
 
+        newBuild.setPassed(true);
 
         for (final BuildDependency dep : newBuild.getBuildDependencies()) {
             if (!dep.getDependencyStatus().isApproved()) {
