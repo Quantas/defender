@@ -32,8 +32,8 @@ public class BuildService extends DefenderService<Build, Long, BuildRepository> 
         return new PageWrapper<>(repository.findByApp(app, pageRequest));
     }
 
-    public PageWrapper<Build> findByDependency(final Dependency dependency, final int pageNo) {
-        final PageRequest pageRequest = PageRequest.of(pageNo, 20, Sort.Direction.DESC, "buildTime");
-        return new PageWrapper<>(repository.findAllByBuildDependenciesDependency(dependency, pageRequest));
+    public PageWrapper<BuildWrapper> findByDependency(final Dependency dependency, final int pageNo) {
+        final PageRequest pageRequest = PageRequest.of(pageNo, 20);
+        return new PageWrapper<>(repository.findAppsForDependency(dependency, pageRequest));
     }
 }
