@@ -39,8 +39,7 @@ export class DependencyComponent implements OnInit {
     { header: 'Group ID', property: 'app.groupId' },
     { header: 'Artifact ID', property: 'app.artifactId' },
     { header: 'Version', property: 'version' },
-    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
-    { header: 'Status', property: 'passed', pipe: PassedFailedPipe, component: StatusComponent }
+    { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe }
   ];
 
   historyTableColumns: Column[] = [
