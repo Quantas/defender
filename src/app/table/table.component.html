@@ -23,6 +23,9 @@
           </ng-container>
         </tr>
       </ng-container>
+      <ng-container *ngIf="!page.content || page.content.length == 0">
+        <tr><td [attr.colspan]="columns.length">This table contains no rows</td></tr>
+      </ng-container>
     </tbody>
   </table>
   <app-table-pagination [page]="page" (paginationChange)="changePage($event)"></app-table-pagination>
