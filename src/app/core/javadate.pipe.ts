@@ -6,8 +6,9 @@ export class JavaDatePipe implements PipeTransform {
     if (!value) {
       return value;
     }
-    return this.pad(value.monthValue) + '/' + this.pad(value.dayOfMonth) + '/'
-      + value.year + ' ' + this.pad(value.hour) + ':' + this.pad(value.minute) + ':' + this.pad(value.second) + value.offset.id;
+    const theDate = new Date(value);
+
+    return theDate.toLocaleDateString() + ' ' + theDate.toLocaleTimeString();
   }
 
   private pad(num: string): string {
