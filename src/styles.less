@@ -1,0 +1,27 @@
+html,body{
+  height:100%;
+  margin:0;
+  padding:0;
+}
+
+a:not([href]){
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  text-decoration: underline;
+  color: blue;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 45rem;
+
+  tbody {
+    border: 1px solid black;
+  }
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

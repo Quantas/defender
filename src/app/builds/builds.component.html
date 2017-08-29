@@ -1,0 +1,10 @@
+<h2>Builds</h2>
+
+<app-table
+  (pageChange)="getPage($event)"
+  [linkTarget]="'/build'"
+  [linkKey]="'id'"
+  [data]="page"
+  [filter]="filter"
+  [columns]="buildsTableColumns" >
+</app-table>

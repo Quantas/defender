@@ -1,0 +1,28 @@
+<h2>Dashboard</h2>
+
+<div class="dashboard">
+  <div class="stat">
+    <h3>Dependencies</h3>
+    <p>{{ depCount }}</p>
+  </div>
+  <div class="stat">
+    <h3>Apps</h3>
+    <p>{{ appCount }}</p>
+  </div>
+  <div class="stat">
+    <h3>Builds</h3>
+    <p>{{ buildCount }}</p>
+  </div>
+</div>
+
+<h3>Recent Builds</h3>
+<app-table
+  (pageChange)="refreshRecentBuilds($event)"
+  [linkTarget]="'/build'"
+  [linkKey]="'id'"
+  [data]="recentBuilds"
+  [filterable]="false"
+  [serverSide]="true"
+  [sortable]="false"
+  [columns]="buildsTableColumns" >
+</app-table>
