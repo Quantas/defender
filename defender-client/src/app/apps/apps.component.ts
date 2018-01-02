@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';
+import {SharkColumn} from "shark-ng-table";
 
 @Component({
   templateUrl: 'apps.component.html',
@@ -11,7 +11,7 @@ import { PageableComponent } from '../pageable.component';
 })
 export class AppsComponent extends PageableComponent {
 
-  appsTableColumn: Column[] = [
+  appsTableColumn: SharkColumn[] = [
     { header: 'Group ID', property: 'groupId', alignRight: true },
     { header: 'Artifact ID', property: 'artifactId', alignRight: true },
     { header: 'Type', property: 'type', alignRight: true, pipe: TitleCasePipe }

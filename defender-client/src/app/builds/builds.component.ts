@@ -1,14 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import { Page } from '../table/page';
-import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { PageChangeEvent } from '../table/page.change.event';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';
+import {SharkColumn} from "shark-ng-table";
 
 @Component({
     templateUrl: 'builds.component.html',
@@ -16,7 +13,7 @@ import { PageableComponent } from '../pageable.component';
 })
 export class BuildsComponent extends PageableComponent {
 
-    buildsTableColumns: Column[] = [
+    buildsTableColumns: SharkColumn[] = [
       { header: 'Group ID', property: 'app.groupId', alignRight: true },
       { header: 'Artifact ID', property: 'app.artifactId', alignRight: true },
       { header: 'Version', property: 'version', alignRight: true },

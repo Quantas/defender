@@ -4,11 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 import { JavaDatePipe } from '../core/javadate.pipe';
-import { Column } from '../table/column';
-import { PageChangeEvent } from '../table/page.change.event';
-import { Page } from '../table/page';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
+import {Page} from "shark-ng-table/src/page";
+import {SharkColumn, SharkPageChangeEvent} from "shark-ng-table";
 
 @Component({
   templateUrl: 'application.component.html',
@@ -21,7 +20,7 @@ export class ApplicationComponent implements OnInit {
   buildsObservable: Observable<Page>;
   private buildsSubject: BehaviorSubject<Page>;
 
-  buildsTableColumns: Column[] = [
+  buildsTableColumns: SharkColumn[] = [
     { header: 'Version', property: 'version' },
     { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
     { header: 'Passed', property: 'passed', pipe: PassedFailedPipe, component: StatusComponent }
@@ -41,7 +40,7 @@ export class ApplicationComponent implements OnInit {
     });
   }
 
-  updateSubject(pageChangeEvent: PageChangeEvent): void {
+  updateSubject(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).map((res) => res.json()).subscribe((buildPage) => {
       this.buildsSubject.next(buildPage);
     });

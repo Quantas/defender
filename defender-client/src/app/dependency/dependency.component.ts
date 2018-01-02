@@ -2,15 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
-import { TitleCasePipe } from '../core/titlecase.pipe';
-import { PageChangeEvent } from '../table/page.change.event';
 import { StatusComponent } from '../core/status.component';
-import { PassedFailedPipe } from '../core/passedfailed.pipe';
+import {SharkColumn, SharkPageChangeEvent} from "shark-ng-table";
 
 export interface DependencyStatus {
   status: string;
@@ -35,14 +31,14 @@ export class DependencyComponent implements OnInit {
     {display: 'Banned', status: 'banned'}
   ];
 
-  buildsTableColumns: Column[] = [
+  buildsTableColumns: SharkColumn[] = [
     { header: 'Group ID', property: 'app.groupId' },
     { header: 'Artifact ID', property: 'app.artifactId' },
     { header: 'Version', property: 'version' },
     { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe }
   ];
 
-  historyTableColumns: Column[] = [
+  historyTableColumns: SharkColumn[] = [
     { header: 'User', property: 'userID' },
     { header: 'Time', property: 'time', pipe: JavaDatePipe },
     { header: 'Old Value', property: 'oldValue.status', component: StatusComponent },
@@ -70,7 +66,7 @@ export class DependencyComponent implements OnInit {
     });
   }
 
-  getBuildsPage(pageChangeEvent: PageChangeEvent): void {
+  getBuildsPage(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
       .map((res) => res.json()).subscribe((buildPage) => {
         this.buildPage = buildPage;

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { ApplicationComponent } from './application.component';
 import { CoreModule } from '../core/core.module';
-import { TableModule } from '../table/table.module';
+import {SharkTableModule} from "shark-ng-table";
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { TableModule } from '../table/table.module';
   imports: [
     CommonModule,
     CoreModule,
-    TableModule,
+    SharkTableModule,
     RouterModule.forChild([
       { path: ':id', component: ApplicationComponent, pathMatch: 'full'}
     ])

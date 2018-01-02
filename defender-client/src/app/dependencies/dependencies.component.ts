@@ -2,10 +2,10 @@ import { Component, Type } from '@angular/core';
 import { Http } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Column } from '../table/column';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 import { PageableComponent } from '../pageable.component';
 import { StatusComponent } from '../core/status.component';
+import {SharkColumn} from "shark-ng-table";
 
 @Component({
   templateUrl: 'dependencies.component.html',
@@ -13,7 +13,7 @@ import { StatusComponent } from '../core/status.component';
 })
 export class DependenciesComponent extends PageableComponent {
 
-  depsTableColumns: Column[] = [
+  depsTableColumns: SharkColumn[] = [
     { header: 'Status', property: 'dependencyStatus.status', alignRight: true, component: StatusComponent },
     { header: 'Group ID', property: 'groupId', alignRight: true },
     { header: 'Artifact ID', property: 'artifactId', alignRight: true },

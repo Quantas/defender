@@ -16,7 +16,7 @@
 </div>
 
 <h3>Recent Builds</h3>
-<app-table
+<shark-table
   (pageChange)="refreshRecentBuilds($event)"
   [linkTarget]="'/build'"
   [linkKey]="'id'"
@@ -25,4 +25,4 @@
   [serverSide]="true"
   [sortable]="false"
   [columns]="buildsTableColumns" >
-</app-table>
+</shark-table>

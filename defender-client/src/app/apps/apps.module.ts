@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { AppsComponent } from './apps.component';
-import { TableModule } from '../table/table.module';
+import {SharkTableModule} from "shark-ng-table";
+
 
 @NgModule({
   declarations: [
@@ -11,7 +12,7 @@ import { TableModule } from '../table/table.module';
   ],
   imports: [
     CommonModule,
-    TableModule,
+    SharkTableModule,
     RouterModule.forChild([
       { path: '', component: AppsComponent, pathMatch: 'full'},
       { path: ':id', component: AppsComponent, pathMatch: 'full'}

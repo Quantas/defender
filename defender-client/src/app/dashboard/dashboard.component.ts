@@ -2,12 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
-import { Page } from '../table/page';
-import { Column } from '../table/column';
 import { JavaDatePipe } from '../core/javadate.pipe';
-import { PageChangeEvent } from '../table/page.change.event';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
+import {Page} from "shark-ng-table/src/page";
+import {SharkColumn, SharkPageChangeEvent} from "shark-ng-table";
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -21,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   recentBuilds: Page;
 
-  buildsTableColumns: Column[] = [
+  buildsTableColumns: SharkColumn[] = [
     { header: 'Group ID', property: 'app.groupId', alignRight: true },
     { header: 'Artifact ID', property: 'app.artifactId', alignRight: true },
     { header: 'Version', property: 'version', alignRight: true },
@@ -48,7 +47,7 @@ export class DashboardComponent implements OnInit {
     this.refreshRecentBuilds(undefined);
   }
 
-  refreshRecentBuilds(pageChangeEvent: PageChangeEvent): void {
+  refreshRecentBuilds(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/builds/recent').map((res) => res.json()).subscribe((page: Page) => {
       this.recentBuilds = page;
     });

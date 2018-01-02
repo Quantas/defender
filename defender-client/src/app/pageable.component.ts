@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { Page } from './table/page';
 import { Observable } from 'rxjs/Rx';
-import { PageChangeEvent } from './table/page.change.event';
+import {Page} from "shark-ng-table/src/page";
+import {SharkPageChangeEvent} from "shark-ng-table";
 
 export abstract class PageableComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export abstract class PageableComponent implements OnInit {
     });
   }
 
-  public getPage(pageChangeEvent: PageChangeEvent): void {
+  public getPage(pageChangeEvent: SharkPageChangeEvent): void {
     this.router.navigate(
       [this.routerUrl, pageChangeEvent.pageNo + 1],
       {
