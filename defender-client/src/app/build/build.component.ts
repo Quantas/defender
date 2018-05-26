@@ -1,8 +1,8 @@
+import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn } from 'shark-ng-table';
 
@@ -26,8 +26,8 @@ export class BuildComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.params.switchMap((params: Params) => {
+        this.route.params.pipe(switchMap((params: Params) => {
             return this.http.get('/api/builds/' + params.id);
-        }).subscribe((build) => this.build = build);
+        })).subscribe((build) => this.build = build);
     }
 }

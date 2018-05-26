@@ -1,9 +1,10 @@
+import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+
+
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn, SharkPageChangeEvent } from 'shark-ng-table';
@@ -49,9 +50,9 @@ export class DependencyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.switchMap((params: Params) => {
+    this.route.params.pipe(switchMap((params: Params) => {
       return this.http.get('/api/dependencies/' + params.id);
-    }).subscribe((dep: any) => {
+    })).subscribe((dep: any) => {
       this.newStatus = this.pickStatus(dep.dependencyStatus.status);
       this.dep = dep;
       this.getBuildsPage({pageNo: 0, columns: []});

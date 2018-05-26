@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
+
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';

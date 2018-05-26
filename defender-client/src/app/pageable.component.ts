@@ -1,8 +1,9 @@
+import { of as observableOf } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
 import { SharkPageChangeEvent, Page } from 'shark-ng-table';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
 export abstract class PageableComponent implements OnInit {
 
@@ -21,15 +22,15 @@ export abstract class PageableComponent implements OnInit {
       }
     });
 
-    this.route.params.switchMap((params: Params) => {
+    this.route.params.pipe(switchMap((params: Params) => {
       let id;
       if (params['id']) {
         id = params['id'] - 1;
       } else {
         id = 0;
       }
-      return Observable.of(id);
-    }).subscribe((id) => {
+      return observableOf(id);
+    })).subscribe((id) => {
       const routeSort = this.route.snapshot.queryParams['sort'];
       const routeFilter = this.route.snapshot.queryParams['filter'];
 

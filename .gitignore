@@ -22,5 +22,4 @@ dist/
 nbdist/
 .nb-gradle/
 defender-client/node/
-defender-client/package-lock.json
 src/main/resources/static/

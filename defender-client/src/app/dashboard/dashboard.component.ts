@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
+
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
@@ -31,6 +31,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.refreshRecentBuilds(undefined);
+  }
+
+  refreshRecentBuilds(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/dependencies/count', { responseType: 'text'}).subscribe((count) => {
       this.depCount = count;
     });
@@ -43,10 +47,6 @@ export class DashboardComponent implements OnInit {
       this.appCount = count;
     });
 
-    this.refreshRecentBuilds(undefined);
-  }
-
-  refreshRecentBuilds(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/builds/recent').subscribe((page: Page) => {
       this.recentBuilds = page;
     });

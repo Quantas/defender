@@ -1,7 +1,8 @@
+import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
@@ -31,9 +32,9 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.switchMap((params: Params) => {
+    this.route.params.pipe(switchMap((params: Params) => {
       return this.http.get('/api/apps/' + params.id);
-    }).subscribe((app) => {
+    })).subscribe((app) => {
       this.app = app;
       this.updateSubject({pageNo: 0, columns: []});
     });
