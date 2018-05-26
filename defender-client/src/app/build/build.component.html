@@ -10,13 +10,12 @@
 </table>
 
 <h3>Dependencies</h3>
-<app-table
+<shark-table
   *ngIf="build"
   [data]="build.buildDependencies"
-  [serverSide]="false"
   [localFilter]="true"
   [columns]="depsTableColumns"
   [linkKey]="'dependency.id'"
   [linkTarget]="'/dep'"
   [initialSort]="'dependency.groupId;dependency.artifactId'">
-</app-table>
+</shark-table>

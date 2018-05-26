@@ -1,10 +1,11 @@
 <h2>Apps</h2>
 
-<app-table
+<shark-table
   (pageChange)="getPage($event)"
   [linkTarget]="'/app'"
   [linkKey]="'id'"
   [data]="page"
   [filter]="filter"
+  [serverSideData]="true"
   [columns]="appsTableColumn" >
-</app-table>
+</shark-table>

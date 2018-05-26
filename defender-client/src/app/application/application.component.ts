@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 import { JavaDatePipe } from '../core/javadate.pipe';
-import { Column } from '../table/column';
-import { PageChangeEvent } from '../table/page.change.event';
-import { Page } from '../table/page';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
+import { SharkColumn, SharkPageChangeEvent, Page } from 'shark-ng-table';
 
 @Component({
   templateUrl: 'application.component.html',
@@ -21,28 +19,28 @@ export class ApplicationComponent implements OnInit {
   buildsObservable: Observable<Page>;
   private buildsSubject: BehaviorSubject<Page>;
 
-  buildsTableColumns: Column[] = [
+  buildsTableColumns: SharkColumn[] = [
     { header: 'Version', property: 'version' },
     { header: 'Build Time', property: 'buildTime', pipe: JavaDatePipe },
     { header: 'Passed', property: 'passed', pipe: PassedFailedPipe, component: StatusComponent }
   ];
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.buildsSubject = new BehaviorSubject({});
     this.buildsObservable = this.buildsSubject.asObservable();
   }
 
   ngOnInit(): void {
     this.route.params.switchMap((params: Params) => {
-      return this.http.get('/api/apps/' + params.id).map((res) => res.json());
+      return this.http.get('/api/apps/' + params.id);
     }).subscribe((app) => {
       this.app = app;
-      this.updateSubject({pageNo: 0});
+      this.updateSubject({pageNo: 0, columns: []});
     });
   }
 
-  updateSubject(pageChangeEvent: PageChangeEvent): void {
-    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).map((res) => res.json()).subscribe((buildPage) => {
+  updateSubject(pageChangeEvent: SharkPageChangeEvent): void {
+    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).subscribe((buildPage) => {
       this.buildsSubject.next(buildPage);
     });
   }

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
-
-import { Column } from '../table/column';
-import { TitleCasePipe } from '../core/titlecase.pipe';
 
 import 'rxjs/add/operator/switchMap';
 import { StatusComponent } from '../core/status.component';
+import { SharkColumn } from 'shark-ng-table';
 
 @Component({
     templateUrl: 'build.component.html',
@@ -16,7 +14,7 @@ export class BuildComponent implements OnInit {
 
   build;
 
-  depsTableColumns: Column[] = [
+  depsTableColumns: SharkColumn[] = [
     { header: 'Group ID', property: 'dependency.groupId' },
     { header: 'Artifact ID', property: 'dependency.artifactId' },
     { header: 'Version', property: 'dependency.version' },
@@ -24,12 +22,12 @@ export class BuildComponent implements OnInit {
     { header: 'Transitive', property: 'transitive' }
   ];
 
-    constructor(private http: Http, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
         this.route.params.switchMap((params: Params) => {
-            return this.http.get('/api/builds/' + params.id).map((res) => res.json());
+            return this.http.get('/api/builds/' + params.id);
         }).subscribe((build) => this.build = build);
     }
 }

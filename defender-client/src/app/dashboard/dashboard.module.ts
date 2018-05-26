@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
-import { TableModule } from '../table/table.module';
 import { CoreModule } from '../core/core.module';
+import {SharkTableModule} from "shark-ng-table";
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { CoreModule } from '../core/core.module';
   imports: [
     CommonModule,
     CoreModule,
-    TableModule,
+    SharkTableModule,
     RouterModule.forChild([
       { path: '', component: DashboardComponent, pathMatch: 'full'}
     ])

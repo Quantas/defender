@@ -1,16 +1,15 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Http } from '@angular/http';
-import { Page } from './table/page';
 import { Observable } from 'rxjs/Rx';
-import { PageChangeEvent } from './table/page.change.event';
+import { SharkPageChangeEvent, Page } from 'shark-ng-table';
+import { HttpClient } from "@angular/common/http";
 
 export abstract class PageableComponent implements OnInit {
 
   public page: Page;
   public filter: string;
 
-  constructor(private http: Http, private route: ActivatedRoute, private router: Router,
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
     private endpointUrl: string, private routerUrl: string, private defaultSort?: string) {
   }
 
@@ -40,7 +39,7 @@ export abstract class PageableComponent implements OnInit {
     });
   }
 
-  public getPage(pageChangeEvent: PageChangeEvent): void {
+  public getPage(pageChangeEvent: SharkPageChangeEvent): void {
     this.router.navigate(
       [this.routerUrl, pageChangeEvent.pageNo + 1],
       {
@@ -74,10 +73,7 @@ export abstract class PageableComponent implements OnInit {
       sortString = '?filter=' + filter;
     }
 
-    this.http.get(this.endpointUrl + id + sortString)
-      .map((res) => res.json()).subscribe((page: Page) => {
-      this.page = page;
-    });
+    this.http.get(this.endpointUrl + id + sortString).subscribe((page: Page) => this.page = page);
   }
 
 }

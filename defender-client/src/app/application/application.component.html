@@ -10,13 +10,13 @@
 </table>
 
 <h3>Builds</h3>
-<app-table
+<shark-table
   (pageChange)="updateSubject($event)"
   [linkTarget]="'/build'"
   [linkKey]="'id'"
   [data]="buildsObservable"
   [columns]="buildsTableColumns"
   [sortable]="false">
-</app-table>
+</shark-table>
 
 <button (click)="updateSubject({pageNo: 0})">Update</button>

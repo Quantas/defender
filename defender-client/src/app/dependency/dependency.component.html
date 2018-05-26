@@ -19,7 +19,7 @@
   </form>
 
   <h3>Apps</h3>
-  <app-table
+  <shark-table
     (pageChange)="getBuildsPage($event)"
     [linkTarget]="'/build'"
     [linkKey]="'id'"
@@ -27,15 +27,14 @@
     [columns]="buildsTableColumns"
     [sortable]="false"
     [localFilter]="true">
-  </app-table>
+  </shark-table>
 
   <h3>History</h3>
-  <app-table
+  <shark-table
     *ngIf="dep"
     [data]="dep.dependencyHistories"
     [columns]="historyTableColumns"
     [sortable]="false"
-    [serverSide]="false"
     [localFilter]="true">
-  </app-table>
+  </shark-table>
 </ng-container>
