@@ -1,8 +1,7 @@
 package com.quantasnet.defender.protect;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 public class ProtectBuild {

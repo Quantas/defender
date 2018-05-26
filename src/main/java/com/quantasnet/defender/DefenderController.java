@@ -9,8 +9,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class DefenderController<T, ID extends Serializable, R extends DefenderRepository<T, ID>, S extends DefenderService<T, ID, R>> {
 
-    protected S service;
-    protected Class<? extends DefenderSpecification<T>> specClass;
+    protected final S service;
+    private final Class<? extends DefenderSpecification<T>> specClass;
 
     public DefenderController(final S service, final Class<? extends DefenderSpecification<T>> specClass) {
         this.service = service;

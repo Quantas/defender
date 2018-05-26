@@ -1,7 +1,6 @@
 package com.quantasnet.defender.protect;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class ProtectArtifact {

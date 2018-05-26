@@ -26,7 +26,7 @@ public abstract class DefenderService<T, ID extends Serializable, R extends Defe
     }
 
     public T one(final ID id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElse(null);
     }
 
     public T save(final T entity) {

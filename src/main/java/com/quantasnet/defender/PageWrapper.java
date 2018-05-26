@@ -16,6 +16,7 @@ public class PageWrapper<T> extends PageImpl<T> {
         this.sorts = page.getSort().stream().collect(Collectors.toList());
     }
 
+    // Jackson
     public List<Sort.Order> getSorts() {
         return sorts;
     }
