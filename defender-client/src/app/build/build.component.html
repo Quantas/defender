@@ -13,7 +13,6 @@
 <shark-table
   *ngIf="build"
   [data]="build.buildDependencies"
-  [serverSide]="false"
   [localFilter]="true"
   [columns]="depsTableColumns"
   [linkKey]="'dependency.id'"

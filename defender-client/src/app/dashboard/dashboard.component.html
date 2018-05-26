@@ -16,13 +16,15 @@
 </div>
 
 <h3>Recent Builds</h3>
-<shark-table
-  (pageChange)="refreshRecentBuilds($event)"
-  [linkTarget]="'/build'"
-  [linkKey]="'id'"
-  [data]="recentBuilds"
-  [filterable]="false"
-  [serverSide]="true"
-  [sortable]="false"
-  [columns]="buildsTableColumns" >
-</shark-table>
+<div style="width: 55rem;">
+  <shark-table
+    (pageChange)="refreshRecentBuilds($event)"
+    [linkTarget]="'/build'"
+    [linkKey]="'id'"
+    [data]="recentBuilds"
+    [filterable]="false"
+    [serverSideData]="true"
+    [sortable]="false"
+    [columns]="buildsTableColumns" >
+  </shark-table>
+</div>

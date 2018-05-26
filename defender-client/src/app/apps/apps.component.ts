@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { TitleCasePipe } from '../core/titlecase.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';
-import {SharkColumn} from "shark-ng-table";
+import { SharkColumn } from 'shark-ng-table';
 
 @Component({
   templateUrl: 'apps.component.html',
@@ -17,7 +17,7 @@ export class AppsComponent extends PageableComponent {
     { header: 'Type', property: 'type', alignRight: true, pipe: TitleCasePipe }
   ];
 
-  constructor(http: Http, route: ActivatedRoute, router: Router) {
+  constructor(http: HttpClient, route: ActivatedRoute, router: Router) {
     super(http, route, router, '/api/apps/page/', '/apps', 'groupId;artifactId');
   }
 }

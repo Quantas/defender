@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
-import {SharkColumn, SharkPageChangeEvent} from "shark-ng-table";
+import { SharkColumn, SharkPageChangeEvent } from 'shark-ng-table';
 
 export interface DependencyStatus {
   status: string;
@@ -45,21 +45,21 @@ export class DependencyComponent implements OnInit {
     { header: 'New Value', property: 'newValue.status', component: StatusComponent }
   ];
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params.switchMap((params: Params) => {
-      return this.http.get('/api/dependencies/' + params.id).map((res) => res.json());
-    }).subscribe((dep) => {
+      return this.http.get('/api/dependencies/' + params.id);
+    }).subscribe((dep: any) => {
       this.newStatus = this.pickStatus(dep.dependencyStatus.status);
       this.dep = dep;
-      this.getBuildsPage({pageNo: 0});
+      this.getBuildsPage({pageNo: 0, columns: []});
     });
   }
 
   updateStatus(): void {
-    this.http.post('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).map((res) => res.json()).subscribe((dep) => {
+    this.http.post('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).subscribe((dep) => {
       if (dep) {
         this.dep = dep;
       }
@@ -68,7 +68,7 @@ export class DependencyComponent implements OnInit {
 
   getBuildsPage(pageChangeEvent: SharkPageChangeEvent): void {
     this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
-      .map((res) => res.json()).subscribe((buildPage) => {
+      .subscribe((buildPage) => {
         this.buildPage = buildPage;
     });
   }
