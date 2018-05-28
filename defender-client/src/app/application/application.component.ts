@@ -10,8 +10,37 @@ import { PassedFailedPipe } from '../core/passedfailed.pipe';
 import { SharkColumn, SharkPageChangeEvent, Page } from 'shark-ng-table';
 
 @Component({
-  templateUrl: 'application.component.html',
-  styleUrls: [ 'application.component.less' ]
+  template: `
+    <h2>Application</h2>
+
+    <table *ngIf="app">
+      <tr><th>Group Id</th><td>{{ app.groupId }}</td></tr>
+      <tr><th>Artifact Id</th><td>{{ app.artifactId }}</td></tr>
+      <tr *ngIf="app.description"><th>Description</th><td>{{ app.description }}</td></tr>
+      <tr *ngIf="app.url"><th>URL</th><td>{{ app.url }}</td></tr>
+      <tr *ngIf="app.license"><th>License</th><td>{{ app.license }}</td></tr>
+      <tr *ngIf="app.repository"><th>Repository</th><td>{{ app.repository }}</td></tr>
+    </table>
+
+    <h3>Builds</h3>
+    <shark-table
+      (pageChange)="updateSubject($event)"
+      [linkTarget]="'/build'"
+      [linkKey]="'id'"
+      [data]="buildsObservable"
+      [columns]="buildsTableColumns"
+      [sortable]="false">
+    </shark-table>
+
+    <button (click)="updateSubject({pageNo: 0, columns: []})">Update</button>
+  `,
+  styles: [
+    `
+      table {
+        min-width: 20rem;
+      }
+    `
+  ]
 })
 export class ApplicationComponent implements OnInit {
 
@@ -41,7 +70,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   updateSubject(pageChangeEvent: SharkPageChangeEvent): void {
-    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).subscribe((buildPage) => {
+    this.http.get('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).subscribe((buildPage: Page) => {
       this.buildsSubject.next(buildPage);
     });
   }

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { BuildsComponent } from './builds.component';
-import {CoreModule} from '../core/core.module';
-import {SharkTableModule} from "shark-ng-table";
+import { CoreModule } from '../core/core.module';
+import { SharkTableModule } from 'shark-ng-table';
 
 @NgModule({
     declarations: [

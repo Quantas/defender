@@ -7,8 +7,36 @@ import { StatusComponent } from '../core/status.component';
 import { SharkColumn } from 'shark-ng-table';
 
 @Component({
-    templateUrl: 'build.component.html',
-    styleUrls: [ 'build.component.less' ]
+    template: `
+      <h2>Build</h2>
+      <table *ngIf="build">
+        <tr><th>ID</th><td>{{ build.id }}</td></tr>
+        <tr><th>Group Id</th><td>{{ build.app.groupId }}</td></tr>
+        <tr><th>Artifact Id</th><td><a [routerLink]="['/app', build.app.id]">{{ build.app.artifactId }}</a></td></tr>
+        <tr><th>Version</th><td>{{ build.version }}</td></tr>
+        <tr><th>Build Time</th><td>{{ build.buildTime | javadate }}</td></tr>
+        <tr><th>User</th><td>{{ build.userName }}</td></tr>
+        <tr><th>Status</th><td><app-dep-status [data]="build.passed | passedfailed"></app-dep-status></td></tr>
+      </table>
+
+      <h3>Dependencies</h3>
+      <shark-table
+        *ngIf="build"
+        [data]="build.buildDependencies"
+        [localFilter]="true"
+        [columns]="depsTableColumns"
+        [linkKey]="'dependency.id'"
+        [linkTarget]="'/dep'"
+        [initialSort]="'dependency.groupId;dependency.artifactId'">
+      </shark-table>
+    `,
+    styles: [
+      `
+        table {
+          min-width: 20rem;
+        }
+      `
+    ]
 })
 export class BuildComponent implements OnInit {
 

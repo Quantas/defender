@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { AppsComponent } from './apps.component';
-import {SharkTableModule} from "shark-ng-table";
+import { SharkTableModule } from 'shark-ng-table';
 
 
 @NgModule({

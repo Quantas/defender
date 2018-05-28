@@ -2,9 +2,6 @@ import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
-
-
-
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn, SharkPageChangeEvent } from 'shark-ng-table';
@@ -16,7 +13,13 @@ export interface DependencyStatus {
 
 @Component({
   templateUrl: 'dependency.component.html',
-  styleUrls: [ 'dependency.component.less' ]
+  styles: [
+    `
+      table {
+        min-width: 20rem;
+      }
+    `
+  ]
 })
 export class DependencyComponent implements OnInit {
   dep;
@@ -75,7 +78,7 @@ export class DependencyComponent implements OnInit {
   }
 
   private pickStatus(status: string): DependencyStatus {
-    let foundStatus = undefined;
+    let foundStatus;
     this.statuses.forEach((newStatus) => {
       if (newStatus.status.toLowerCase() === status.toLowerCase()) {
         foundStatus = newStatus;

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { BuildComponent } from './build.component';
 import { CoreModule } from '../core/core.module';
-import {SharkTableModule} from "shark-ng-table";
+import { SharkTableModule } from 'shark-ng-table';
 
 @NgModule({
     declarations: [
