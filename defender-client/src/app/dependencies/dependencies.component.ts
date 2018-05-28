@@ -6,6 +6,7 @@ import { TitleCasePipe } from '../core/titlecase.pipe';
 import { PageableComponent } from '../pageable.component';
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn } from 'shark-ng-table';
+import { Dependency } from '../model/dependency';
 
 @Component({
   template: `
@@ -23,7 +24,7 @@ import { SharkColumn } from 'shark-ng-table';
     </shark-table>
   `
 })
-export class DependenciesComponent extends PageableComponent {
+export class DependenciesComponent extends PageableComponent<Dependency> {
 
   depsTableColumns: SharkColumn[] = [
     { header: 'Status', property: 'dependencyStatus.status', alignRight: true, component: StatusComponent },

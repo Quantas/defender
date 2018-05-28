@@ -4,6 +4,7 @@ import { TitleCasePipe } from '../core/titlecase.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';
 import { SharkColumn } from 'shark-ng-table';
+import { App } from '../model/app';
 
 @Component({
   template: `
@@ -21,7 +22,7 @@ import { SharkColumn } from 'shark-ng-table';
     </shark-table>
   `
 })
-export class AppsComponent extends PageableComponent {
+export class AppsComponent extends PageableComponent<App> {
 
   appsTableColumn: SharkColumn[] = [
     { header: 'Group ID', property: 'groupId', alignRight: true },

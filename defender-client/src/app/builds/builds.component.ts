@@ -6,6 +6,7 @@ import { JavaDatePipe } from '../core/javadate.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageableComponent } from '../pageable.component';
 import { SharkColumn } from 'shark-ng-table';
+import { Build } from '../model/build';
 
 @Component({
     template: `
@@ -23,7 +24,7 @@ import { SharkColumn } from 'shark-ng-table';
       </shark-table>
     `
 })
-export class BuildsComponent extends PageableComponent {
+export class BuildsComponent extends PageableComponent<Build> {
 
     buildsTableColumns: SharkColumn[] = [
       { header: 'Group ID', property: 'app.groupId', alignRight: true },

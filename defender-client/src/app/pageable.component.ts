@@ -2,12 +2,13 @@ import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { SharkPageChangeEvent, Page } from 'shark-ng-table';
+import { SharkPageChangeEvent } from 'shark-ng-table';
 import { HttpClient } from '@angular/common/http';
+import { DefenderPage } from './model/defender.page';
 
-export abstract class PageableComponent implements OnInit {
+export abstract class PageableComponent<T> implements OnInit {
 
-  public page: Page;
+  public page: DefenderPage<T>;
   public filter: string;
 
   protected constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
@@ -74,7 +75,7 @@ export abstract class PageableComponent implements OnInit {
       sortString = '?filter=' + filter;
     }
 
-    this.http.get(this.endpointUrl + id + sortString).subscribe((page: Page) => this.page = page);
+    this.http.get<DefenderPage<T>>(this.endpointUrl + id + sortString).subscribe((page: DefenderPage<T>) => this.page = page);
   }
 
 }
