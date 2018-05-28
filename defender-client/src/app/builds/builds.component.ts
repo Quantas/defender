@@ -8,8 +8,20 @@ import { PageableComponent } from '../pageable.component';
 import { SharkColumn } from 'shark-ng-table';
 
 @Component({
-    templateUrl: 'builds.component.html',
-    styleUrls: [ 'builds.component.less' ]
+    template: `
+      <h2>Builds</h2>
+
+      <shark-table
+        (pageChange)="getPage($event)"
+        [linkTarget]="'/build'"
+        [linkKey]="'id'"
+        [data]="page"
+        [filter]="filter"
+        [localPagingSize]="'20'"
+        [serverSideData]="true"
+        [columns]="buildsTableColumns" >
+      </shark-table>
+    `
 })
 export class BuildsComponent extends PageableComponent {
 

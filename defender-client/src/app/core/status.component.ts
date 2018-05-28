@@ -3,7 +3,7 @@ import { SharkDynamicContents } from 'shark-ng-table';
 
 @Component({
   selector: 'app-dep-status',
-  templateUrl: 'status.component.html',
+  template: `<span *ngIf="data" class="status" [ngClass]="data">{{ data }}</span>`,
   styleUrls: [ 'status.component.less' ]
 })
 export class StatusComponent implements SharkDynamicContents {

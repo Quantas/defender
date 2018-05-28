@@ -6,8 +6,20 @@ import { PageableComponent } from '../pageable.component';
 import { SharkColumn } from 'shark-ng-table';
 
 @Component({
-  templateUrl: 'apps.component.html',
-  styleUrls: [ 'apps.component.less' ]
+  template: `
+    <h2>Apps</h2>
+
+    <shark-table
+      (pageChange)="getPage($event)"
+      [linkTarget]="'/app'"
+      [linkKey]="'id'"
+      [data]="page"
+      [filter]="filter"
+      [localPagingSize]="'20'"
+      [serverSideData]="true"
+      [columns]="appsTableColumn" >
+    </shark-table>
+  `
 })
 export class AppsComponent extends PageableComponent {
 

@@ -10,8 +10,8 @@ export abstract class PageableComponent implements OnInit {
   public page: Page;
   public filter: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
-    private endpointUrl: string, private routerUrl: string, private defaultSort?: string) {
+  protected constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
+     private endpointUrl: string, private routerUrl: string, private defaultSort?: string) {
   }
 
   ngOnInit(): void {

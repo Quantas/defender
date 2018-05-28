@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,8 +8,20 @@ import { StatusComponent } from '../core/status.component';
 import { SharkColumn } from 'shark-ng-table';
 
 @Component({
-  templateUrl: 'dependencies.component.html',
-  styleUrls: [ 'dependencies.component.less' ]
+  template: `
+    <h2>Dependencies</h2>
+
+    <shark-table
+      (pageChange)="getPage($event)"
+      [linkTarget]="'/dep'"
+      [linkKey]="'id'"
+      [data]="page"
+      [filter]="filter"
+      [serverSideData]="true"
+      [localPagingSize]="'20'"
+      [columns]="depsTableColumns" >
+    </shark-table>
+  `
 })
 export class DependenciesComponent extends PageableComponent {
 
