@@ -5,11 +5,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn, SharkPageChangeEvent } from 'shark-ng-table';
+import { Dependency } from '../model/dependency';
+import { Build } from '../model/build';
+import { DependencyStatus } from '../model/dependency.status';
 
-export interface DependencyStatus {
-  status: string;
-  display: string;
-}
 
 @Component({
   templateUrl: 'dependency.component.html',
@@ -22,8 +21,8 @@ export interface DependencyStatus {
   ]
 })
 export class DependencyComponent implements OnInit {
-  dep;
-  buildPage;
+  dep: Dependency;
+  buildPage: Build[];
 
   newStatus: DependencyStatus;
 
@@ -49,12 +48,11 @@ export class DependencyComponent implements OnInit {
     { header: 'New Value', property: 'newValue.status', component: StatusComponent }
   ];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
-  }
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => {
-      return this.http.get('/api/dependencies/' + params.id);
+      return this.http.get<Dependency>('/api/dependencies/' + params.id);
     })).subscribe((dep: any) => {
       this.newStatus = this.pickStatus(dep.dependencyStatus.status);
       this.dep = dep;
@@ -63,7 +61,7 @@ export class DependencyComponent implements OnInit {
   }
 
   updateStatus(): void {
-    this.http.post('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).subscribe((dep) => {
+    this.http.post<Dependency>('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).subscribe((dep) => {
       if (dep) {
         this.dep = dep;
       }
@@ -71,7 +69,7 @@ export class DependencyComponent implements OnInit {
   }
 
   getBuildsPage(pageChangeEvent: SharkPageChangeEvent): void {
-    this.http.get('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
+    this.http.get<Build[]>('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
       .subscribe((buildPage) => {
         this.buildPage = buildPage;
     });

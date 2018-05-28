@@ -8,6 +8,7 @@ import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
 import { SharkColumn, SharkPageChangeEvent, Page } from 'shark-ng-table';
+import { App } from '../model/app';
 
 @Component({
   template: `
@@ -44,7 +45,7 @@ import { SharkColumn, SharkPageChangeEvent, Page } from 'shark-ng-table';
 })
 export class ApplicationComponent implements OnInit {
 
-  app;
+  app: App;
 
   buildsObservable: Observable<Page>;
   private buildsSubject: BehaviorSubject<Page>;
@@ -62,7 +63,7 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => {
-      return this.http.get('/api/apps/' + params.id);
+      return this.http.get<App>('/api/apps/' + params.id);
     })).subscribe((app) => {
       this.app = app;
       this.updateSubject({pageNo: 0, columns: []});

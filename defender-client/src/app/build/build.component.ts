@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { StatusComponent } from '../core/status.component';
 import { SharkColumn } from 'shark-ng-table';
+import { Build } from '../model/build';
 
 @Component({
     template: `
@@ -40,7 +41,7 @@ import { SharkColumn } from 'shark-ng-table';
 })
 export class BuildComponent implements OnInit {
 
-  build;
+  build: Build;
 
   depsTableColumns: SharkColumn[] = [
     { header: 'Group ID', property: 'dependency.groupId' },
@@ -55,7 +56,7 @@ export class BuildComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.pipe(switchMap((params: Params) => {
-            return this.http.get('/api/builds/' + params.id);
+            return this.http.get<Build>('/api/builds/' + params.id);
         })).subscribe((build) => this.build = build);
     }
 }
