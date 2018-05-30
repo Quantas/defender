@@ -4,25 +4,19 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <div class="wrapper">
-      <div class="top">
-        <div class="nav">
-          <ul>
-            <li><a [routerLink]="['/dashboard']">Quantasnet Defender</a></li>
-            <li><a [routerLink]="['/dashboard']" [routerLinkActive]="'active'">Dashboard</a></li>
-            <li><a [routerLink]="['/deps/1']" [routerLinkActive]="'active'">Dependencies</a></li>
-            <li><a [routerLink]="['/apps/1']" [routerLinkActive]="'active'">Apps</a></li>
-            <li><a [routerLink]="['/builds/1']" [routerLinkActive]="'active'">Builds</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="content">
-        <div class="main">
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-      <div class="footer">
+      <header>
+        <nav><a [routerLink]="['/dashboard']">Quantasnet Defender</a></nav>
+        <nav [routerLinkActive]="'active'"><a [routerLink]="['/dashboard']">Dashboard</a></nav>
+        <nav [routerLinkActive]="'active'"><a [routerLink]="['/deps/1']">Dependencies</a></nav>
+        <nav [routerLinkActive]="'active'"><a [routerLink]="['/apps/1']">Apps</a></nav>
+        <nav [routerLinkActive]="'active'"><a [routerLink]="['/builds/1']">Builds</a></nav>
+      </header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <footer>
         &copy;2018 Quantasnet
-      </div>
+      </footer>
     </div>
   `,
   styleUrls: ['./app.component.less']
