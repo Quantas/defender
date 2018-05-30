@@ -18,6 +18,8 @@ import { App } from '../model/app';
       [filter]="filter"
       [localPagingSize]="'20'"
       [serverSideData]="true"
+      [caption]="'Applications Table'"
+      [hideCaption]="true"
       [columns]="appsTableColumn" >
     </shark-table>
   `

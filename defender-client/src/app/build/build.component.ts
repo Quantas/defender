@@ -25,6 +25,8 @@ import { Build } from '../model/build';
         *ngIf="build"
         [data]="build.buildDependencies"
         [localFilter]="true"
+        [caption]="'Dependencies Table'"
+        [hideCaption]="true"
         [columns]="depsTableColumns"
         [linkKey]="'dependency.id'"
         [linkTarget]="'/dep'"

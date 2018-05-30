@@ -20,6 +20,8 @@ import { Build } from '../model/build';
         [filter]="filter"
         [localPagingSize]="'20'"
         [serverSideData]="true"
+        [caption]="'Builds Table'"
+        [hideCaption]="true"
         [columns]="buildsTableColumns" >
       </shark-table>
     `

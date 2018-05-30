@@ -20,6 +20,8 @@ import { Dependency } from '../model/dependency';
       [filter]="filter"
       [serverSideData]="true"
       [localPagingSize]="'20'"
+      [caption]="'Dependencies Table'"
+      [hideCaption]="true"
       [columns]="depsTableColumns" >
     </shark-table>
   `

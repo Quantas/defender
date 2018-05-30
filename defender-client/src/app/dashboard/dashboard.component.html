@@ -16,7 +16,7 @@
 </div>
 
 <h3>Recent Builds</h3>
-<div style="width: 55rem;">
+<div style="max-width: 60rem;">
   <shark-table
     (pageChange)="refreshRecentBuilds($event)"
     [linkTarget]="'/build'"
@@ -25,6 +25,8 @@
     [filterable]="false"
     [serverSideData]="true"
     [sortable]="false"
+    [caption]="'Recent Builds Table'"
+    [hideCaption]="true"
     [columns]="buildsTableColumns" >
   </shark-table>
 </div>

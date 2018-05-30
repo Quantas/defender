@@ -24,6 +24,8 @@
     [linkTarget]="'/build'"
     [linkKey]="'id'"
     [data]="buildPage"
+    [caption]="'Apps Table'"
+    [hideCaption]="true"
     [columns]="buildsTableColumns"
     [sortable]="false"
     [localFilter]="true">
@@ -33,6 +35,8 @@
   <shark-table
     *ngIf="dep"
     [data]="dep.dependencyHistories"
+    [caption]="'History Table'"
+    [hideCaption]="true"
     [columns]="historyTableColumns"
     [sortable]="false"
     [localFilter]="true">

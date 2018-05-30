@@ -30,6 +30,8 @@ import { App } from '../model/app';
       [linkKey]="'id'"
       [data]="buildsObservable"
       [columns]="buildsTableColumns"
+      [caption]="'Builds Table'"
+      [hideCaption]="true"
       [sortable]="false">
     </shark-table>
 
