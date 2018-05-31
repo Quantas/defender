@@ -1,6 +1,10 @@
 package com.quantasnet.defender.dependency;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 @Entity
 @Table(indexes = {
