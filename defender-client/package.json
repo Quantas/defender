@@ -9,6 +9,7 @@
     "build": "ng lint && ng test --watch false && ng build --prod --output-path ../src/main/resources/static/",
     "test": "ng test",
     "lint": "ng lint",
+    "defend": "defender",
     "e2e": "ng e2e"
   },
   "private": true,
