@@ -1,7 +1,7 @@
 package com.quantasnet.defender.app;
 
-import com.quantasnet.defender.DefenderType;
 import com.quantasnet.defender.DefenderService;
+import com.quantasnet.defender.DefenderType;
 import org.springframework.stereotype.Service;
 
 @Service

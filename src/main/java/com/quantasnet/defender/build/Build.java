@@ -2,7 +2,13 @@ package com.quantasnet.defender.build;
 
 import com.quantasnet.defender.app.App;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
