@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+
+  db:
+    image: postgres:9.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - defender
+    environment:
+      POSTGRES_PASSWORD: defender
+      POSTGRES_USER: defender
+      POSTGRES_DB: defender
+
+  web:
+    image: quantas/defender-web:0.0.1-SNAPSHOT
+    restart: always
+    networks:
+      - defender
+    ports:
+      - "8080:8080"
+    links:
+      - "db:database"
+    environment:
+      DATABASE_HOST: database
+      DATABASE_NAME: defender
+      DATABASE_USER: defender
+      DATABASE_PASSWORD: defender
+
+networks:
+  defender:
+
+volumes:
+  db-data:
