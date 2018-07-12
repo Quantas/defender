@@ -113,34 +113,40 @@
 
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
 			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.0</version>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>0.9.6</version>
 				<configuration>
-					<repository>quantas/defender-web</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
+					<to>
+						<image>quantas/defender-web:${project.version}</image>
+					</to>
+					<container>
+						<jvmFlags>
+							<jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
+							<jvmFlag>-Dspring.profiles.active=docker</jvmFlag>
+						</jvmFlags>
+						<ports>
+							<port>8080</port>
+						</ports>
+					</container>
 				</configuration>
 				<executions>
 					<execution>
 						<id>default</id>
 						<phase>install</phase>
 						<goals>
-							<goal>build</goal>
-							<!-- <goal>push</goal> -->
+							<goal>dockerBuild</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
