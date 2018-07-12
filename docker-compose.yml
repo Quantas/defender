@@ -24,6 +24,7 @@ services:
     links:
       - "db:database"
     environment:
+      TZ: America/Chicago
       DATABASE_HOST: database
       DATABASE_NAME: defender
       DATABASE_USER: defender
