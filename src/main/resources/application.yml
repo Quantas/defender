@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+server:
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+    port-header: x-forwarded-port
+  compression:
+    enabled: true
+
+---
+
+spring:
+  profiles: docker, cloud
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+
+---
+
+spring:
+  profiles: heroku
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:5432/${PGDATABASE}?sslmode=disable
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
