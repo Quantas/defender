@@ -18,6 +18,8 @@ import { Build } from '../model/build';
         [linkKey]="'id'"
         [data]="page"
         [filter]="filter"
+        [filterable]="true"
+        [localFilter]="false"
         [localPagingSize]="'20'"
         [serverSideData]="true"
         [caption]="'Builds Table'"

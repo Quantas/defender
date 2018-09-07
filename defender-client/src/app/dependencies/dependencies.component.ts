@@ -18,6 +18,8 @@ import { Dependency } from '../model/dependency';
       [linkKey]="'id'"
       [data]="page"
       [filter]="filter"
+      [filterable]="true"
+      [localFilter]="false"
       [serverSideData]="true"
       [localPagingSize]="'20'"
       [caption]="'Dependencies Table'"

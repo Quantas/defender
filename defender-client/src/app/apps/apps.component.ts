@@ -16,6 +16,8 @@ import { App } from '../model/app';
       [linkKey]="'id'"
       [data]="page"
       [filter]="filter"
+      [filterable]="true"
+      [localFilter]="false"
       [localPagingSize]="'20'"
       [serverSideData]="true"
       [caption]="'Applications Table'"
