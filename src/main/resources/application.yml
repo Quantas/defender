@@ -7,6 +7,7 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS: false
 
 server:
+  port: ${PORT:8080}
   tomcat:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
@@ -22,6 +23,9 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
+server:
+  tomcat:
+    remote-ip-header: x-real-ip
 
 ---
 

@@ -118,37 +118,42 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!--<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>jib-maven-plugin</artifactId>
-				<version>0.9.6</version>
-				<configuration>
-					<to>
-						<image>quantas/defender-web:${project.version}</image>
-					</to>
-					<container>
-						<jvmFlags>
-							<jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
-							<jvmFlag>-Dspring.profiles.active=docker</jvmFlag>
-						</jvmFlags>
-						<ports>
-							<port>8080</port>
-						</ports>
-					</container>
-				</configuration>
-				<executions>
-					<execution>
-						<id>default</id>
-						<phase>install</phase>
-						<goals>
-							<goal>dockerBuild</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>0.9.6</version>
+						<configuration>
+							<to>
+								<image>quantas/defender-web:${project.version}</image>
+							</to>
+							<container>
+								<jvmFlags>
+									<jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
+									<jvmFlag>-Dspring.profiles.active=docker</jvmFlag>
+								</jvmFlags>
+							</container>
+						</configuration>
+						<executions>
+							<execution>
+								<id>default</id>
+								<phase>install</phase>
+								<goals>
+									<goal>dockerBuild</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

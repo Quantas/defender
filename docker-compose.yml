@@ -20,10 +20,11 @@ services:
     networks:
       - defender
     ports:
-      - "8080:8080"
+      - 8080:8080
     links:
       - "db:database"
     environment:
+      PORT: 8080
       TZ: America/Chicago
       DATABASE_URL: jdbc:postgresql://database:5432/defender?sslmode=disable
       DATABASE_USER: defender
