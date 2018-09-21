@@ -20,6 +20,11 @@ public class AppController extends DefenderController<App, Long, AppRepository, 
         this.buildService = buildService;
     }
 
+    @Override
+    public String getDisplayName() {
+        return "Apps";
+    }
+
     @GetMapping("/{id}")
     public App one(@PathVariable final long id) {
         return service.one(id);

@@ -17,6 +17,8 @@ public abstract class DefenderController<T, ID extends Serializable, R extends D
         this.specClass = specClass;
     }
 
+    public abstract String getDisplayName();
+
     @GetMapping("/count")
     public long count() {
         return service.count();

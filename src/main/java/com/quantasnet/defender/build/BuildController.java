@@ -21,6 +21,11 @@ public class BuildController extends DefenderController<Build, Long, BuildReposi
         this.buildService = buildService;
     }
 
+    @Override
+    public String getDisplayName() {
+        return "Builds";
+    }
+
     @GetMapping("/recent")
     public List<Build> findRecent() {
         return buildService.recent();

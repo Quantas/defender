@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
 import { JavaDatePipe } from '../core/javadate.pipe';
 import { StatusComponent } from '../core/status.component';
 import { PassedFailedPipe } from '../core/passedfailed.pipe';
@@ -13,9 +12,7 @@ import { SharkColumn, SharkPageChangeEvent, Page } from 'shark-ng-table';
 })
 export class DashboardComponent implements OnInit {
 
-  depCount = '0';
-  buildCount = '0';
-  appCount = '0';
+  stats: Stat[];
 
   recentBuilds: Page;
 
@@ -35,20 +32,17 @@ export class DashboardComponent implements OnInit {
   }
 
   refreshRecentBuilds(pageChangeEvent: SharkPageChangeEvent): void {
-    this.http.get('/api/dependencies/count', { responseType: 'text'}).subscribe((count) => {
-      this.depCount = count;
-    });
-
-    this.http.get('/api/builds/count', { responseType: 'text'}).subscribe((count) => {
-      this.buildCount = count;
-    });
-
-    this.http.get('/api/apps/count', { responseType: 'text'}).subscribe((count) => {
-      this.appCount = count;
+    this.http.get<Stat[]>('/api/dashboard/stats').subscribe(stats => {
+      this.stats = stats;
     });
 
     this.http.get('/api/builds/recent').subscribe((page: Page) => {
       this.recentBuilds = page;
     });
   }
+}
+
+export class Stat {
+  name: string;
+  count: string;
 }

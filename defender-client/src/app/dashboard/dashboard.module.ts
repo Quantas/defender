@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { CoreModule } from '../core/core.module';
 import { SharkTableModule } from 'shark-ng-table';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { SharkTableModule } from 'shark-ng-table';
   imports: [
     CommonModule,
     CoreModule,
+    FlexLayoutModule,
     SharkTableModule,
     RouterModule.forChild([
       { path: '', component: DashboardComponent, pathMatch: 'full'}

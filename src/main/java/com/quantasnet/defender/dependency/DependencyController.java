@@ -27,6 +27,11 @@ public class DependencyController extends DefenderController<Dependency, Long, D
         this.buildService = buildService;
     }
 
+    @Override
+    public String getDisplayName() {
+        return "Dependencies";
+    }
+
     /**
      * Transactional and .size() here get the child data
      *
