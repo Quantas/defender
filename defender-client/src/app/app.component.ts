@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Info, InfoService } from './info/info.service';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,18 @@ import { Component } from '@angular/core';
         <router-outlet></router-outlet>
       </main>
       <footer>
-        &copy;2018 Quantasnet
+        &copy;2018 Quantasnet - {{ info.hostname }}
       </footer>
     </div>
   `,
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  info: Info = {hostname: ''};
+
+  constructor(private infoService: InfoService) {}
+
+  ngOnInit(): void {
+    this.infoService.infoUpdate.subscribe((info: Info) => this.info = info);
+  }
+}
