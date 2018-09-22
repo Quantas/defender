@@ -49,6 +49,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
 		</dependency>
@@ -131,6 +136,9 @@
 						<artifactId>jib-maven-plugin</artifactId>
 						<version>0.9.6</version>
 						<configuration>
+							<from>
+								<image>openjdk:8-alpine</image>
+							</from>
 							<to>
 								<image>quantas/defender-web:${project.version}</image>
 							</to>
