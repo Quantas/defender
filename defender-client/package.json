@@ -29,8 +29,7 @@
     "@angular/router": "6.1.8",
     "core-js": "2.5.7",
     "rxjs": "6.3.2",
-    "rxjs-compat": "6.3.2",
-    "shark-ng-table": "2.0.1-beta.3",
+    "shark-ng-table": "6.0.0-beta.1",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
