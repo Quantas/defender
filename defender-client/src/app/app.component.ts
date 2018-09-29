@@ -3,7 +3,7 @@ import { Info, InfoService } from './info/info.service';
 
 @Component({
   selector: 'app-root',
-  template: `    
+  template: `
     <mat-toolbar class="nav">
       <button mat-icon-button (click)="sidenav.toggle()" fxShow fxHide.gt-sm="true">
         <mat-icon>menu</mat-icon>
@@ -43,7 +43,7 @@ import { Info, InfoService } from './info/info.service';
         background-color: #333;
         color: white;
       }
-      
+
       .mat-toolbar-single-row {
         height: 2rem;
       }
