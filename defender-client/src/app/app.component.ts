@@ -33,8 +33,9 @@ import { Info, InfoService } from './info/info.service';
         </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
-    <footer>
-      &copy;2018 Quantasnet - {{ info.hostname }}
+    <footer fxLayout="row">
+      <span>&copy; 2018 Quantasnet</span>
+      <span fxFlex fxLayoutAlign="end start">{{ info.hostname }}</span>
     </footer>
   `,
   styles: [
@@ -63,7 +64,8 @@ import { Info, InfoService } from './info/info.service';
       footer {
         background-color: #333;
         color: white;
-        padding: 0.5rem;
+        font-size: 0.9rem;
+        padding: 0.25rem;
       }
     `
   ]
