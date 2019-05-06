@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Quantasnet Defender</name>
-	<description>The Web App for Defender</description>
+	<description>Defender Application</description>
 	<url>https://www.quantasnet.com</url>
 	<licenses>
 		<license>
@@ -18,7 +18,7 @@
 	</licenses>
 
 	<scm>
-		<url>https://bitbucket.org/quantas/defender-web</url>
+		<url>https://github.com/quantas/defender</url>
 	</scm>
 
 	<parent>
@@ -86,7 +86,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.5</version>
+				<version>1.7.6</version>
 				<configuration>
 					<nodeVersion>v11.10.0</nodeVersion>
 					<workingDirectory>defender-client</workingDirectory>
@@ -125,43 +125,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>docker</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.google.cloud.tools</groupId>
-						<artifactId>jib-maven-plugin</artifactId>
-						<version>0.9.6</version>
-						<configuration>
-							<from>
-								<image>openjdk:8-alpine</image>
-							</from>
-							<to>
-								<image>quantas/defender-web:${project.version}</image>
-							</to>
-							<container>
-								<jvmFlags>
-									<jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
-									<jvmFlag>-Dspring.profiles.active=docker</jvmFlag>
-								</jvmFlags>
-							</container>
-						</configuration>
-						<executions>
-							<execution>
-								<id>default</id>
-								<phase>install</phase>
-								<goals>
-									<goal>dockerBuild</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>

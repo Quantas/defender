@@ -15,7 +15,7 @@ services:
       POSTGRES_DB: defender
 
   web:
-    image: quantas/defender-web:0.0.1-SNAPSHOT
+    image: defender:latest
     restart: always
     networks:
       - defender
@@ -24,7 +24,7 @@ services:
     links:
       - "db:database"
     healthcheck:
-      test: ["CMD", "/bin/sh", "-c",  "wget --quiet --tries=1 --spider http://localhost:9001/actuator/health || exit 1"]
+      test: ["CMD", "/bin/sh", "-c",  "wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
       interval: 1m30s
       timeout: 10s
       retries: 3
