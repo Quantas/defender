@@ -52,7 +52,7 @@ export class DependencyComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => {
-      return this.http.get<Dependency>('/api/dependencies/' + params.id);
+      return this.http.get<Dependency>(`/api/dependencies/${params.id}`);
     })).subscribe((dep: any) => {
       this.newStatus = this.pickStatus(dep.dependencyStatus.status);
       this.dep = dep;
@@ -61,7 +61,7 @@ export class DependencyComponent implements OnInit {
   }
 
   updateStatus(): void {
-    this.http.post<Dependency>('/api/dependencies/' + this.dep.id + '/' + this.newStatus.status, {}).subscribe((dep) => {
+    this.http.post<Dependency>(`/api/dependencies/${this.dep.id}/${this.newStatus.status}`, {}).subscribe((dep) => {
       if (dep) {
         this.dep = dep;
       }
@@ -69,7 +69,7 @@ export class DependencyComponent implements OnInit {
   }
 
   getBuildsPage(pageChangeEvent: SharkPageChangeEvent): void {
-    this.http.get<Build[]>('/api/dependencies/' + this.dep.id + '/builds/' + pageChangeEvent.pageNo)
+    this.http.get<Build[]>(`/api/dependencies/${this.dep.id}/builds/${pageChangeEvent.pageNo}`)
       .subscribe((buildPage) => {
         this.buildPage = buildPage;
     });

@@ -63,7 +63,7 @@ export class ApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => {
-      return this.http.get<App>('/api/apps/' + params.id);
+      return this.http.get<App>(`/api/apps/${params.id}`);
     })).subscribe((app) => {
       this.app = app;
       this.updatePage({pageNo: 0, columns: []});
@@ -71,7 +71,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   updatePage(pageChangeEvent: SharkPageChangeEvent): void {
-    this.http.get<DefenderPage<Build>>('/api/apps/' + this.app.id + '/builds/' + pageChangeEvent.pageNo).subscribe((buildPage: DefenderPage<Build>) => {
+    this.http.get<DefenderPage<Build>>(`/api/apps/${this.app.id}/builds/${pageChangeEvent.pageNo}`).subscribe((buildPage: DefenderPage<Build>) => {
       this.buildPage = buildPage;
     });
   }

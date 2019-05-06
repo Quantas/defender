@@ -58,7 +58,7 @@ export class BuildComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.pipe(switchMap((params: Params) => {
-            return this.http.get<Build>('/api/builds/' + params.id);
+            return this.http.get<Build>(`/api/builds/${params.id}`);
         })).subscribe((build) => this.build = build);
     }
 }
