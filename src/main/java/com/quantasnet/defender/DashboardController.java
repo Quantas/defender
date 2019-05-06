@@ -23,7 +23,7 @@ public class DashboardController {
                 .collect(Collectors.toList());
     }
 
-    private static class Stat {
+    public static class Stat {
         private final String name;
         private final String count;
 

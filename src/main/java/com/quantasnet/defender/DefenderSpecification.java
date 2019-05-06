@@ -14,6 +14,8 @@ import java.util.List;
 
 public abstract class DefenderSpecification<T> implements Specification<T> {
 
+    private static final long serialVersionUID = 1L;
+
     private final String filterOriginal;
     private final String filter;
     private final String[] fields;
