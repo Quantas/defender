@@ -30,7 +30,7 @@ public class QuantasnetDefenderApplication {
 	@Bean
 	public ConversionService conversionService() {
 		final ConversionServiceFactoryBean bean = new ConversionServiceFactoryBean();
-		final Set<Converter> converters = new HashSet<>();
+		final Set<Converter<?, ?>> converters = new HashSet<>();
 
 		converters.add(new DefenderTypeConverter());
 
