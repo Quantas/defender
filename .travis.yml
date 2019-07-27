@@ -1,8 +1,16 @@
-language: java
-jdk:
-  - oraclejdk11
-  - openjdk8
-  - openjdk11
-cache:
-  directories:
-  - $HOME/.m2
+services:
+  - docker
+
+env:
+  global:
+    - WEB_IMAGE=quantasnet/defender-web
+    - API_IMAGE=quantasnet/defender-api
+
+script:
+  - docker build -t ${API_IMAGE} .
+  - cd defender-client
+  - docker build -t ${WEB_IMAGE} .
+
+after_script:
+  - docker images
+
