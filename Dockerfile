@@ -4,7 +4,6 @@ COPY pom.xml /usr/src/app/pom.xml
 RUN mvn -f /usr/src/app/pom.xml dependency:go-offline
 # Copy app code
 COPY src /usr/src/app/src
-COPY defender-client /usr/src/app/defender-client
 # Build app
 RUN mvn -f /usr/src/app/pom.xml clean package
 

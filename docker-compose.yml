@@ -14,13 +14,27 @@ services:
       POSTGRES_USER: defender
       POSTGRES_DB: defender
 
-  web:
-    image: defender:latest
+  defender-web:
+    image: quantasnet/defender-web:0.0.1-SNAPSHOT
+    build:
+      context: defender-client/.
+    networks:
+      - defender
+    links:
+      - "defender-api:defender-api"
+    ports:
+      - 8080:80
+    environment: 
+      API_HOST: defender-api
+      API_PORT: 8080
+
+  defender-api:
+    image: quantasnet/defender-api:0.0.1-SNAPSHOT
+    build:
+      context: .
     restart: always
     networks:
       - defender
-    ports:
-      - 8080:8080
     links:
       - "db:database"
     healthcheck:
