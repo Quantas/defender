@@ -1,16 +1,29 @@
 services:
   - docker
 
+language: node_js
+
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.24.0
     - WEB_IMAGE=quantasnet/defender-web
     - API_IMAGE=quantasnet/defender-api
 
+before_install:
+- sudo rm /usr/local/bin/docker-compose
+
+install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - chmod +x /usr/local/bin/docker-compose
+
 script:
-  - docker build -t ${API_IMAGE} .
-  - cd defender-client
-  - docker build -t ${WEB_IMAGE} .
+  - docker-compose build --no-cache
 
 after_script:
   - docker images
 
+after_success:
+  - if [[ ( $TRAVIS_BRANCH == docker-nginx-work ) && ( $TRAVIS_PULL_REQUEST == false ) ]];  then
+      printf "Build Success\nInitiating Docker Hub Push to trigger Swarm Deployment\n" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ${WEB_IMAGE}:latest && docker push ${API_IMAGE}:latest;
+    fi

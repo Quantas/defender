@@ -15,7 +15,7 @@ services:
       POSTGRES_DB: defender
 
   defender-web:
-    image: quantasnet/defender-web:0.0.1-SNAPSHOT
+    image: quantasnet/defender-web:latest
     build:
       context: defender-client/.
     networks:
@@ -29,7 +29,7 @@ services:
       API_PORT: 8080
 
   defender-api:
-    image: quantasnet/defender-api:0.0.1-SNAPSHOT
+    image: quantasnet/defender-api:latest
     build:
       context: .
     restart: always
