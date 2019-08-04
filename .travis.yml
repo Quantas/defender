@@ -23,6 +23,6 @@ after_script:
   - docker images
 
 after_success:
-  - if [[ ( $TRAVIS_BRANCH == docker-nginx-work ) && ( $TRAVIS_PULL_REQUEST == false ) ]];  then
+  - if [[ ( $TRAVIS_BRANCH == master ) && ( $TRAVIS_PULL_REQUEST == false ) ]];  then
       printf "Build Success\nInitiating Docker Hub Push\n" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ${CLIENT_IMAGE}:latest && docker push ${API_IMAGE}:latest;
     fi
