@@ -107,7 +107,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: defender-web
+  name: defender-client
 spec:
   replicas: 1
   selector:
@@ -119,8 +119,8 @@ spec:
         app: defender
     spec:
       containers:
-      - name: defender-web
-        image: quantasnet/defender-web:0.0.3-SNAPSHOT
+      - name: defender-client
+        image: quantasnet/defender-client:0.0.1-SNAPSHOT
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -128,7 +128,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: defender-web
+  name: defender-client
 spec:
   selector:
     app: defender

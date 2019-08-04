@@ -4,16 +4,14 @@ services:
 env:
   global:
     - DOCKER_COMPOSE_VERSION=1.24.0
-    - WEB_IMAGE=quantasnet/defender-web
-    - API_IMAGE=quantasnet/defender-api
 
 before_install:
 - sudo rm /usr/local/bin/docker-compose
 
-install:
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - chmod +x /usr/local/bin/docker-compose
+#install:
+#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#  - sudo mv docker-compose /usr/local/bin
+#  - chmod +x /usr/local/bin/docker-compose
 
 script:
   - docker-compose build --no-cache
