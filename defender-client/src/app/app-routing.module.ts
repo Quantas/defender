@@ -10,31 +10,31 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'builds',
-    loadChildren: './builds/builds.module#BuildsModule'
+    loadChildren: () => import('./builds/builds.module').then(m => m.BuildsModule)
   },
   {
     path: 'build',
-    loadChildren: './build/build.module#BuildModule'
+    loadChildren: () => import('./build/build.module').then(m => m.BuildModule)
   },
   {
     path: 'deps',
-    loadChildren: './dependencies/dependencies.module#DependenciesModule'
+    loadChildren: () => import('./dependencies/dependencies.module').then(m => m.DependenciesModule)
   },
   {
     path: 'dep',
-    loadChildren: './dependency/dependency.module#DependencyModule'
+    loadChildren: () => import('./dependency/dependency.module').then(m => m.DependencyModule)
   },
   {
     path: 'apps',
-    loadChildren: './apps/apps.module#AppsModule'
+    loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
   },
   {
     path: 'app',
-    loadChildren: './application/application.module#ApplicationModule'
+    loadChildren: () => import('./application/application.module').then(m => m.ApplicationModule)
   },
 ];
 
