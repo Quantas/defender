@@ -7,6 +7,7 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "start:prod": "ng serve --prod --proxy-config proxy.conf.json",
     "build": "ng lint && ng build --prod --output-path ../src/main/resources/static/",
+    "build:docker": "ng lint && ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "defend": "defender",

@@ -1,8 +1,28 @@
-language: java
-jdk:
-  - oraclejdk11
-  - openjdk8
-  - openjdk11
-cache:
-  directories:
-  - $HOME/.m2
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.24.0
+    - CLIENT_IMAGE=quantasnet/defender-client
+    - API_IMAGE=quantasnet/defender-api
+
+before_install:
+- sudo rm /usr/local/bin/docker-compose
+
+# Install docker-compose
+install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - chmod +x /usr/local/bin/docker-compose
+
+script:
+  - docker-compose build --no-cache
+
+after_script:
+  - docker images
+
+after_success:
+  - if [[ ( $TRAVIS_BRANCH == master ) && ( $TRAVIS_PULL_REQUEST == false ) ]];  then
+      printf "Build Success\nInitiating Docker Hub Push\n" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ${CLIENT_IMAGE}:latest && docker push ${API_IMAGE}:latest;
+    fi

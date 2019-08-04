@@ -27,10 +27,6 @@ spec:
       - name: postgres
         image: postgres:9.4
         imagePullPolicy: IfNotPresent
-        #resources:
-        #  limits:
-        #    memory: "512Mi"
-        #    cpu: "500m"
         ports:
         - containerPort: 5432
         env:
@@ -64,25 +60,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: defender
+  name: defender-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: defender
+      app: defender-api
   template:
     metadata:
       labels:
-        app: defender
+        app: defender-api
     spec:
       containers:
-      - name: defender
-        image: defender:v1.0.2
+      - name: defender-api
+        image: quantasnet/defender-api:0.0.1-SNAPSHOT
         imagePullPolicy: IfNotPresent
-        #resources:
-        #  limits:
-        #    memory: "256Mi"
-        #    cpu: "500m"
         ports:
         - containerPort: 8080
         env:
@@ -96,6 +88,8 @@ spec:
             secretKeyRef:
               name: postgres
               key: database-password
+        - name: TZ
+          value: America/Chicago
         - name: DATABASE_URL
           value: jdbc:postgresql://postgres:5432/defender?sslmode=disable
         - name: SPRING_PROFILES_ACTIVE
@@ -104,10 +98,45 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: defender
+  name: defender-api
 spec:
   selector:
-    app: defender
+    app: defender-api
   ports:
   - port: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: defender-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: defender-client
+  template:
+    metadata:
+      labels:
+        app: defender-client
+    spec:
+      containers:
+      - name: defender-client
+        image: quantasnet/defender-client:0.0.1-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: TZ
+          value: America/Chicago
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: defender-client
+spec:
+  selector:
+    app: defender-client
+  ports:
+  - port: 80
   type: NodePort

@@ -1,5 +1,0 @@
-pipeline:
-  - maven:
-      image: maven
-      commands:
-        - mvn clean install
