@@ -4,6 +4,8 @@ services:
 env:
   global:
     - DOCKER_COMPOSE_VERSION=1.24.0
+    - CLIENT_IMAGE=quantasnet/defender-client
+    - API_IMAGE=quantasnet/defender-api
 
 before_install:
 - sudo rm /usr/local/bin/docker-compose
@@ -22,5 +24,5 @@ after_script:
 
 after_success:
   - if [[ ( $TRAVIS_BRANCH == docker-nginx-work ) && ( $TRAVIS_PULL_REQUEST == false ) ]];  then
-      printf "Build Success\nInitiating Docker Hub Push\n" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ${WEB_IMAGE}:latest && docker push ${API_IMAGE}:latest;
+      printf "Build Success\nInitiating Docker Hub Push\n" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ${CLIENT_IMAGE}:latest && docker push ${API_IMAGE}:latest;
     fi
