@@ -1,0 +1,6 @@
+{
+    "/api": {
+      "target": "http://defender-api:8080",
+      "secure": false
+    }
+}

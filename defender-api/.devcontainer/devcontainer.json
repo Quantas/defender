@@ -10,7 +10,9 @@
 	"runArgs": [ "-u", "1000" ],
 
 	"extensions": [
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		"redhat.vscode-xml",
+		"pivotal.vscode-boot-dev-pack"
 	],
 	"settings": {
 		"java.home": "/docker-java-home"

@@ -2,7 +2,9 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/javascript-node-lts
 {
 	"name": "Defender Frontend",
-	"dockerFile": "Dockerfile",
+  "dockerComposeFile": "docker-compose.yml",
+	"service": "defender-client",
+	"workspaceFolder": "/workspace",
 
 	// Uncomment the next line if you want to publish any ports.
 	// "appPort": [],
