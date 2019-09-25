@@ -3,10 +3,10 @@ version: '3.5'
 services:
   defender-api:
     build:
-      context: defender-api/.
+      context: defender-api/.devcontainer/.
       dockerfile: Dockerfile
     volumes:
-      - ..:/workspace
+      - .:/workspace
     command: sleep infinity
     environment:
       PORT: 8080
@@ -19,10 +19,10 @@ services:
       - defender
   defender-client:
     build:
-      context: defender-client/.
+      context: defender-client/.devcontainer/.
       dockerfile: Dockerfile
     volumes:
-      - ..:/workspace
+      - .:/workspace
     command: sleep infinity
     networks:
       - defender

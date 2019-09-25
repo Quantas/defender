@@ -1,7 +1,7 @@
 {
-	"name": "Defender Frontend",
+  "name": "Defender Frontend",
   "dockerComposeFile": "../../docker-compose-dev.yml",
-	"service": "defender-client",
+  "service": "defender-client",
   "workspaceFolder": "/workspace/defender-client",
   "shutdownAction": "none",
 
@@ -12,6 +12,6 @@
 	"runArgs": [ "-u", "1000" ],
 
 	"extensions": [
-    "johnpapa.angular-essentials"
+      "johnpapa.angular-essentials"
 	]
 }
