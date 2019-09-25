@@ -3,7 +3,7 @@ version: '3.5'
 services:
   defender-api:
     build:
-      context: .
+      context: defender-api/.
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace
@@ -15,6 +15,15 @@ services:
       DATABASE_URL: jdbc:postgresql://defender-db:5432/defender?sslmode=disable
       DATABASE_USER: defender
       DATABASE_PASSWORD: defender
+    networks:
+      - defender
+  defender-client:
+    build:
+      context: defender-client/.
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
     networks:
       - defender
   defender-db:

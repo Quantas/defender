@@ -1,8 +1,9 @@
 {
 	"name": "Defender API",
-	"dockerComposeFile": "docker-compose.yml",
+	"dockerComposeFile": "../../docker-compose-dev.yml",
 	"service": "defender-api",
-	"workspaceFolder": "/workspace",
+	"workspaceFolder": "/workspace/defender-api",
+	"shutdownAction": "none",
 	
 	// "appPort": [],
 	// "postCreateCommand": "java -version",
