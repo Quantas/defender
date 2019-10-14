@@ -8,7 +8,7 @@
 4. After it's ready, run The Spring Boot app from the Boot Dashboard panel
 5. Open a second VS Code window for the Angular Client
 6. In the new window, run Remote-Containers: Open Folder in Container... from the Command Palette (F1) and select the `defender-client` folder
-7. Once `defender-client` loads, run `npm run start:docker`
+7. Once `defender-client` loads, run `npm link @angular/cli` followed by `npm run start:docker`
 8. After the Angular CLI starts, forward port 4200 from the container using the menu
 9. The application will be available at `http://localhost:4200`
 
