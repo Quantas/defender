@@ -5,11 +5,6 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9080/auth/realms/defender
 server:
   port: ${PORT:8080}
   tomcat:
@@ -19,6 +14,11 @@ server:
   compression:
     enabled: true
 
+auth:
+  stsServer: http://localhost:9080/auth/realms/defender
+  clientId: defender-client
+  rolesLocation: realm_access.roles
+  
 ---
 
 spring:
