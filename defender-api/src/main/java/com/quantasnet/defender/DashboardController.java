@@ -1,10 +1,8 @@
 package com.quantasnet.defender;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +16,7 @@ public class DashboardController {
     }
 
     @GetMapping("/api/dashboard/stats")
-    public List<Stat> stats(@AuthenticationPrincipal Principal principal) {
+    public List<Stat> stats() {
         return controllers
                 .stream()
                 .map(controller -> new Stat(controller.getDisplayName(), Long.toString(controller.count())))
