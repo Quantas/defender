@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk
+FROM openjdk:11-jdk
 
 # Or your actual UID, GID on Linux if not the default 1000
 ARG USERNAME=vscode

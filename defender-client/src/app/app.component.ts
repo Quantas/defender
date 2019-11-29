@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Info, InfoService } from './info/info.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,16 @@ import { Info, InfoService } from './info/info.service';
       </button>
       <a mat-button [routerLink]="['/dashboard']">Home</a>
       <span fxShow fxHide.lt-md="true">
-        <a mat-button [routerLinkActive]="'active'" [routerLink]="['/dashboard']">Dashboard</a>
-        <a mat-button [routerLinkActive]="'active'" [routerLink]="['/deps/1']">Dependencies</a>
-        <a mat-button [routerLinkActive]="'active'" [routerLink]="['/apps/1']">Apps</a>
-        <a mat-button [routerLinkActive]="'active'" [routerLink]="['/builds/1']">Builds</a>
+        <ng-container *ngIf="!isAuthenticated">
+          <button mat-button (click)="login()">Login</button>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated">
+          <a mat-button [routerLinkActive]="'active'" [routerLink]="['/dashboard']">Dashboard</a>
+          <a mat-button [routerLinkActive]="'active'" [routerLink]="['/deps/1']">Dependencies</a>
+          <a mat-button [routerLinkActive]="'active'" [routerLink]="['/apps/1']">Apps</a>
+          <a mat-button [routerLinkActive]="'active'" [routerLink]="['/builds/1']">Builds</a>
+          <button mat-button (click)="logout()">Logout</button>
+        </ng-container>
       </span>
     </mat-toolbar>
     <mat-sidenav-container>
@@ -71,17 +78,49 @@ import { Info, InfoService } from './info/info.service';
   ]
 })
 export class AppComponent implements OnInit {
+  isAuthenticated: boolean;
+  userData: any;
+
   info: Info = {hostname: ''};
 
   opened = false;
 
-  constructor(private infoService: InfoService) {}
+  constructor(private infoService: InfoService, public oidcSecurityService: OidcSecurityService) {
+    if (this.oidcSecurityService.moduleSetup) {
+      this.doCallbackLogicIfRequired();
+  } else {
+      this.oidcSecurityService.onModuleSetup.subscribe(() => {
+          this.doCallbackLogicIfRequired();
+      });
+  }
+  }
 
   ngOnInit(): void {
-    this.infoService.infoUpdate.subscribe((info: Info) => this.info = info);
+    this.oidcSecurityService.getIsAuthorized().subscribe(auth => {
+      this.isAuthenticated = auth;
+
+      this.infoService.infoUpdate.subscribe((info: Info) => this.info = info);
+    });
+
+    this.oidcSecurityService.getUserData().subscribe(userData => {
+        this.userData = userData;
+    });
   }
 
   closeSidebar(): void {
     this.opened = false;
   }
+
+  login() {
+    this.oidcSecurityService.authorize();
+  }
+
+  logout() {
+    this.oidcSecurityService.logoff();
+  }
+
+  private doCallbackLogicIfRequired() {
+    // Will do a callback, if the url has a code and state parameter.
+    this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
+}
 }

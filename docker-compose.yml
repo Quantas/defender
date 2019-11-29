@@ -13,6 +13,8 @@ services:
       POSTGRES_PASSWORD: defender
       POSTGRES_USER: defender
       POSTGRES_DB: defender
+    ports:
+      - 5432:5432
 
   defender-client:
     image: quantasnet/defender-client:0.0.1-SNAPSHOT
