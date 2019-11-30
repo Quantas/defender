@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --aot --watch --live-reload --poll=1000",
     "start:docker": "ng serve --proxy-config proxy-container.conf.json",
     "start:prod": "ng serve --prod --proxy-config proxy.conf.json",
     "build": "ng lint && ng build --prod --output-path ../src/main/resources/static/",

@@ -76,7 +76,7 @@ export class AppModule {
             post_logout_redirect_uri: window.location.origin,
             silent_renew: true,
             silent_renew_url: `${window.location.origin}/assets/silent-renew.html`,
-            start_checksession: false,
+            start_checksession: true,
             max_id_token_iat_offset_allowed_in_seconds: 10,
             scope: 'openid email profile',
             response_type: 'code',
@@ -84,7 +84,7 @@ export class AppModule {
             forbidden_route: '/home',
             unauthorized_route: '/home',
             log_console_warning_active: true,
-            log_console_debug_active: false,
+            log_console_debug_active: false
         };
 
         this.oidcSecurityService.setupModule(config, configResult.authWellknownEndpoints);
