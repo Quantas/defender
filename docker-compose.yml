@@ -3,7 +3,7 @@ version: "3"
 services:
 
   keycloak:
-    image: jboss/keycloak
+    image: jboss/keycloak:8.0.0
     ports:
       - 9080:8080
     networks:
