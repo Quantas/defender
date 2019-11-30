@@ -84,7 +84,7 @@ export class AppModule {
             forbidden_route: '/home',
             unauthorized_route: '/home',
             log_console_warning_active: true,
-            log_console_debug_active: true,
+            log_console_debug_active: false,
         };
 
         this.oidcSecurityService.setupModule(config, configResult.authWellknownEndpoints);
