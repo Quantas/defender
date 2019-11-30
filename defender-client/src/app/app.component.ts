@@ -9,7 +9,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
       <button mat-icon-button (click)="sidenav.toggle()" fxShow fxHide.gt-sm="true">
         <mat-icon>menu</mat-icon>
       </button>
-      <a mat-button [routerLink]="['/dashboard']">Home</a>
+      <a mat-button [routerLink]="['/home']">Home</a>
       <span fxShow fxHide.lt-md="true">
         <ng-container *ngIf="!isAuthenticated">
           <button mat-button (click)="login()">Login</button>
@@ -41,7 +41,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
       </mat-sidenav-content>
     </mat-sidenav-container>
     <footer fxLayout="row">
-      <span>&copy; 2018 Quantasnet</span>
+      <span>&copy; 2019 Quantasnet</span>
       <span fxFlex fxLayoutAlign="end start">{{ info.hostname }}</span>
     </footer>
   `,
@@ -88,18 +88,18 @@ export class AppComponent implements OnInit {
   constructor(private infoService: InfoService, public oidcSecurityService: OidcSecurityService) {
     if (this.oidcSecurityService.moduleSetup) {
       this.doCallbackLogicIfRequired();
-  } else {
+    } else {
       this.oidcSecurityService.onModuleSetup.subscribe(() => {
           this.doCallbackLogicIfRequired();
       });
-  }
+    }
   }
 
   ngOnInit(): void {
     this.oidcSecurityService.getIsAuthorized().subscribe(auth => {
       this.isAuthenticated = auth;
 
-      this.infoService.infoUpdate.subscribe((info: Info) => this.info = info);
+      this.infoService.infoUpdate.subscribe(info => this.info = info);
     });
 
     this.oidcSecurityService.getUserData().subscribe(userData => {
@@ -122,5 +122,5 @@ export class AppComponent implements OnInit {
   private doCallbackLogicIfRequired() {
     // Will do a callback, if the url has a code and state parameter.
     this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
-}
+  }
 }
