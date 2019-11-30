@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +19,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtValidators;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import net.minidev.json.JSONArray;
@@ -27,6 +32,8 @@ import net.minidev.json.JSONArray;
 @Configuration
 @EnableConfigurationProperties(AuthConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     private final AuthConfig authConfig;
 
@@ -44,7 +51,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        return JwtDecoders.fromIssuerLocation(authConfig.getStsServer());
+        logger.info("Configuring OAuth2 via {}", determineStsServerAccess());
+
+        // Read the configuration from the internal STS Address if it exists, otherwise the public address
+        var jwtDecoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(determineStsServerAccess());
+
+        jwtDecoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(
+            // We need to validate the public Issuer URL always, the internal one won't match
+            JwtValidators.createDefaultWithIssuer(authConfig.getStsServer())
+        ));
+
+        return jwtDecoder;
+    }
+
+    private String determineStsServerAccess() {
+        return null == authConfig.getStsServerInternal() ? authConfig.getStsServer() : authConfig.getStsServerInternal();
     }
 
     private Converter<Jwt, AbstractAuthenticationToken> grantedAuthoritiesExtractor() {

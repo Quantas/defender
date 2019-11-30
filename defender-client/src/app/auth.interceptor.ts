@@ -16,13 +16,11 @@ export class AuthInterceptor implements HttpInterceptor {
             this.oidcSecurityService = this.injector.get(OidcSecurityService);
         }
         if (this.oidcSecurityService !== undefined) {
-            let token = this.oidcSecurityService.getToken();
+            const token = this.oidcSecurityService.getToken();
             if (token !== '') {
-                let tokenValue = 'Bearer ' + token;
+                const tokenValue = 'Bearer ' + token;
                 requestToForward = req.clone({ setHeaders: { Authorization: tokenValue } });
             }
-        } else {
-            console.debug('OidcSecurityService undefined: NO auth header!');
         }
 
         return next.handle(requestToForward);

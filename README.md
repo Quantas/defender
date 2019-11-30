@@ -1,27 +1,29 @@
 # Defender Application
 
-## Local Development (VS Code Containers)
+Defender can be configured to work with any OpenID-compliant STS. By default, we use KeyCloak.
 
-1. Make sure Docker Desktop is installed
-2. Install VS Code and the Remote - Containers extension
-3. Run Remote-Containers: Open Folder in Container... from the Command Palette (F1) and select the `defender-api` folder.
-4. After it's ready, run The Spring Boot app from the Boot Dashboard panel
-5. Open a second VS Code window for the Angular Client
-6. In the new window, run Remote-Containers: Open Folder in Container... from the Command Palette (F1) and select the `defender-client` folder
-7. Once `defender-client` loads, run `npm run start:docker`
-8. After the Angular CLI starts, forward port 4200 from the container using the menu
-9. The application will be available at `http://localhost:4200`
+## Development System Requirements
 
-## Local Development (Classic)
+* Docker Desktop
+* Docker Compose
+* NodeJS >= 12.x
+* OpenJDK 11
+* Maven >= 3
 
-1. Make sure NodeJS, Java and Maven are all installed
-2. Navigate to `defender-client/` and run `npm install`
-3. Navigate to `defender-api/` and run `mvn clean install`
-4. To start angular-cli, from `defender-client/` run `npm run start`
-5. To start Spring Boot run the Java Main
-6. The app will be available at `http://localhost:4200/`
+## Local Development
+
+If you wish to work on the API and the Frontend, run the following `docker-compose` command to start the STS:
+
+`docker-compose up -d authdb keycloak`
+
+1. Navigate to `defender-client/` and run `npm install`
+2. Navigate to `defender-api/` and run `mvn clean install`
+3. To start angular-cli, from `defender-client/` run `npm run start`
+4. To start Spring Boot run the Java mian method
+5. The app will be available at `http://localhost:4200/`
+6. Keycloak can be configured at `http://localhost:9080/auth/admin/`
 
 ## Docker Deployment
 
 1. Make sure docker and docker-compose are installed
-2. In the root, run `docker-compose up -d --build` To start the DB and the Web container
+2. In the root, run `docker-compose up -d --build` To start everything
