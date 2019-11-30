@@ -5,7 +5,6 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
-
 server:
   port: ${PORT:8080}
   tomcat:
@@ -15,23 +14,7 @@ server:
   compression:
     enabled: true
 
----
-
-spring:
-  profiles: docker
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-server:
-  tomcat:
-    remote-ip-header: x-real-ip
-
----
-
-spring:
-  profiles: heroku
-  datasource:
-    url: jdbc:postgresql://${PGHOST}:5432/${PGDATABASE}?sslmode=disable
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
+auth:
+  stsServer: http://localhost:9080/auth/realms/defender
+  clientId: defender-client
+  rolesLocation: realm_access.roles

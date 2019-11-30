@@ -2,17 +2,52 @@ version: "3"
 
 services:
 
-  db:
+  keycloak:
+    image: jboss/keycloak:8.0.0
+    ports:
+      - 9080:8080
+    networks:
+      - defender
+    volumes:
+      - ./keycloak/defender-realm.json:/tmp/defender-realm.json
+    environment:
+      TZ: America/Chicago
+      KEYCLOAK_IMPORT: /tmp/defender-realm.json
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: postgres
+      DB_ADDR: authdb
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+
+  authdb:
     image: postgres:9.4
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - authdb-data:/var/lib/postgresql/data
     restart: always
     networks:
       - defender
     environment:
+      TZ: America/Chicago
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: keycloak
+      POSTGRES_DB: keycloak
+
+  appdb:
+    image: postgres:9.4
+    volumes:
+      - appdb-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - defender
+    environment:
+      TZ: America/Chicago
       POSTGRES_PASSWORD: defender
       POSTGRES_USER: defender
       POSTGRES_DB: defender
+    ports:
+      - 5432:5432
 
   defender-client:
     image: quantasnet/defender-client:0.0.1-SNAPSHOT
@@ -25,7 +60,7 @@ services:
     environment: 
       TZ: America/Chicago
     ports:
-      - 8080:80
+      - 80:80
 
   defender-api:
     image: quantasnet/defender-api:0.0.1-SNAPSHOT
@@ -34,23 +69,26 @@ services:
     restart: always
     networks:
       - defender
-    links:
-      - "db:database"
     healthcheck:
       test: ["CMD", "/bin/sh", "-c",  "wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
       interval: 1m30s
       timeout: 10s
       retries: 3
+    ports:
+      - 8080:8080
     environment:
       PORT: 8080
       TZ: America/Chicago
-      SPRING_PROFILES_ACTIVE: docker
-      DATABASE_URL: jdbc:postgresql://database:5432/defender?sslmode=disable
-      DATABASE_USER: defender
-      DATABASE_PASSWORD: defender
+      SPRING_DATASOURCE_URL: jdbc:postgresql://appdb:5432/defender?sslmode=disable
+      SPRING_DATASOURCE_USERNAME: defender
+      SPRING_DATASOURCE_PASSWORD: defender
+      AUTH_STS_SERVER: http://localhost:9080/auth/realms/defender
+      # Setting internal stsServer for running in Docker locally
+      AUTH_STS_SERVER_INTERNAL: http://keycloak:8080/auth/realms/defender
 
 networks:
   defender:
 
 volumes:
-  db-data:
+  authdb-data:
+  appdb-data:
