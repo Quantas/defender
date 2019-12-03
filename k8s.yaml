@@ -73,27 +73,29 @@ spec:
     spec:
       containers:
       - name: defender-api
-        image: quantasnet/defender-api:0.0.1-SNAPSHOT
+        image: quantasnet/defender-api:master
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:
-        - name: DATABASE_USER
+        - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
               name: postgres
               key: database-user
-        - name: DATABASE_PASSWORD
+        - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgres
               key: database-password
         - name: TZ
           value: America/Chicago
-        - name: DATABASE_URL
+        - name: SPRING_DATASOURCE_URL
           value: jdbc:postgresql://postgres:5432/defender?sslmode=disable
-        - name: SPRING_PROFILES_ACTIVE
-          value: docker
+        - name: AUTH_STS_SERVER
+          value: <STS URL>
+        - name: AUTH_CLIENT_ID
+          value: <XXXXXXXXXXXXXXXXXXXXXXXX>
 ---
 apiVersion: v1
 kind: Service
@@ -122,7 +124,7 @@ spec:
     spec:
       containers:
       - name: defender-client
-        image: quantasnet/defender-client:0.0.1-SNAPSHOT
+        image: quantasnet/defender-client:master
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

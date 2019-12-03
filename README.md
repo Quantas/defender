@@ -1,6 +1,23 @@
 # Defender Application
 
-Defender can be configured to work with any OpenID-compliant STS. By default, we use KeyCloak.
+Defender can be configured to work with any OpenID-compliant STS. By default, we use Keycloak.
+
+Notes for AWS Cognito: Make sure to set a "Domain Name" or you will get cryptic errors!
+
+## AWS Cognito Settings
+
+### Create App Client
+
+* No Secret Key
+* Leave all the other defaults and make note of the Client ID
+
+### App Client
+
+* Make sure to check the proper Identity Provider
+* Callback URL(s) = http://localhost, http://localhost/assets/silent-renew.html
+* Sign Out URL(s) = http://localhost
+* Allowed OAuth Flows = Authorization Code Grant
+* Allowed OAuth Scopes = openid email profile
 
 ## Development System Requirements
 
