@@ -6,6 +6,7 @@ Notes for AWS Cognito: Make sure to set a "Domain Name" or you will get cryptic 
 
 ## Using Bundled Keycloak
 
+* Access the application at https://localhost:8000
 * User registration is enabled by default. Simply click the Login link and sign up.
 * The Admin console is available at http://localhost:9080/auth and the credentials are `admin`/`admin`
 
