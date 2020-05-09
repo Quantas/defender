@@ -4,6 +4,11 @@ Defender can be configured to work with any OpenID-compliant STS. By default, we
 
 Notes for AWS Cognito: Make sure to set a "Domain Name" or you will get cryptic errors!
 
+## Using Bundled Keycloak
+
+* User registration is enabled by default. Simply click the Login link and sign up.
+* The Admin console is available at http://localhost:9080/auth and the credentials are `admin`/`admin`
+
 ## AWS Cognito Settings
 
 ### Create App Client
