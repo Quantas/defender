@@ -7,8 +7,8 @@ COPY src /usr/src/app/src
 # Build app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
-FROM openjdk:11-jre
+FROM gcr.io/distroless/java:11
 # Copy JAR to start folder
-COPY --from=build /usr/src/app/target/*.jar /usr/app/defender.jar
-EXPOSE 8080
-ENTRYPOINT [ "java", "-jar", "/usr/app/defender.jar" ]
+COPY --from=build /usr/src/app/target/*.jar /app/defender.jar
+WORKDIR /app
+CMD [ "defender.jar" ]

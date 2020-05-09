@@ -528,6 +528,8 @@
       "redirectUris": [
         "http://localhost:8080/assets/silent-renew.html",
         "http://localhost:8080",
+        "http://localhost:8000/assets/silent-renew.html",
+        "http://localhost:8000",
         "http://localhost:4200/assets/silent-renew.html",
         "http://localhost",
         "http://localhost/assets/silent-renew.html",
@@ -535,6 +537,7 @@
       ],
       "webOrigins": [
         "http://localhost:8080",
+        "http://localhost:8000",
         "http://localhost",
         "http://localhost:4200"
       ],

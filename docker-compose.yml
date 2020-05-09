@@ -60,7 +60,7 @@ services:
     environment: 
       TZ: America/Chicago
     ports:
-      - 80:80
+      - 8000:8000
 
   defender-api:
     image: quantasnet/defender-api:0.0.1-SNAPSHOT
