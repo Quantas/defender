@@ -11,7 +11,7 @@ public class AuthConfig {
      * The address of your STS server, this must be publically accessible!
      * 
      * Samples:
-     * Keycloak = http://localhost:9080/auth/realms/defender
+     * Keycloak = http://localhost:9080/realms/defender
      * AWS Cognito = https://cognito-idp.us-east-2.amazonaws.com/us-east-2_XXXXXXXXX
      */
     private String stsServer;

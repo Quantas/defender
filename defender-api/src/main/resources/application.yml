@@ -15,6 +15,6 @@ server:
     enabled: true
 
 auth:
-  stsServer: http://localhost:9080/auth/realms/defender
+  stsServer: http://localhost:9080/realms/defender
   clientId: defender-client
   rolesLocation: realm_access.roles
